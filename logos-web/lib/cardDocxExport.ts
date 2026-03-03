@@ -1,6 +1,7 @@
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import type { CardEdit } from './cardEdits';
 import type { Card } from './types';
+import { getCardPreference } from './cardPreferences';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -88,6 +89,25 @@ const extractCidPrefix = (tag?: string, explicitIdentifier?: string) => {
   const source = [explicitIdentifier, tag].filter(Boolean).join(' ');
   const match = source.match(/CID-(\d{5})-\d{5}/i);
   return match?.[1] || '';
+};
+
+const extractCardIdentifier = (tag?: string, explicitIdentifier?: string) => {
+  if (explicitIdentifier && explicitIdentifier.trim()) {
+    return explicitIdentifier.trim();
+  }
+
+  const source = String(tag || '');
+  const tokenMatch = source.match(/\[\[(CID-[^\]]+)\]\]/i);
+  if (tokenMatch?.[1]) {
+    return tokenMatch[1].trim();
+  }
+
+  const inlineMatch = source.match(/CID-\d{5}-\d{5}/i);
+  if (inlineMatch?.[0]) {
+    return inlineMatch[0].trim();
+  }
+
+  return '';
 };
 
 export const resolveSourceDocumentLabelsFromCard = (input: {
@@ -230,6 +250,9 @@ const createCardParagraphs = ({
   formatting,
   selectedFont,
   selectedHighlightColor,
+  cardIdentifier,
+  isStarred,
+  customTag,
 }: {
   tag: string;
   tagSub?: string;
@@ -240,6 +263,9 @@ const createCardParagraphs = ({
   formatting?: FormatRanges;
   selectedFont?: string;
   selectedHighlightColor?: string;
+  cardIdentifier?: string;
+  isStarred?: boolean;
+  customTag?: string;
 }) => {
   const sourceLine = sourceLabels.length > 0
     ? sourceLabels.join(', ')
@@ -247,6 +273,14 @@ const createCardParagraphs = ({
 
   const effectiveFont = normalizeSelectedFont(selectedFont);
   const effectiveHighlight = normalizeHighlightColor(selectedHighlightColor);
+  const normalizedCustomTag = String(customTag || '').trim();
+  const normalizedTagSub = String(tagSub || '').trim();
+  const appliedTags = toUnique([
+    ...(normalizedTagSub ? [normalizedTagSub] : []),
+    ...(normalizedCustomTag ? [normalizedCustomTag] : []),
+  ]);
+  const starredLine = `Starred: ${isStarred ? 'Yes' : 'No'}`;
+  const tagsLine = `Tags: ${appliedTags.length > 0 ? appliedTags.join(', ') : 'None'}`;
 
   const children: Paragraph[] = [
     new Paragraph({
@@ -254,6 +288,38 @@ const createCardParagraphs = ({
       spacing: { after: 120 },
     }),
   ];
+
+  if (cardIdentifier?.trim()) {
+    children.push(new Paragraph({
+      children: [new TextRun({
+        text: cardIdentifier.trim(),
+        size: 16,
+        color: 'A6A6A6',
+        font: effectiveFont,
+      })],
+      spacing: { after: 80 },
+    }));
+  }
+
+  children.push(new Paragraph({
+    children: [new TextRun({
+      text: starredLine,
+      size: 18,
+      color: '7A7A7A',
+      font: effectiveFont,
+    })],
+    spacing: { after: 60 },
+  }));
+
+  children.push(new Paragraph({
+    children: [new TextRun({
+      text: tagsLine,
+      size: 18,
+      color: '7A7A7A',
+      font: effectiveFont,
+    })],
+    spacing: { after: 100 },
+  }));
 
   if (tagSub?.trim()) {
     children.push(new Paragraph({
@@ -297,6 +363,7 @@ export const exportCardToDocx = async ({ card, sourceUrls }: ExportCardDocxParam
     filename: card.filename,
   });
   const cidPrefix = extractCidPrefix(card.tag, card.card_identifier);
+  const cardPreference = getCardPreference(card.id);
   const sourceFallback = cidPrefix
     ? `Unresolved source (CID prefix ${cidPrefix})`
     : 'Unknown source document';
@@ -308,6 +375,9 @@ export const exportCardToDocx = async ({ card, sourceUrls }: ExportCardDocxParam
     body: card.body || [],
     sourceLabels,
     sourceFallback,
+    cardIdentifier: extractCardIdentifier(card.tag, card.card_identifier),
+    isStarred: Boolean(cardPreference?.starred),
+    customTag: cardPreference?.customTag,
     selectedFont: readCurrentFontPreference(),
     selectedHighlightColor: window.localStorage.getItem('highlightColor') || undefined,
     formatting: {
@@ -407,6 +477,7 @@ export const exportSavedEditsToDocx = async (items: SavedCardEditItem[]) => {
 
   items.forEach(({ cardId, edit }, index) => {
     const cidPrefix = extractCidPrefix(edit.tag, edit.cardIdentifier);
+    const cardPreference = getCardPreference(cardId);
     const inferredByCid = cidPrefix ? (cidPrefixToSources[cidPrefix] || []) : [];
     const sourceLabels = (edit.sourceDocuments && edit.sourceDocuments.length > 0)
       ? edit.sourceDocuments
@@ -423,6 +494,9 @@ export const exportSavedEditsToDocx = async (items: SavedCardEditItem[]) => {
         body: edit.body || [],
         sourceLabels,
         sourceFallback,
+        cardIdentifier: extractCardIdentifier(edit.tag, edit.cardIdentifier),
+        isStarred: Boolean(cardPreference?.starred),
+        customTag: cardPreference?.customTag,
         selectedFont: edit.selectedFont || readCurrentFontPreference(),
         selectedHighlightColor: edit.highlightColor || readCurrentHighlightPreference(),
         formatting: {

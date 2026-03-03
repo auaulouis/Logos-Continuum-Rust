@@ -9,6 +9,7 @@ const next = require('next');
 let mainWindow;
 let nextServer;
 let backendProcess;
+const APP_BACKEND_PORT = 5501;
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -91,19 +92,19 @@ function isPortOpen(port) {
   });
 }
 
-function waitForBackend(timeoutMs = 20000) {
+function waitForBackend(port, timeoutMs = 20000) {
   const start = Date.now();
 
   return new Promise((resolve, reject) => {
     const tick = async () => {
-      const open = await isPortOpen(5001);
+      const open = await isPortOpen(port);
       if (open) {
         resolve(true);
         return;
       }
 
       if (Date.now() - start > timeoutMs) {
-        reject(new Error('Parser backend did not start on port 5001 in time'));
+        reject(new Error(`Parser backend did not start on port ${port} in time`));
         return;
       }
 
@@ -114,10 +115,40 @@ function waitForBackend(timeoutMs = 20000) {
   });
 }
 
+function isCompatibleBackendRunning(port, timeoutMs = 2000) {
+  return new Promise((resolve) => {
+    const req = http.get(
+      {
+        host: '127.0.0.1',
+        port,
+        path: '/parser-settings',
+      },
+      (res) => {
+        const status = Number(res.statusCode || 0);
+        res.resume();
+        resolve(status >= 200 && status < 500);
+      },
+    );
+
+    req.setTimeout(timeoutMs, () => {
+      req.destroy();
+      resolve(false);
+    });
+
+    req.on('error', () => resolve(false));
+  });
+}
+
 async function startParserBackend() {
-  const alreadyRunning = await isPortOpen(5001);
-  if (alreadyRunning) {
-    return;
+  const portInUse = await isPortOpen(APP_BACKEND_PORT);
+  if (portInUse) {
+    const compatibleBackend = await isCompatibleBackendRunning(APP_BACKEND_PORT);
+    if (compatibleBackend) {
+      console.warn(`Desktop backend port ${APP_BACKEND_PORT} already has a compatible backend; reusing it`);
+      return;
+    }
+
+    throw new Error(`Desktop backend port ${APP_BACKEND_PORT} is already in use by an incompatible process`);
   }
 
   const backendRoot = getBackendRoot();
@@ -127,8 +158,11 @@ async function startParserBackend() {
   const env = {
     ...process.env,
     LOCAL_DOCS_FOLDER: localDocsDir,
+    LOCAL_INDEX_PATH: path.join(localDocsDir, 'cards_index.json'),
+    CARD_ID_REGISTRY_PATH: path.join(localDocsDir, 'card_id_registry.json'),
     PARSER_SETTINGS_PATH: path.join(localDocsDir, 'parser_settings.json'),
-    PORT: '5001',
+    PARSER_EVENTS_PATH: path.join(localDocsDir, 'parser_events.jsonl'),
+    PORT: String(APP_BACKEND_PORT),
   };
 
   backendProcess = spawn(pythonExec, ['api.py'], {
@@ -143,7 +177,7 @@ async function startParserBackend() {
     }
   });
 
-  await waitForBackend();
+  await waitForBackend(APP_BACKEND_PORT);
 }
 
 function getAppDir() {

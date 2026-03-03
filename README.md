@@ -129,15 +129,18 @@ yarn dev
 
 ## Data and local files
 
-- Search index file: `verbatim-parser /local_docs/cards_index.json`
-- Uploaded docs folder: `verbatim-parser /local_docs/uploaded_docs`
-- Parser settings file: `verbatim-parser /local_docs/parser_settings.json`
+- Dev search index file: `verbatim-parser /local_docs_dev/cards_index.json`
+- Dev uploaded docs folder: `verbatim-parser /local_docs_dev/uploaded_docs`
+- Dev parser settings file: `verbatim-parser /local_docs_dev/parser_settings.json`
+
+`./start.sh` now forces these dev-only paths so VS Code runs do not read/write desktop app data.
 
 Desktop app persistence (Electron build):
 
 - Cards/settings/docs are stored in `~/Documents/Logos Continuum/local_docs`
 - On first launch after this change, existing data from Electron `userData/local_docs` is copied into that folder
 - This keeps parsed cards and parser settings available across app updates/reinstalls (as long as `~/Documents/Logos Continuum` is kept)
+- Desktop backend runs on `http://127.0.0.1:5501` (separate from dev backend `:5001`) to prevent accidental cross-attachment
 
 When the backend starts and the index is empty, it auto-indexes local `.docx` files under `local_docs`.
 

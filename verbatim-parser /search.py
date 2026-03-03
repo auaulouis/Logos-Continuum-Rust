@@ -2,12 +2,15 @@ from dotenv import load_dotenv
 import json
 import os
 import re
+import heapq
+import time
 from datetime import datetime, timezone
 from fcntl import flock, LOCK_EX, LOCK_UN
 
 load_dotenv()
 
-LOCAL_INDEX_PATH = os.environ.get("LOCAL_INDEX_PATH", "./local_docs/cards_index.json")
+LOCAL_DOCS_FOLDER = os.environ.get("LOCAL_DOCS_FOLDER", "./local_docs")
+LOCAL_INDEX_PATH = os.environ.get("LOCAL_INDEX_PATH", os.path.join(LOCAL_DOCS_FOLDER, "cards_index.json"))
 
 
 def _to_unix_timestamp(date_value):
@@ -47,6 +50,11 @@ def _normalize_exact_match_text(text):
   return lowered.strip()
 
 
+def _normalize_query_fragment(value):
+  normalized = _normalize_exact_match_text(value)
+  return normalized
+
+
 def _includes_all_tokens(text, terms, phrases):
   normalized = str(text or "").lower()
   return all(phrase in normalized for phrase in phrases) and all(term in normalized for term in terms)
@@ -57,8 +65,18 @@ def _is_tag_priority_match(card, terms, phrases):
     return False
 
   tag_text = card.get("tag", "") or card.get("tag_base", "")
-  normalized_tag = _normalize_exact_match_text(tag_text)
-  return _includes_all_tokens(normalized_tag, terms, phrases)
+  candidate_text = " ".join([
+    str(tag_text or ""),
+    str(card.get("card_identifier", "") or ""),
+    str(card.get("card_identifier_token", "") or ""),
+    str(card.get("card_number", "") or ""),
+  ])
+
+  normalized_candidate = _normalize_exact_match_text(candidate_text)
+  normalized_terms = [_normalize_query_fragment(term) for term in terms if _normalize_query_fragment(term)]
+  normalized_phrases = [_normalize_query_fragment(phrase) for phrase in phrases if _normalize_query_fragment(phrase)]
+
+  return all(phrase in normalized_candidate for phrase in normalized_phrases) and all(term in normalized_candidate for term in normalized_terms)
 
 
 def _is_paragraph_match(card, terms, phrases):
@@ -84,6 +102,11 @@ class Search:
     self._seen_ids = set()
     self._seen_filenames = set()
     self._index_loaded = False
+    self._cards_cache = None
+    self._cards_cache_signature = None
+    self._id_lookup_cache = None
+    self._id_lookup_signature = None
+    self._query_state_cache = {}
 
   def _reset_index_file(self):
     with open(self.index_path, "w", encoding="utf-8") as handle:
@@ -166,18 +189,111 @@ class Search:
       pass
     return []
 
+  def _compute_index_signature(self):
+    try:
+      stat = os.stat(self.index_path)
+      return (int(stat.st_mtime_ns), int(stat.st_size))
+    except FileNotFoundError:
+      return (0, 0)
+
+  def _get_cards_snapshot(self):
+    signature = self._compute_index_signature()
+    if self._cards_cache is not None and self._cards_cache_signature == signature:
+      return self._cards_cache
+
+    cards = self._read_cards()
+    self._cards_cache = cards
+    self._cards_cache_signature = signature
+    return cards
+
+  def _invalidate_cards_cache(self):
+    self._cards_cache = None
+    self._cards_cache_signature = None
+    self._id_lookup_cache = None
+    self._id_lookup_signature = None
+    self._query_state_cache = {}
+
+  def _get_id_lookup(self):
+    cards = self._get_cards_snapshot()
+    signature = self._cards_cache_signature
+    if self._id_lookup_cache is not None and self._id_lookup_signature == signature:
+      return self._id_lookup_cache
+
+    lookup = {}
+    for card in cards:
+      card_id = card.get("id")
+      if card_id is None:
+        continue
+      lookup[str(card_id)] = card
+
+    self._id_lookup_cache = lookup
+    self._id_lookup_signature = signature
+    return lookup
+
+  def _query_state_key(self, q, start_date, end_date, exclude_sides, exclude_division, exclude_years, exclude_schools, sort_by, cite_match, match_mode):
+    return "\u241f".join([
+      str(q or ""),
+      str(start_date or ""),
+      str(end_date or ""),
+      str(exclude_sides or ""),
+      str(exclude_division or ""),
+      str(exclude_years or ""),
+      str(exclude_schools or ""),
+      str(sort_by or ""),
+      str(cite_match or ""),
+      str(match_mode or ""),
+    ])
+
+  def _get_query_state(self, key):
+    state = self._query_state_cache.get(key)
+    if state is not None:
+      state["last_used"] = time.time()
+      return state
+
+    state = {
+      "matched_cards": [],
+      "scan_index": 0,
+      "exhausted": False,
+      "last_used": time.time(),
+    }
+    self._query_state_cache[key] = state
+
+    if len(self._query_state_cache) > 16:
+      oldest_key = min(self._query_state_cache.keys(), key=lambda cache_key: self._query_state_cache[cache_key]["last_used"])
+      self._query_state_cache.pop(oldest_key, None)
+
+    return state
+
+  def _get_search_blob(self, card):
+    cached = card.get("_search_blob")
+    if isinstance(cached, str):
+      return cached
+
+    blob = " ".join([
+      str(card.get("tag", "")),
+      str(card.get("card_identifier", "")),
+      str(card.get("card_identifier_token", "")),
+      str(card.get("card_number", "")),
+      str(card.get("highlighted_text", "")),
+      str(card.get("cite", "")),
+      " ".join(card.get("body", []) if isinstance(card.get("body"), list) else [str(card.get("body", ""))]),
+    ]).lower()
+    card["_search_blob"] = blob
+    return blob
+
   def get_all_cards(self):
-    return self._read_cards()
+    return self._get_cards_snapshot()
 
   def clear_index(self):
     self._reset_index_file()
     self._seen_ids.clear()
     self._seen_filenames.clear()
     self._index_loaded = True
+    self._invalidate_cards_cache()
 
   def get_document_summaries(self):
     documents = {}
-    for card in self._read_cards():
+    for card in self._get_cards_snapshot():
       filename = str(card.get("filename", "")).strip()
       if not filename:
         continue
@@ -197,7 +313,7 @@ class Search:
     if target == "":
       return 0
 
-    cards = self._read_cards()
+    cards = self._get_cards_snapshot()
     kept_cards = []
     removed = 0
 
@@ -222,6 +338,7 @@ class Search:
       if card_filename:
         self._seen_filenames.add(card_filename)
     self._index_loaded = True
+    self._invalidate_cards_cache()
 
     return removed
 
@@ -238,10 +355,8 @@ class Search:
 
   def get_by_id(self, card_id):
     card_id = str(card_id)
-    for card in self._read_cards():
-      if str(card.get("id", "")) == card_id:
-        return card
-    return None
+    lookup = self._get_id_lookup()
+    return lookup.get(card_id)
 
   def upload_cards(self, cards, force_upload=False):
     card_objects = [card.get_index() for card in cards]
@@ -273,6 +388,17 @@ class Search:
 
     self._append_card_dicts(to_append)
 
+    if len(to_append) > 0 and self._cards_cache is not None:
+      self._cards_cache.extend(to_append)
+      self._cards_cache_signature = self._compute_index_signature()
+      if self._id_lookup_cache is not None:
+        for card in to_append:
+          card_id = card.get("id")
+          if card_id is not None:
+            self._id_lookup_cache[str(card_id)] = card
+
+    self._query_state_cache = {}
+
     if normalized_filename:
       self._seen_filenames.add(normalized_filename)
 
@@ -285,7 +411,7 @@ class Search:
     self.upload_cards(cards)
 
   def query(self, q, from_value=0, start_date="", end_date="", exclude_sides="", exclude_division="", exclude_years="", exclude_schools="", sort_by="", cite_match="", limit=30, match_mode=""):
-    cards = self._read_cards()
+    cards = self._get_cards_snapshot()
 
     quoted_phrases = []
     remaining_text = q or ""
@@ -310,8 +436,21 @@ class Search:
     start_ts = _to_unix_timestamp(start_date)
     end_ts = _to_unix_timestamp(end_date)
 
-    filtered = []
-    for card in cards:
+    try:
+      offset = max(0, int(from_value))
+    except (TypeError, ValueError):
+      offset = 0
+    safe_limit = max(1, int(limit)) if str(limit).strip() != "" else 30
+
+    normalized_sort_by = str(sort_by or "").strip().lower()
+    requires_date_sort = normalized_sort_by == "date"
+
+    page = []
+    total_count = 0
+    window_size = offset + safe_limit if requires_date_sort else 0
+    top_heap = []
+
+    def card_matches(card):
       filename = str(card.get("filename", "")).lower()
       division = str(card.get("division", "")).lower()
       year = str(card.get("year", "")).lower()
@@ -319,57 +458,101 @@ class Search:
       cite = str(card.get("cite", ""))
 
       if excluded_sides and any(side in filename for side in excluded_sides):
-        continue
+        return False
       if excluded_divisions and division in excluded_divisions:
-        continue
+        return False
       if excluded_years_set and year in excluded_years_set:
-        continue
+        return False
       if excluded_schools_set and school in excluded_schools_set:
-        continue
+        return False
 
       if start_ts is not None and end_ts is not None:
         card_date = card.get("cite_date")
         card_ts = _to_unix_timestamp(card_date)
         if card_ts is None or card_ts < start_ts or card_ts > end_ts:
-          continue
+          return False
 
-      if cite_match:
-        if str(cite_match).lower() not in cite.lower():
-          continue
+      if cite_match and str(cite_match).lower() not in cite.lower():
+        return False
 
       if normalized_match_mode == "tag":
-        if not _is_tag_priority_match(card, terms, quoted_phrases):
+        return _is_tag_priority_match(card, terms, quoted_phrases)
+
+      if normalized_match_mode == "paragraph":
+        return _is_paragraph_match(card, terms, quoted_phrases)
+
+      searchable_text = self._get_search_blob(card)
+      if any(phrase not in searchable_text for phrase in quoted_phrases):
+        return False
+      if any(term not in searchable_text for term in terms):
+        return False
+      return True
+
+    if not requires_date_sort:
+      target = offset + safe_limit
+      state_key = self._query_state_key(
+        q,
+        start_date,
+        end_date,
+        exclude_sides,
+        exclude_division,
+        exclude_years,
+        exclude_schools,
+        sort_by,
+        cite_match,
+        normalized_match_mode,
+      )
+      state = self._get_query_state(state_key)
+
+      while len(state["matched_cards"]) < target and not state["exhausted"]:
+        while state["scan_index"] < len(cards) and len(state["matched_cards"]) < target:
+          card = cards[state["scan_index"]]
+          state["scan_index"] += 1
+          if card_matches(card):
+            state["matched_cards"].append(card)
+
+        if state["scan_index"] >= len(cards):
+          state["exhausted"] = True
+
+      page = state["matched_cards"][offset:offset + safe_limit]
+      cursor = offset + len(page)
+      has_more = len(state["matched_cards"]) > cursor or not state["exhausted"]
+      total_count = len(state["matched_cards"]) if state["exhausted"] else len(state["matched_cards"])
+      return page, cursor, total_count, has_more, (not state["exhausted"])
+
+    for card in cards:
+      if not card_matches(card):
+        continue
+
+      total_count += 1
+      if not requires_date_sort:
+        if total_count <= offset:
           continue
-      elif normalized_match_mode == "paragraph":
-        if not _is_paragraph_match(card, terms, quoted_phrases):
-          continue
+        if len(page) < safe_limit:
+          page.append(card)
       else:
-        searchable_text = " ".join([
-          str(card.get("tag", "")),
-          str(card.get("card_identifier", "")),
-          str(card.get("card_identifier_token", "")),
-          str(card.get("card_number", "")),
-          str(card.get("highlighted_text", "")),
-          str(card.get("cite", "")),
-          " ".join(card.get("body", []) if isinstance(card.get("body"), list) else [str(card.get("body", ""))])
-        ]).lower()
-
-        if any(phrase not in searchable_text for phrase in quoted_phrases):
-          continue
-        if any(term not in searchable_text for term in terms):
+        if window_size <= 0:
           continue
 
-      filtered.append(card)
+        card_timestamp = _to_unix_timestamp(card.get("cite_date")) or 0
+        heap_item = (card_timestamp, total_count, card)
+        if len(top_heap) < window_size:
+          heapq.heappush(top_heap, heap_item)
+        else:
+          smallest_timestamp, smallest_order, _ = top_heap[0]
+          if card_timestamp > smallest_timestamp or (
+            card_timestamp == smallest_timestamp and total_count > smallest_order
+          ):
+            heapq.heapreplace(top_heap, heap_item)
 
-    if sort_by == "date":
-      filtered.sort(key=lambda c: _to_unix_timestamp(c.get("cite_date")) or 0, reverse=True)
+    if requires_date_sort and len(top_heap) > 0:
+      sorted_top = sorted(top_heap, key=lambda item: (item[0], item[1]), reverse=True)
+      page = [item[2] for item in sorted_top[offset:offset + safe_limit]]
 
-    safe_limit = max(1, int(limit)) if str(limit).strip() != "" else 30
-    total_count = len(filtered)
-    page = filtered[from_value:from_value + safe_limit]
-    cursor = from_value + len(page)
-    return page, cursor, total_count
+    cursor = offset + len(page)
+    has_more = cursor < total_count
+    return page, cursor, total_count, has_more, False
 
   def get_colleges(self):
-    schools = sorted({str(card.get("school", "")).strip() for card in self._read_cards() if str(card.get("school", "")).strip()})
+    schools = sorted({str(card.get("school", "")).strip() for card in self._get_cards_snapshot() if str(card.get("school", "")).strip()})
     return schools

@@ -17,14 +17,20 @@ import {
 } from '../components/query';
 import type { CardDetailHandle } from '../components/query/CardDetail';
 import * as apiService from '../services/api';
-import { SearchResult } from '../lib/types';
+import { SearchResult, Card } from '../lib/types';
 import {
   applySavedEdit,
-  getAllSavedCardEdits,
-  getSavedCardEditsCount,
-  saveCardEdit,
 } from '../lib/cardEdits';
-import { exportSavedEditsToDocx, resolveSourceDocumentLabelsFromCard } from '../lib/cardDocxExport';
+import {
+  CardPreference,
+  getAllCardPreferences,
+  getAllCustomTags,
+  getCardPreference,
+  setCardCustomTag,
+  setCardStarred,
+  subscribeToCardPreferences,
+  updateCardPreferenceSnapshot,
+} from '../lib/cardPreferences';
 import {
   SideOption, sideOptions, divisionOptions, DivisionOption, yearOptions, YearOption, SchoolOption,
 } from '../lib/constants';
@@ -52,20 +58,37 @@ const QueryPage = () => {
   const router = useRouter();
   const { query: routerQuery } = router;
   const {
-    search: urlSearch, start_date, end_date, exclude_sides, exclude_division, exclude_years, exclude_schools, cite_match, use_personal,
+    search: urlSearch,
+    start_date,
+    end_date,
+    exclude_sides,
+    exclude_division,
+    exclude_years,
+    exclude_schools,
+    cite_match,
+    use_personal,
+    open_card,
+    edit_card,
   } = routerQuery;
   const [downloadUrls, setDownloadUrls] = useState<Array<string>>([]);
   const [editRequest, setEditRequest] = useState(0);
   const [isCardEditing, setIsCardEditing] = useState(false);
-  const [savedEditsCount, setSavedEditsCount] = useState(0);
   const [showCopiedToast, setShowCopiedToast] = useState(false);
+  const [cardPreferences, setCardPreferences] = useState<Record<string, CardPreference>>({});
+  const [isTagPickerOpen, setIsTagPickerOpen] = useState(false);
+  const [customTagDraft, setCustomTagDraft] = useState('');
   const [debugPhase, setDebugPhase] = useState<DebugPhase>('closed');
   const [debugEntries, setDebugEntries] = useState<DebugEntry[]>([
     { id: 1, at: Date.now(), level: 'info', message: 'Query debug console initialized' },
   ]);
   const debugLogElement = useRef<HTMLDivElement | null>(null);
   const debugCloseTimer = useRef<number | null>(null);
+  const deepLinkHandledRef = useRef('');
   const cardDetailRef = useRef<CardDetailHandle | null>(null);
+  const selectedCardData = cards[selectedCard] as Card | undefined;
+  const selectedCardPreference = selectedCard ? cardPreferences[selectedCard] : undefined;
+  const isSelectedCardStarred = Boolean(selectedCardPreference?.starred);
+  const allCustomTags = useMemo(() => getAllCustomTags(), [cardPreferences]);
 
   const isDebugOpen = debugPhase === 'open';
   const isDebugRendered = debugPhase !== 'closed';
@@ -154,53 +177,9 @@ const QueryPage = () => {
     }
   }, [selectedCard, showCopiedMessage, addDebugEntry]);
 
-  const refreshSavedEditsCount = useCallback(() => {
-    setSavedEditsCount(getSavedCardEditsCount());
+  const refreshCardPreferences = useCallback(() => {
+    setCardPreferences(getAllCardPreferences());
   }, []);
-
-  const onExportSavedEdits = useCallback(async () => {
-    const savedEdits = getAllSavedCardEdits();
-    if (!savedEdits.length) {
-      addDebugEntry('warn', 'Export skipped: no saved card edits');
-      return;
-    }
-
-    const hydratedEdits = await Promise.all(savedEdits.map(async (entry) => {
-      if (entry.edit.sourceDocuments && entry.edit.sourceDocuments.length > 0) {
-        return entry;
-      }
-
-      try {
-        const remoteCard = await apiService.getCard(entry.cardId);
-        const resolvedSources = resolveSourceDocumentLabelsFromCard({
-          sourceUrls: remoteCard?.download_url || remoteCard?.s3_url,
-          filename: remoteCard?.filename,
-        });
-
-        if (resolvedSources.length === 0) {
-          return entry;
-        }
-
-        const nextEdit = {
-          ...entry.edit,
-          sourceDocuments: resolvedSources,
-          cardIdentifier: entry.edit.cardIdentifier || remoteCard?.card_identifier,
-        };
-
-        saveCardEdit(entry.cardId, nextEdit);
-        return {
-          ...entry,
-          edit: nextEdit,
-        };
-      } catch {
-        return entry;
-      }
-    }));
-
-    await exportSavedEditsToDocx(hydratedEdits);
-    refreshSavedEditsCount();
-    addDebugEntry('info', `Exported ${hydratedEdits.length} saved card edits to DOCX`);
-  }, [addDebugEntry, refreshSavedEditsCount]);
 
   // set the initial value of the filters based on the URL
   const urlSelectedSides = sideOptions.filter((side) => { return !exclude_sides?.includes(side.name); });
@@ -231,8 +210,27 @@ const QueryPage = () => {
      // page: 'Home',
    // });
     addDebugEntry('info', 'Query page mounted');
-    refreshSavedEditsCount();
-  }, [refreshSavedEditsCount]);
+    refreshCardPreferences();
+  }, [addDebugEntry, refreshCardPreferences]);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToCardPreferences(() => {
+      refreshCardPreferences();
+    });
+
+    return unsubscribe;
+  }, [refreshCardPreferences]);
+
+  useEffect(() => {
+    if (!selectedCard) {
+      setIsTagPickerOpen(false);
+      setCustomTagDraft('');
+      return;
+    }
+
+    const currentPreference = getCardPreference(selectedCard);
+    setCustomTagDraft(currentPreference?.customTag || '');
+  }, [selectedCard, cardPreferences]);
 
   useEffect(() => {
     if (debugLogElement.current) {
@@ -355,13 +353,19 @@ const QueryPage = () => {
         ...(use_personal) && { use_personal },
         ...!!(session && session.accessToken) && { access_token: session.accessToken },
       });
-      const { results: responseResults, cursor, totalCount } = response;
+      const {
+        results: responseResults,
+        cursor,
+        totalCount,
+        hasMore,
+        countIsPartial,
+      } = response;
 
       setTabResults((prev) => ({ ...prev, [tab]: responseResults }));
-      setTabHasMoreResults((prev) => ({ ...prev, [tab]: responseResults.length >= 30 && cursor > c }));
+      setTabHasMoreResults((prev) => ({ ...prev, [tab]: Boolean(hasMore) }));
       setTabCounts((prev) => ({ ...prev, [tab]: Number.isFinite(totalCount) ? Number(totalCount) : responseResults.length }));
       setSearchDurationsMs((prev) => ({ ...prev, [tab]: performance.now() - startedAt }));
-      addDebugEntry('info', `Search response: ${responseResults.length} results for [${tab}] (next cursor ${cursor})`);
+      addDebugEntry('info', `Search response: ${responseResults.length} results for [${tab}] (next cursor ${cursor}, has_more=${Boolean(hasMore)}, partial_count=${Boolean(countIsPartial)})`);
       return true;
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Search request failed';
@@ -390,7 +394,7 @@ const QueryPage = () => {
       setTabCounts({ tag: 0, paragraph: 0 });
       setSearchDurationsMs({ tag: 0, paragraph: 0 });
 
-      void (async () => {
+      (async () => {
         setLoading(true);
         try {
           await searchRequest('tag', decodedQuery, 0);
@@ -418,17 +422,22 @@ const QueryPage = () => {
     }
   }, [routerQuery, status]);
 
-  const getCard = async (id: string) => {
-    if (!cards[id]) {
-      try {
-        const card = await apiService.getCard(id);
-        const hydratedCard = applySavedEdit(card);
-        setCards((c) => { return { ...c, [id]: hydratedCard }; });
-        addDebugEntry('info', `Loaded card: ${id}`);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : `Failed to load card: ${id}`;
-        addDebugEntry('error', message);
-      }
+  const getCard = async (id: string): Promise<Card | undefined> => {
+    if (cards[id]) {
+      return cards[id] as Card;
+    }
+
+    try {
+      const card = await apiService.getCard(id);
+      const hydratedCard = applySavedEdit(card);
+      setCards((c) => { return { ...c, [id]: hydratedCard }; });
+      updateCardPreferenceSnapshot(hydratedCard);
+      addDebugEntry('info', `Loaded card: ${id}`);
+      return hydratedCard;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : `Failed to load card: ${id}`;
+      addDebugEntry('error', message);
+      return undefined;
     }
   };
 
@@ -437,6 +446,45 @@ const QueryPage = () => {
       getCard(selectedCard);
     }
   }, [selectedCard]);
+
+  useEffect(() => {
+    if (!selectedCardData) {
+      setDownloadUrls([]);
+      return;
+    }
+
+    const selectedUrls = selectedCardData.download_url;
+    if (selectedUrls) {
+      setDownloadUrls(Array.isArray(selectedUrls) ? selectedUrls : [selectedUrls]);
+    } else {
+      setDownloadUrls([]);
+    }
+  }, [selectedCard, selectedCardData]);
+
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+
+    const cardId = typeof open_card === 'string' ? open_card.trim() : '';
+    if (!cardId) {
+      return;
+    }
+
+    const shouldEdit = edit_card === 'true';
+    const deepLinkKey = `${cardId}|${shouldEdit}`;
+
+    if (deepLinkHandledRef.current === deepLinkKey) {
+      return;
+    }
+
+    deepLinkHandledRef.current = deepLinkKey;
+    setSelectedCard(cardId);
+
+    if (shouldEdit) {
+      setEditRequest((count) => count + 1);
+    }
+  }, [router.isReady, open_card, edit_card]);
 
   const onSideSelect = (sides: SideOption[]) => {
     if (sides.length === 1) {
@@ -476,6 +524,31 @@ const QueryPage = () => {
     } else {
       updateUrl({ use_personal: 'true' });
     }
+  };
+
+  const toggleSelectedCardStar = async () => {
+    if (!selectedCard) return;
+
+    const card = selectedCardData || await getCard(selectedCard);
+    if (!card) return;
+
+    const nextStarred = !isSelectedCardStarred;
+    setCardStarred(card, nextStarred);
+    addDebugEntry('info', `${nextStarred ? 'Starred' : 'Unstarred'} card: ${card.id}`);
+    refreshCardPreferences();
+  };
+
+  const saveSelectedCardTag = async (nextTagValue?: string) => {
+    if (!selectedCard) return;
+
+    const card = selectedCardData || await getCard(selectedCard);
+    if (!card) return;
+
+    const normalizedTag = (nextTagValue ?? customTagDraft).trim();
+    setCardCustomTag(card, normalizedTag);
+    refreshCardPreferences();
+    setIsTagPickerOpen(false);
+    addDebugEntry('info', `${normalizedTag ? `Saved custom tag "${normalizedTag}"` : 'Cleared custom tag'} for card: ${card.id}`);
   };
 
   return (
@@ -572,7 +645,27 @@ const QueryPage = () => {
                     <button
                       type="button"
                       className={queryStyles['toolbar-action']}
-                      onClick={() => { void onCopyCard(); }}
+                      onClick={() => {
+                        toggleSelectedCardStar();
+                      }}
+                      disabled={!selectedCard}
+                    >
+                      {isSelectedCardStarred ? '★ Starred' : '☆ Star'}
+                    </button>
+                    <button
+                      type="button"
+                      className={queryStyles['toolbar-action']}
+                      onClick={() => setIsTagPickerOpen((open) => !open)}
+                      disabled={!selectedCard}
+                    >
+                      Tag
+                    </button>
+                    <button
+                      type="button"
+                      className={queryStyles['toolbar-action']}
+                      onClick={() => {
+                        onCopyCard();
+                      }}
                       disabled={!selectedCard}
                     >
                       <img
@@ -581,19 +674,6 @@ const QueryPage = () => {
                         className={queryStyles['icon-image']}
                       />
                       Copy
-                    </button>
-                    <button
-                      type="button"
-                      className={queryStyles['toolbar-action']}
-                      onClick={onExportSavedEdits}
-                      disabled={savedEditsCount === 0}
-                    >
-                      <img
-                        src="/export_notes_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"
-                        alt="Export notes"
-                        className={queryStyles['icon-image']}
-                      />
-                      Export Saved Edits ({savedEditsCount})
                     </button>
                     <StyleSelect />
                   </>
@@ -623,8 +703,58 @@ const QueryPage = () => {
                   loadPage={loadPage}
                   setDownloadUrls={setDownloadUrls}
                   tabHasMoreResults={tabHasMoreResults}
+                  cardPreferences={cardPreferences}
                 />
                 <div className={queryStyles['card-panel']}>
+                  {!isCardEditing && isTagPickerOpen && (
+                    <div className={queryStyles['tag-picker']}>
+                      <select
+                        className={queryStyles['tag-picker-select']}
+                        value={allCustomTags.includes(customTagDraft) ? customTagDraft : ''}
+                        onChange={(event) => {
+                          setCustomTagDraft(event.currentTarget.value);
+                        }}
+                      >
+                        <option value="">Select existing tag</option>
+                        {allCustomTags.map((tagName) => (
+                          <option key={tagName} value={tagName}>{tagName}</option>
+                        ))}
+                      </select>
+                      <input
+                        type="text"
+                        className={queryStyles['tag-picker-input']}
+                        value={customTagDraft}
+                        onChange={(event) => {
+                          setCustomTagDraft(event.currentTarget.value);
+                        }}
+                        placeholder="Create or edit custom tag"
+                      />
+                      <div className={queryStyles['tag-picker-actions']}>
+                        <button
+                          type="button"
+                          className={queryStyles['toolbar-action']}
+                          onClick={() => {
+                            saveSelectedCardTag();
+                          }}
+                          disabled={!selectedCard}
+                        >
+                          Save Tag
+                        </button>
+                        <button
+                          type="button"
+                          className={queryStyles['toolbar-action']}
+                          onClick={() => {
+                            setCustomTagDraft('');
+                            saveSelectedCardTag('');
+                          }}
+                          disabled={!selectedCard}
+                        >
+                          Clear Tag
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   <CardDetail
                     ref={cardDetailRef}
                     card={cards[selectedCard]}
@@ -636,7 +766,9 @@ const QueryPage = () => {
                         <button
                           type="button"
                           className={queryStyles['toolbar-action']}
-                          onClick={() => { void onCopyCard(); }}
+                          onClick={() => {
+                            onCopyCard();
+                          }}
                           disabled={!selectedCard}
                         >
                           <img
@@ -651,7 +783,8 @@ const QueryPage = () => {
                     ) : undefined}
                     onCardSave={(updatedCard) => {
                       setCards((prev) => ({ ...prev, [updatedCard.id]: updatedCard }));
-                      refreshSavedEditsCount();
+                      updateCardPreferenceSnapshot(updatedCard);
+                      refreshCardPreferences();
                     }}
                   />
                 </div>

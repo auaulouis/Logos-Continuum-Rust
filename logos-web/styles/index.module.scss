@@ -311,6 +311,10 @@
   font-weight: 300;
   font-family: inherit;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 
   &:hover {
     transform: scale(1.03) translateY(-1px);

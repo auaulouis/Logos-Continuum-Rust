@@ -5,6 +5,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BACKEND_DIR="$ROOT_DIR/verbatim-parser "
 FRONTEND_DIR="$ROOT_DIR/logos-web"
+BACKEND_LOCAL_DOCS_DIR="$BACKEND_DIR/local_docs_dev"
 
 echo "🚀 Starting Verbatim Search Engine..."
 
@@ -35,6 +36,12 @@ trap cleanup SIGINT SIGTERM EXIT
 echo "🐍 Starting API on Port 5001..."
 cd "$BACKEND_DIR"
 source .venv/bin/activate
+mkdir -p "$BACKEND_LOCAL_DOCS_DIR/uploaded_docs"
+LOCAL_DOCS_FOLDER="$BACKEND_LOCAL_DOCS_DIR" \
+LOCAL_INDEX_PATH="$BACKEND_LOCAL_DOCS_DIR/cards_index.json" \
+CARD_ID_REGISTRY_PATH="$BACKEND_LOCAL_DOCS_DIR/card_id_registry.json" \
+PARSER_SETTINGS_PATH="$BACKEND_LOCAL_DOCS_DIR/parser_settings.json" \
+PARSER_EVENTS_PATH="$BACKEND_LOCAL_DOCS_DIR/parser_events.jsonl" \
 PYTHONUNBUFFERED=1 PORT=5001 python3 -u api.py &
 BACKEND_PID=$!
 

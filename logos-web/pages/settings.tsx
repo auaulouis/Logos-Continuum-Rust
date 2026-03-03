@@ -4,6 +4,15 @@ import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'r
 import * as apiService from '../services/api';
 import type { ParsedDocument, ParserSettings } from '../services/api';
 import { AppContext } from '../lib/appContext';
+import {
+  getAllSavedCardEdits,
+  getSavedCardEditsCount,
+  saveCardEdit,
+} from '../lib/cardEdits';
+import {
+  exportSavedEditsToDocx,
+  resolveSourceDocumentLabelsFromCard,
+} from '../lib/cardDocxExport';
 import packageJson from '../package.json';
 import styles from '../styles/settings.module.scss';
 import indexStyles from '../styles/index.module.scss';
@@ -40,11 +49,13 @@ const SettingsPage = () => {
   const [parserSettings, setParserSettings] = useState<ParserSettings>(DEFAULT_PARSER_SETTINGS);
   const [parserSettingsError, setParserSettingsError] = useState('');
   const [isSavingParserSettings, setIsSavingParserSettings] = useState(false);
+  const [savedEditsCount, setSavedEditsCount] = useState(0);
+  const [isExportingSavedEdits, setIsExportingSavedEdits] = useState(false);
 
   const [documents, setDocuments] = useState<ParsedDocument[]>([]);
   const [documentsError, setDocumentsError] = useState('');
   const [documentsSearch, setDocumentsSearch] = useState('');
-  const [showHiddenDocuments, setShowHiddenDocuments] = useState(false);
+  const [showHiddenDocuments, setShowHiddenDocuments] = useState(true);
   const [isDocumentsBoxOpen, setIsDocumentsBoxOpen] = useState(false);
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedDocuments, setSelectedDocuments] = useState<string[]>([]);
@@ -160,10 +171,70 @@ const SettingsPage = () => {
     }
   }, [addDebugEntry]);
 
+  const refreshSavedEditsCount = useCallback(() => {
+    setSavedEditsCount(getSavedCardEditsCount());
+  }, []);
+
+  const onExportSavedEdits = useCallback(async () => {
+    const savedEdits = getAllSavedCardEdits();
+    if (!savedEdits.length) {
+      updateMessage('No saved edits available to export.', 'error');
+      addDebugEntry('warn', 'Export skipped: no saved card edits');
+      refreshSavedEditsCount();
+      return;
+    }
+
+    setIsExportingSavedEdits(true);
+    try {
+      const hydratedEdits = await Promise.all(savedEdits.map(async (entry) => {
+        if (entry.edit.sourceDocuments && entry.edit.sourceDocuments.length > 0) {
+          return entry;
+        }
+
+        try {
+          const remoteCard = await apiService.getCard(entry.cardId);
+          const resolvedSources = resolveSourceDocumentLabelsFromCard({
+            sourceUrls: remoteCard?.download_url || remoteCard?.s3_url,
+            filename: remoteCard?.filename,
+          });
+
+          if (resolvedSources.length === 0) {
+            return entry;
+          }
+
+          const nextEdit = {
+            ...entry.edit,
+            sourceDocuments: resolvedSources,
+            cardIdentifier: entry.edit.cardIdentifier || remoteCard?.card_identifier,
+          };
+
+          saveCardEdit(entry.cardId, nextEdit);
+          return {
+            ...entry,
+            edit: nextEdit,
+          };
+        } catch {
+          return entry;
+        }
+      }));
+
+      await exportSavedEditsToDocx(hydratedEdits);
+      updateMessage(`Exported ${hydratedEdits.length} saved edits to .docx.`);
+      addDebugEntry('info', `Exported ${hydratedEdits.length} saved card edits to DOCX`);
+    } catch {
+      updateMessage('Failed to export saved edits.', 'error');
+      addDebugEntry('error', 'Failed to export saved card edits');
+    } finally {
+      refreshSavedEditsCount();
+      setIsExportingSavedEdits(false);
+    }
+  }, [addDebugEntry, refreshSavedEditsCount]);
+
   useEffect(() => {
     loadParserSettings();
     loadParsedDocuments();
-  }, [loadParserSettings, loadParsedDocuments]);
+    refreshSavedEditsCount();
+  }, [loadParserSettings, loadParsedDocuments, refreshSavedEditsCount]);
 
   useEffect(() => {
     if (debugLogElement.current) {
@@ -350,7 +421,7 @@ const SettingsPage = () => {
     setIsDocumentsBoxOpen(false);
     setDocumentsError('');
     setDocumentsSearch('');
-    setShowHiddenDocuments(false);
+    setShowHiddenDocuments(true);
     setIsSelectMode(false);
     setSelectedDocuments([]);
   };
@@ -493,6 +564,21 @@ const SettingsPage = () => {
               </button>
             </div>
             </section>
+
+            <section className={styles.card}>
+              <h2 className={styles.sectionTitle}>Export Saved Edits</h2>
+              <p className={styles.meta}>Export locally saved card edits into a single .docx file.</p>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.primaryBtn}
+                  onClick={onExportSavedEdits}
+                  disabled={savedEditsCount === 0 || isExportingSavedEdits}
+                >
+                  {isExportingSavedEdits ? 'Exporting…' : `Export Saved Edits (${savedEditsCount})`}
+                </button>
+              </div>
+            </section>
           </div>
 
           <div className={`${styles.column} ${styles.utilityGrid}`}>
@@ -603,7 +689,7 @@ const SettingsPage = () => {
                   <p>
                     Logos Continuum is a local debate-card workflow app for parsing, searching, reviewing, editing,
                     and exporting evidence cards. The normal flow is: upload .docx files on Home, search on Query,
-                    edit selected cards, then export saved edits to a .docx.
+                    edit selected cards, then export saved edits from Settings to a .docx.
                   </p>
                 </section>
 
@@ -645,7 +731,7 @@ const SettingsPage = () => {
                     <li><strong>Source links:</strong> cards can include one or more source URLs/paths through the download/source area.</li>
                     <li><strong>Copy action:</strong> click <em>Copy</em> to copy formatted card content; a <em>Copied</em> toast confirms success.</li>
                     <li><strong>Edit action:</strong> click <em>Edit</em> on the selected card to enter editing mode.</li>
-                    <li><strong>Export Saved Edits:</strong> click <em>Export Saved Edits (N)</em> to export all saved local edits into a single .docx.</li>
+                    <li><strong>Export Saved Edits:</strong> use the <em>Settings → Export Saved Edits</em> action to export all saved local edits into a single .docx.</li>
                     <li><strong>Style controls:</strong> pick highlight color and font via swatches/dropdown; these preferences affect display and export output.</li>
                   </ul>
                 </section>
@@ -723,7 +809,7 @@ const SettingsPage = () => {
                     <li>Open Query and run search with optional citation filter syntax: <code>cite:...</code>.</li>
                     <li>Switch between <em>Tag Matches</em> and <em>Paragraph Matches</em>, then paginate with <em>Previous/Next</em>.</li>
                     <li>Select cards, review content, and edit the ones you want to keep.</li>
-                    <li>Save edits, continue across multiple cards, then export all saved edits to .docx.</li>
+                    <li>Save edits, continue across multiple cards, then export all saved edits from Settings to .docx.</li>
                     <li>Use Settings for theme, parser tuning, and document/index maintenance.</li>
                   </ol>
                 </section>

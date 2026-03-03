@@ -8,6 +8,8 @@ import glob
 import asyncio
 import time
 import json
+from concurrent.futures import ThreadPoolExecutor
+from threading import Lock
 from werkzeug.utils import secure_filename
 
 load_dotenv()
@@ -27,6 +29,11 @@ DEFAULT_PARSER_SETTINGS = {
   "flush_enabled": True,
   "flush_every_docs": 250,
 }
+
+_UPLOAD_PARSE_WORKERS = max(1, int(os.environ.get("UPLOAD_PARSE_WORKERS", "2")))
+_UPLOAD_PARSE_EXECUTOR = ThreadPoolExecutor(max_workers=_UPLOAD_PARSE_WORKERS)
+_UPLOAD_PARSE_LOCK = Lock()
+_UPLOAD_PARSE_ACTIVE = set()
 
 
 def _append_parser_event(level, message, payload=None):
@@ -206,27 +213,22 @@ def _find_uploaded_docx_file(filename):
   return None
 
 
-def _index_local_docs_if_empty(search_client):
-  if len(search_client.get_all_cards()) > 0:
-    return
+def _parse_bool(value, fallback=True):
+  if value is None:
+    return fallback
+  normalized = str(value).strip().lower()
+  if normalized in ("1", "true", "yes", "on"):
+    return True
+  if normalized in ("0", "false", "no", "off"):
+    return False
+  return fallback
 
-  files = glob.glob(os.path.join(LOCAL_DOCS_FOLDER, "**/*.docx"), recursive=True)
-  files = [path for path in files if not os.path.basename(path).startswith("~$")]
 
-  if len(files) == 0:
-    print(f"No local .docx files found in {LOCAL_DOCS_FOLDER}; starting API with empty index")
-    return
-
-  print(f"Local index is empty. Parsing {len(files)} local .docx files...")
-  _append_parser_event("info", f"Startup parse begins for {len(files)} local file(s)", {
-    "source": "api-startup",
-    "files": len(files),
-  })
-  for path in files:
-    filename = os.path.basename(path)
-    parse_started = time.perf_counter()
-    parser = Parser(path, {
-      "filename": filename,
+def _run_background_parse(saved_path, stored_filename):
+  parse_started = time.perf_counter()
+  try:
+    parser = Parser(saved_path, {
+      "filename": stored_filename,
       "division": "local",
       "year": "local",
       "school": "Local",
@@ -239,18 +241,92 @@ def _index_local_docs_if_empty(search_client):
     cards = parser.parse()
     parse_ms = (time.perf_counter() - parse_started) * 1000
     cards_per_second = (len(cards) * 1000 / parse_ms) if parse_ms > 0 else 0
+
+    search = _get_api_instance().search
+    search.upload_cards(cards, force_upload=True)
     _append_parser_event(
       "info",
-      f"Startup parsed {filename}: {len(cards)} cards in {parse_ms:.2f}ms ({cards_per_second:.2f} cards/s)",
+      f"Parsed {stored_filename}: {len(cards)} cards in {parse_ms:.2f}ms ({cards_per_second:.2f} cards/s)",
       {
-        "source": "api-startup",
-        "filename": filename,
+        "source": "api-upload",
+        "filename": stored_filename,
         "cards_indexed": len(cards),
         "parse_ms": round(parse_ms, 2),
         "cards_per_second": round(cards_per_second, 2),
       },
     )
-    search_client.upload_cards(cards, force_upload=True)
+  except Exception as error:
+    _append_parser_event("error", f"Failed parsing {stored_filename}: {error}", {
+      "source": "api-upload",
+      "filename": stored_filename,
+    })
+  finally:
+    with _UPLOAD_PARSE_LOCK:
+      _UPLOAD_PARSE_ACTIVE.discard(stored_filename)
+
+
+def _enqueue_background_parse(saved_path, stored_filename):
+  with _UPLOAD_PARSE_LOCK:
+    if stored_filename in _UPLOAD_PARSE_ACTIVE:
+      return False
+    _UPLOAD_PARSE_ACTIVE.add(stored_filename)
+
+  _UPLOAD_PARSE_EXECUTOR.submit(_run_background_parse, saved_path, stored_filename)
+  return True
+
+
+def _queue_startup_index_files(files):
+  queued = 0
+  for path in files:
+    filename = os.path.basename(path)
+    if _enqueue_background_parse(path, filename):
+      queued += 1
+  return queued
+
+
+def _queue_parse_for_uploaded_docs(search_client):
+  queued = 0
+  skipped_already_indexed = 0
+
+  for item in _list_uploaded_docx_files():
+    filename = item.get("filename", "")
+    absolute_path = item.get("absolute_path", "")
+
+    if not filename or not absolute_path:
+      continue
+
+    if search_client.check_filename_in_search(filename):
+      skipped_already_indexed += 1
+      continue
+
+    if _enqueue_background_parse(absolute_path, filename):
+      queued += 1
+
+  return queued, skipped_already_indexed
+
+
+def _index_local_docs_if_empty(search_client):
+  if len(search_client.get_all_cards()) > 0:
+    return
+
+  files = glob.glob(os.path.join(LOCAL_DOCS_FOLDER, "**/*.docx"), recursive=True)
+  files = [path for path in files if not os.path.basename(path).startswith("~$")]
+
+  if len(files) == 0:
+    print(f"No local .docx files found in {LOCAL_DOCS_FOLDER}; starting API with empty index")
+    return
+
+  print(f"Local index is empty. Queueing {len(files)} local .docx files for background parse...")
+  _append_parser_event("info", f"Startup parse begins for {len(files)} local file(s)", {
+    "source": "api-startup",
+    "files": len(files),
+  })
+  queued = _queue_startup_index_files(files)
+  _append_parser_event("info", f"Startup parse queued {queued}/{len(files)} file(s)", {
+    "source": "api-startup",
+    "files": len(files),
+    "queued": queued,
+  })
 
 
 class Api:
@@ -292,6 +368,16 @@ class Api:
     return card_data
 
 
+_API_INSTANCE = None
+
+
+def _get_api_instance():
+  global _API_INSTANCE
+  if _API_INSTANCE is None:
+    _API_INSTANCE = Api()
+  return _API_INSTANCE
+
+
 @app.route("/query", methods=['GET'])
 def query():
   search = request.args.get('search', '')
@@ -305,10 +391,10 @@ def query():
   sort_by = request.args.get('sort_by', '')
   cite_match = request.args.get('cite_match', '')
   match_mode = request.args.get('match_mode', '')
-  limit = int(request.args.get('limit', 30))
+  limit = max(1, min(int(request.args.get('limit', 30)), 30))
 
-  api = Api()
-  results, next_cursor, total_count = asyncio.run(api.query(
+  api = _get_api_instance()
+  results, next_cursor, total_count, has_more, count_is_partial = asyncio.run(api.query(
     search,
     cursor,
     start_date=start_date,
@@ -322,27 +408,34 @@ def query():
     limit=limit,
     match_mode=match_mode
   ))
-  return {"count": len(results), "results": results, "cursor": next_cursor, "total_count": total_count}
+  return {
+    "count": len(results),
+    "results": results,
+    "cursor": next_cursor,
+    "total_count": total_count,
+    "has_more": has_more,
+    "count_is_partial": count_is_partial,
+  }
 
 
 @app.route("/card", methods=['GET'])
 def get_card():
   card_id = request.args.get('id')
-  api = Api()
+  api = _get_api_instance()
   result = asyncio.run(api.get_by_id(card_id, False))
   return result
 
 
 @app.route("/schools", methods=['GET'])
 def get_schools_list():
-  api = Api()
+  api = _get_api_instance()
   schools = api.get_colleges()
   return {"colleges": schools}
 
 
 @app.route("/clear-index", methods=['POST'])
 def clear_index():
-  search = Search()
+  search = _get_api_instance().search
   search.clear_index()
   return {"ok": True}
 
@@ -398,53 +491,68 @@ def upload_docx():
     "filename": stored_filename,
   })
 
-  try:
-    parse_started = time.perf_counter()
-    parser = Parser(saved_path, {
-      "filename": stored_filename,
-      "division": "local",
-      "year": "local",
-      "school": "Local",
-      "team": "Local",
-      "download_url": "local"
-    },
-      max_workers=_resolve_api_card_workers(),
-      profile=os.environ.get("PARSER_PROFILE", "0") == "1"
-    )
-    cards = parser.parse()
-    parse_ms = (time.perf_counter() - parse_started) * 1000
-    cards_per_second = (len(cards) * 1000 / parse_ms) if parse_ms > 0 else 0
-    search = Search()
-    search.upload_cards(cards, force_upload=True)
-    _append_parser_event(
-      "info",
-      f"Parsed {stored_filename}: {len(cards)} cards in {parse_ms:.2f}ms ({cards_per_second:.2f} cards/s)",
-      {
-        "source": "api-upload",
-        "filename": stored_filename,
-        "cards_indexed": len(cards),
-        "parse_ms": round(parse_ms, 2),
-        "cards_per_second": round(cards_per_second, 2),
-      },
-    )
-    return {
-      "ok": True,
-      "filename": stored_filename,
-      "stored_path": saved_path,
-      "cards_indexed": len(cards),
-      "parse_ms": round(parse_ms, 2),
-    }
-  except Exception as error:
-    _append_parser_event("error", f"Failed parsing {stored_filename}: {error}", {
+  parse_immediately = _parse_bool(request.form.get("parse"), True)
+
+  if not parse_immediately:
+    _append_parser_event("info", f"Upload stored (deferred parse): {stored_filename}", {
       "source": "api-upload",
       "filename": stored_filename,
     })
-    return {"error": f"Failed to parse {stored_filename}: {error}"}, 500
+    return {
+      "ok": True,
+      "queued": False,
+      "deferred": True,
+      "filename": stored_filename,
+      "stored_path": saved_path,
+      "cards_indexed": 0,
+      "parse_ms": 0,
+    }
+
+  queued = _enqueue_background_parse(saved_path, stored_filename)
+  if queued:
+    _append_parser_event("info", f"Queued parsing: {stored_filename}", {
+      "source": "api-upload",
+      "filename": stored_filename,
+    })
+    return {
+      "ok": True,
+      "queued": True,
+      "filename": stored_filename,
+      "stored_path": saved_path,
+      "cards_indexed": 0,
+      "parse_ms": 0,
+    }
+
+  return {
+    "ok": True,
+    "queued": False,
+    "deferred": False,
+    "filename": stored_filename,
+    "stored_path": saved_path,
+    "cards_indexed": 0,
+    "parse_ms": 0,
+  }
+
+
+@app.route("/parse-uploaded-docs", methods=['POST'])
+def parse_uploaded_docs():
+  search = _get_api_instance().search
+  queued, skipped = _queue_parse_for_uploaded_docs(search)
+  _append_parser_event("info", f"Batch parse queued {queued} uploaded doc(s), skipped {skipped} already indexed", {
+    "source": "api-batch-parse",
+    "queued": queued,
+    "skipped": skipped,
+  })
+  return {
+    "ok": True,
+    "queued": queued,
+    "skipped_already_indexed": skipped,
+  }
 
 
 @app.route("/documents", methods=['GET'])
 def list_documents():
-  search = Search()
+  search = _get_api_instance().search
   indexed_docs = search.get_document_summaries()
   indexed_by_name = {str(doc.get("filename", "")).strip().lower(): doc for doc in indexed_docs}
 
@@ -495,7 +603,7 @@ def delete_document():
   deleted_path = None
 
   if target == "index":
-    search = Search()
+    search = _get_api_instance().search
     removed_cards = search.delete_document_from_index(filename)
   else:
     deleted_path = _delete_uploaded_docx_file(filename)
@@ -546,7 +654,7 @@ def index_document():
     cards = parser.parse()
     parse_ms = (time.perf_counter() - parse_started) * 1000
     cards_per_second = (len(cards) * 1000 / parse_ms) if parse_ms > 0 else 0
-    search = Search()
+    search = _get_api_instance().search
     search.upload_cards(cards, force_upload=True)
     _append_parser_event(
       "info",

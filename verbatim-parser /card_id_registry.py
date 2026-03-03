@@ -3,7 +3,8 @@ import os
 from fcntl import flock, LOCK_EX, LOCK_UN
 
 
-CARD_ID_REGISTRY_PATH = os.environ.get("CARD_ID_REGISTRY_PATH", "./local_docs/card_id_registry.json")
+LOCAL_DOCS_FOLDER = os.environ.get("LOCAL_DOCS_FOLDER", "./local_docs")
+CARD_ID_REGISTRY_PATH = os.environ.get("CARD_ID_REGISTRY_PATH", os.path.join(LOCAL_DOCS_FOLDER, "card_id_registry.json"))
 
 
 class CardIdRegistry:

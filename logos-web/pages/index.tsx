@@ -19,6 +19,80 @@ type DebugEntry = {
   message: string;
 };
 
+const HOME_DEBUG_STORAGE_KEY = 'logos-home-debug-state-v1';
+const MAX_ACTIVITY_LINES = 500;
+
+const appendActivityText = (previous: string, lines: string[]): string => {
+  const normalizedLines = lines
+    .map((line) => String(line || '').trim())
+    .filter((line) => line.length > 0);
+
+  if (normalizedLines.length === 0) {
+    return previous;
+  }
+
+  const existing = String(previous || '').trim();
+  const mergedLines = [
+    ...(existing.length > 0 ? existing.split('\n') : []),
+    ...normalizedLines,
+  ];
+
+  return mergedLines.slice(-MAX_ACTIVITY_LINES).join('\n');
+};
+
+type HomeDebugState = {
+  uploadStatus: string;
+  uploadDetails: string;
+  debugPhase: 'closed' | 'open' | 'closing';
+  debugEntries: DebugEntry[];
+  seenParserEventIds: string[];
+};
+
+const readHomeDebugState = (): HomeDebugState | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const raw = window.localStorage.getItem(HOME_DEBUG_STORAGE_KEY);
+    if (!raw) {
+      return null;
+    }
+
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {
+      return null;
+    }
+
+    const entries = Array.isArray(parsed.debugEntries)
+      ? parsed.debugEntries.filter((entry: any) => {
+        return entry
+          && typeof entry.id === 'number'
+          && typeof entry.at === 'number'
+          && (entry.level === 'info' || entry.level === 'warn' || entry.level === 'error')
+          && typeof entry.message === 'string';
+      })
+      : [];
+
+    const seenIds = Array.isArray(parsed.seenParserEventIds)
+      ? parsed.seenParserEventIds.filter((id: any) => typeof id === 'string')
+      : [];
+
+    const debugPhase: 'closed' | 'open' | 'closing'
+      = parsed.debugPhase === 'open' || parsed.debugPhase === 'closing' ? parsed.debugPhase : 'closed';
+
+    return {
+      uploadStatus: typeof parsed.uploadStatus === 'string' ? parsed.uploadStatus : '',
+      uploadDetails: typeof parsed.uploadDetails === 'string' ? parsed.uploadDetails : '',
+      debugPhase,
+      debugEntries: entries,
+      seenParserEventIds: seenIds,
+    };
+  } catch {
+    return null;
+  }
+};
+
 const IndexPage = () => {
   const { theme, toggleTheme } = useContext(AppContext);
   type DebugPhase = 'closed' | 'open' | 'closing';
@@ -37,7 +111,43 @@ const IndexPage = () => {
   const debugCloseTimer = useRef<number | null>(null);
   const parserActivitySignature = useRef('');
   const seenParserEventIds = useRef<Set<string>>(new Set());
+  const uploadInProgressRef = useRef(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const persisted = readHomeDebugState();
+    if (!persisted) {
+      return;
+    }
+
+    setUploadStatus(persisted.uploadStatus);
+    setUploadDetails(persisted.uploadDetails);
+    setDebugPhase(persisted.debugPhase);
+    if (persisted.debugEntries.length > 0) {
+      setDebugEntries(persisted.debugEntries.slice(-140));
+    }
+    seenParserEventIds.current = new Set(persisted.seenParserEventIds.slice(-600));
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const snapshot: HomeDebugState = {
+      uploadStatus,
+      uploadDetails,
+      debugPhase,
+      debugEntries: debugEntries.slice(-140),
+      seenParserEventIds: Array.from(seenParserEventIds.current).slice(-600),
+    };
+
+    try {
+      window.localStorage.setItem(HOME_DEBUG_STORAGE_KEY, JSON.stringify(snapshot));
+    } catch {
+      return;
+    }
+  }, [uploadStatus, uploadDetails, debugPhase, debugEntries]);
 
   const isDebugOpen = debugPhase === 'open';
   const isDebugRendered = debugPhase !== 'closed';
@@ -154,11 +264,6 @@ const IndexPage = () => {
       return value.toFixed(2);
     };
 
-    const formatRate = (value: number) => {
-      if (!Number.isFinite(value)) return '0.00';
-      return value.toFixed(2);
-    };
-
     const mapLevel = (value?: string): DebugLevel => {
       if (value === 'warn' || value === 'error') return value;
       return 'info';
@@ -196,36 +301,24 @@ const IndexPage = () => {
           addDebugEntry(mapLevel(event.level), event.message);
         }
 
-        const parseEvents = sortedEvents.filter((event) => Number(event.parse_ms || 0) > 0 || Number(event.cards_indexed || 0) > 0);
-        if (parseEvents.length > 0) {
-          const recent = parseEvents.slice(-12);
-          const totalCards = recent.reduce((sum, event) => sum + Number(event.cards_indexed || 0), 0);
-          const totalParseMs = recent.reduce((sum, event) => sum + Number(event.parse_ms || 0), 0);
-          const aggregateRate = totalParseMs > 0 ? (totalCards * 1000) / totalParseMs : 0;
+        if (newEvents.length > 0) {
+          const activityLines = newEvents.map((event) => {
+            const timestamp = event.at ? new Date(Number(event.at)).toLocaleTimeString() : new Date().toLocaleTimeString();
+            const level = String(event.level || 'info').toUpperCase();
+            const message = String(event.message || '').trim();
+            return `[${timestamp}] ${level} ${message}`;
+          });
 
-          setUploadStatus('Parser activity detected');
-          const parserDetails = [
-            'Latest parser timings:',
-            ...recent.map((event) => {
-              const filename = event.filename || 'unknown-file';
-              const cards = Number(event.cards_indexed || 0);
-              const parseMs = Number(event.parse_ms || 0);
-              const cps = Number(event.cards_per_second || (parseMs > 0 ? (cards * 1000) / parseMs : 0));
-              const source = event.source || 'parser';
-              return `- ${filename} | ${cards} cards | ${formatMs(parseMs)} ms | ${formatRate(cps)} cards/s | ${source}`;
-            }),
-            '',
-            'Recent aggregate:',
-            `- Files counted: ${recent.length}`,
-            `- Total cards: ${totalCards}`,
-            `- Total parse time: ${formatMs(totalParseMs)} ms`,
-            `- Aggregate throughput: ${formatRate(aggregateRate)} cards/s`,
-          ].join('\n');
-          setUploadDetails(parserDetails);
-          mirrorParserActivityToDebug('Parser activity detected', parserDetails);
+          setUploadDetails((previous) => appendActivityText(previous, activityLines));
+
+          if (!uploadInProgressRef.current) {
+            setUploadStatus('Parser activity stream (live)');
+          }
+
+          mirrorParserActivityToDebug('Parser activity stream (live)', activityLines.slice(-12).join('\n'));
         }
       } catch {
-        if (!cancelled) {
+        if (!cancelled && !uploadInProgressRef.current) {
           setUploadStatus('Parser details unavailable (API not reachable)');
         }
       } finally {
@@ -527,94 +620,185 @@ const IndexPage = () => {
       return value.toFixed(2);
     };
 
-    setUploadStatus('Parsing uploaded file(s)...');
+    setUploadStatus('Uploading file(s)...');
     addDebugEntry('info', `Upload started: ${selectedFiles.length} file(s)`);
     if (validFiles.length > 0) {
-      const parsingNow = `Parsing now:\n${validFiles.map((file) => `- ${file.name}`).join('\n')}`;
-      setUploadDetails(parsingNow);
+      const parsingNowLines = [
+        `[${new Date().toLocaleTimeString()}] INFO Upload batch started (${validFiles.length} file(s))`,
+        ...validFiles.map((file) => `- ${file.name}`),
+      ];
+      const parsingNow = parsingNowLines.join('\n');
+      setUploadDetails((previous) => appendActivityText(previous, parsingNowLines));
       mirrorParserActivityToDebug('Parsing uploaded file(s)...', parsingNow);
     } else {
-      setUploadDetails('No valid .docx files selected.');
+      setUploadDetails((previous) => appendActivityText(previous, [`[${new Date().toLocaleTimeString()}] WARN No valid .docx files selected.`]));
       setUploadStatus('Parsed 0 file(s).');
       addDebugEntry('warn', 'Upload skipped: no valid .docx files');
       return;
     }
 
+    uploadInProgressRef.current = true;
+
     const uploadBatchStarted = performance.now();
+    const uploadConcurrency = 2;
+    const maxNetworkRetries = 2;
+    const outcomes: Array<{ filename: string; ok: boolean; queued: boolean; parseMs: number; cardsIndexed: number }> = [];
+    let processedCount = 0;
+    let nextIndex = 0;
 
-    const outcomes = await Promise.all(validFiles.map(async (file) => {
+    const waitForMs = (ms: number) => new Promise((resolve) => {
+      window.setTimeout(resolve, ms);
+    });
+
+    const parseSingleFile = async (file: File) => {
       const fileStarted = performance.now();
-      addDebugEntry('info', `Parsing started: ${file.name}`);
-      try {
-        const response = await apiService.uploadDocx(file);
-        const parseMs = Number(response.parse_ms || 0);
-        const cardsIndexed = Number(response.cards_indexed || 0);
-        const fileElapsedMs = performance.now() - fileStarted;
-        const cardsPerSecond = parseMs > 0 ? (cardsIndexed * 1000) / parseMs : 0;
-        addDebugEntry(
-          'info',
-          `Parsed ${file.name}: ${cardsIndexed} cards in ${formatMs(parseMs)}ms (${formatRate(cardsPerSecond)} cards/s, wall=${formatMs(fileElapsedMs)}ms)`,
-        );
-        return {
-          filename: file.name,
-          ok: !!response.ok,
-          parseMs,
-          cardsIndexed,
-        };
-      } catch (error) {
-        const fileElapsedMs = performance.now() - fileStarted;
-        const message = error instanceof Error ? error.message : String(error);
-        addDebugEntry('error', `Parsing failed: ${file.name} after ${formatMs(fileElapsedMs)}ms (${message})`);
-        return { filename: file.name, ok: false, parseMs: 0, cardsIndexed: 0 };
+      addDebugEntry('info', `Upload started: ${file.name}`);
+
+      let attempt = 0;
+      while (attempt <= maxNetworkRetries) {
+        attempt += 1;
+
+        try {
+          const response = await apiService.uploadDocx(file, { parseImmediately: false });
+          const queued = response.queued !== false;
+          const deferred = response.deferred !== false;
+          const parseMs = Number(response.parse_ms || 0);
+          const cardsIndexed = Number(response.cards_indexed || 0);
+          const fileElapsedMs = performance.now() - fileStarted;
+          if (deferred) {
+            addDebugEntry('info', `Uploaded ${file.name}; deferred for batch parse start (wall=${formatMs(fileElapsedMs)}ms)`);
+          } else if (queued) {
+            addDebugEntry('info', `Queued ${file.name} for background parsing (wall=${formatMs(fileElapsedMs)}ms)`);
+          } else {
+            const cardsPerSecond = parseMs > 0 ? (cardsIndexed * 1000) / parseMs : 0;
+            addDebugEntry(
+              'info',
+              `Parsed ${file.name}: ${cardsIndexed} cards in ${formatMs(parseMs)}ms (${formatRate(cardsPerSecond)} cards/s, wall=${formatMs(fileElapsedMs)}ms)`,
+            );
+          }
+          return {
+            filename: file.name,
+            ok: !!response.ok,
+            queued: queued || deferred,
+            parseMs,
+            cardsIndexed,
+          };
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          const isNetworkError = message.toLowerCase().includes('network error');
+
+          if (isNetworkError && attempt <= maxNetworkRetries) {
+            const backoffMs = attempt * 500;
+            addDebugEntry('warn', `Retrying ${file.name} after network error (attempt ${attempt}/${maxNetworkRetries}, wait ${backoffMs}ms)`);
+            await waitForMs(backoffMs);
+            continue;
+          }
+
+          const fileElapsedMs = performance.now() - fileStarted;
+          addDebugEntry('error', `Parsing failed: ${file.name} after ${formatMs(fileElapsedMs)}ms (${message})`);
+          return { filename: file.name, ok: false, queued: false, parseMs: 0, cardsIndexed: 0 };
+        }
       }
-    }));
 
-    const batchElapsedMs = performance.now() - uploadBatchStarted;
-    const successfulOutcomes = outcomes.filter((outcome) => outcome.ok);
-    const parsedNames = successfulOutcomes.map((outcome) => outcome.filename);
-    const failedNames = outcomes.filter((outcome) => !outcome.ok).map((outcome) => outcome.filename);
-    const invalidNames = invalidFiles.map((file) => file.name);
-    const totalParseMs = successfulOutcomes.reduce((sum, outcome) => sum + outcome.parseMs, 0);
-    const averageParseMs = successfulOutcomes.length > 0 ? totalParseMs / successfulOutcomes.length : 0;
-    const totalCardsIndexed = successfulOutcomes.reduce((sum, outcome) => sum + outcome.cardsIndexed, 0);
-    const parseCardsPerSecond = totalParseMs > 0 ? (totalCardsIndexed * 1000) / totalParseMs : 0;
-    const wallCardsPerSecond = batchElapsedMs > 0 ? (totalCardsIndexed * 1000) / batchElapsedMs : 0;
+      const fileElapsedMs = performance.now() - fileStarted;
+      addDebugEntry('error', `Parsing failed: ${file.name} after ${formatMs(fileElapsedMs)}ms (Unknown error)`);
+      return { filename: file.name, ok: false, queued: false, parseMs: 0, cardsIndexed: 0 };
+    };
 
-    const succeeded = parsedNames.length;
-    const failed = failedNames.length + invalidNames.length;
-    addDebugEntry(
-      'info',
-      `Upload finished: success=${succeeded}, failed=${failed}, total=${formatMs(batchElapsedMs)}ms, avg=${formatMs(averageParseMs)}ms/file`,
-    );
-    if (successfulOutcomes.length > 0) {
-      addDebugEntry('info', `Stopwatch total: ${formatMs(batchElapsedMs)}ms wall, ${formatMs(totalParseMs)}ms parse-sum`);
-      addDebugEntry('info', `Throughput: ${formatRate(parseCardsPerSecond)} cards/s parse-time, ${formatRate(wallCardsPerSecond)} cards/s wall-time`);
+    const worker = async () => {
+      while (nextIndex < validFiles.length) {
+        const currentIndex = nextIndex;
+        nextIndex += 1;
+        const file = validFiles[currentIndex];
+        const outcome = await parseSingleFile(file);
+        outcomes.push(outcome);
+        processedCount += 1;
+        setUploadStatus(`Parsing uploaded file(s)... ${processedCount}/${validFiles.length}`);
+      }
+    };
+
+    try {
+      const workerCount = Math.min(uploadConcurrency, validFiles.length);
+      await Promise.all(Array.from({ length: workerCount }, () => worker()));
+
+      const batchElapsedMs = performance.now() - uploadBatchStarted;
+      const successfulOutcomes = outcomes.filter((outcome) => outcome.ok);
+      const queuedOutcomes = successfulOutcomes.filter((outcome) => outcome.queued);
+      const queuedNames = queuedOutcomes.map((outcome) => outcome.filename);
+      const failedNames = outcomes.filter((outcome) => !outcome.ok).map((outcome) => outcome.filename);
+      const invalidNames = invalidFiles.map((file) => file.name);
+      const totalParseMs = successfulOutcomes.reduce((sum, outcome) => sum + outcome.parseMs, 0);
+      const averageParseMs = successfulOutcomes.length > 0 ? totalParseMs / successfulOutcomes.length : 0;
+      const totalCardsIndexed = successfulOutcomes.reduce((sum, outcome) => sum + outcome.cardsIndexed, 0);
+      const parseCardsPerSecond = totalParseMs > 0 ? (totalCardsIndexed * 1000) / totalParseMs : 0;
+      const wallCardsPerSecond = batchElapsedMs > 0 ? (totalCardsIndexed * 1000) / batchElapsedMs : 0;
+
+      const succeeded = queuedNames.length;
+      const failed = failedNames.length + invalidNames.length;
+
+      let batchQueueCount = 0;
+      let batchSkippedCount = 0;
+      if (succeeded > 0) {
+        try {
+          const parseResponse = await apiService.parseUploadedDocs();
+          batchQueueCount = Number(parseResponse.queued || 0);
+          batchSkippedCount = Number(parseResponse.skipped_already_indexed || 0);
+          addDebugEntry('info', `Batch parsing started: queued=${batchQueueCount}, skipped_already_indexed=${batchSkippedCount}`);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          addDebugEntry('error', `Failed to start batch parsing: ${message}`);
+        }
+      }
+
+      addDebugEntry(
+        'info',
+        `Upload finished: queued=${succeeded}, failed=${failed}, total=${formatMs(batchElapsedMs)}ms, avg=${formatMs(averageParseMs)}ms/file`,
+      );
+      if (successfulOutcomes.length > 0) {
+        addDebugEntry('info', `Stopwatch total: ${formatMs(batchElapsedMs)}ms wall, ${formatMs(totalParseMs)}ms parse-sum`);
+        addDebugEntry('info', `Throughput: ${formatRate(parseCardsPerSecond)} cards/s parse-time, ${formatRate(wallCardsPerSecond)} cards/s wall-time`);
+      }
+
+      setUploadStatus(`Uploaded ${succeeded} file(s). Parsing queued=${batchQueueCount}${batchSkippedCount > 0 ? `, skipped=${batchSkippedCount}` : ''}. ${failed > 0 ? `${failed} failed.` : ''}`.trim());
+      const uploadSummaryLines = [
+        `[${new Date().toLocaleTimeString()}] INFO Upload batch completed`,
+        `- Uploaded successfully: ${succeeded}`,
+        `- Batch parse queued: ${batchQueueCount}`,
+        `- Batch parse skipped (already indexed): ${batchSkippedCount}`,
+        `- Failed uploads: ${failed}`,
+        `- Upload elapsed (wall): ${formatMs(batchElapsedMs)} ms`,
+      ];
+
+      const uploadSummary = [
+        queuedOutcomes.length > 0
+          ? [
+            'Queued:',
+            ...queuedOutcomes.map((outcome) => {
+              return `- ${outcome.filename}`;
+            }),
+          ].join('\n')
+          : '',
+        successfulOutcomes.length > 0 && totalParseMs > 0
+          ? [
+            'Batch timing:',
+            `- Total elapsed (all uploads): ${formatMs(batchElapsedMs)} ms`,
+            `- Total parse time (sum of files): ${formatMs(totalParseMs)} ms`,
+            `- Average parse time per file: ${formatMs(averageParseMs)} ms/file`,
+            `- Total cards indexed: ${totalCardsIndexed}`,
+          ].join('\n')
+          : '',
+        failedNames.length > 0 ? `Failed parsing:\n${failedNames.map((name) => `- ${name}`).join('\n')}` : '',
+        invalidNames.length > 0 ? `Skipped (not .docx):\n${invalidNames.map((name) => `- ${name}`).join('\n')}` : '',
+      ].filter((block) => block.length > 0).join('\n\n');
+
+      setUploadDetails((previous) => appendActivityText(previous, [
+        ...uploadSummaryLines,
+        ...(uploadSummary.length > 0 ? uploadSummary.split('\n') : []),
+      ]));
+      mirrorParserActivityToDebug(`Queued ${succeeded} file(s). ${failed > 0 ? `${failed} failed.` : ''}`.trim(), uploadSummary);
+    } finally {
+      uploadInProgressRef.current = false;
     }
-
-    setUploadStatus(`Parsed ${succeeded} file(s). ${failed > 0 ? `${failed} failed.` : ''}`.trim());
-    const uploadSummary = [
-      successfulOutcomes.length > 0
-        ? [
-          'Parsed:',
-          ...successfulOutcomes.map((outcome) => {
-            return `- ${outcome.filename} | ${outcome.cardsIndexed} cards | ${formatMs(outcome.parseMs)} ms`;
-          }),
-        ].join('\n')
-        : '',
-      successfulOutcomes.length > 0
-        ? [
-          'Batch timing:',
-          `- Total elapsed (all uploads): ${formatMs(batchElapsedMs)} ms`,
-          `- Total parse time (sum of files): ${formatMs(totalParseMs)} ms`,
-          `- Average parse time per file: ${formatMs(averageParseMs)} ms/file`,
-          `- Total cards indexed: ${totalCardsIndexed}`,
-        ].join('\n')
-        : '',
-      failedNames.length > 0 ? `Failed parsing:\n${failedNames.map((name) => `- ${name}`).join('\n')}` : '',
-      invalidNames.length > 0 ? `Skipped (not .docx):\n${invalidNames.map((name) => `- ${name}`).join('\n')}` : '',
-    ].filter((block) => block.length > 0).join('\n\n');
-    setUploadDetails(uploadSummary);
-    mirrorParserActivityToDebug(`Parsed ${succeeded} file(s). ${failed > 0 ? `${failed} failed.` : ''}`.trim(), uploadSummary);
   };
 
   const onCopyDebugLogs = useCallback(async () => {
@@ -737,6 +921,9 @@ const IndexPage = () => {
         <div className={styles.row}>
           <input onKeyDown={onKeyDown} className={styles.search} placeholder="Search..." value={query} onChange={(e) => setQuery(e.target.value)} />
           <button type="button" className={styles.submit} onClick={search}>Submit</button>
+          <Link href="/starred" passHref>
+            <a className={styles.submit}>Starred</a>
+          </Link>
         </div>
 
         <div className={styles.upload}>

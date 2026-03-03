@@ -1,6 +1,6 @@
 {
   "name": "logos-web",
-  "version": "1.2.1",
+  "version": "1.2.5",
   "private": true,
   "main": "electron/main.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "desktop:dev": "ELECTRON_START_URL=http://localhost:3001 electron .",
     "desktop:icon": "bash ./scripts/generate-mac-icon.sh",
     "desktop:build": "yarn desktop:icon && yarn build && electron-builder --mac",
+    "desktop:build:arm64": "yarn desktop:icon && NEXT_PUBLIC_API_URL=http://127.0.0.1:5501 yarn build && electron-builder --mac --arm64",
     "lint": "next lint",
     "postinstall": "patch-package"
   },

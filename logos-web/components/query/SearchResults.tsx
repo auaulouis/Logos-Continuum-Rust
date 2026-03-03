@@ -3,7 +3,8 @@
 import {
   useState, useRef, useEffect, useMemo,
 } from 'react';
-import type { SearchResult } from '../../lib/types';
+import type { SearchResult, Card } from '../../lib/types';
+import type { CardPreference } from '../../lib/cardPreferences';
 import { generateStyledCite } from '../../lib/utils';
 import DownloadLink from '../DownloadLink';
 import styles from './styles.module.scss';
@@ -52,14 +53,25 @@ type SearchResultsProps = {
   query: string;
   setSelected: (id: string) => void;
   cards: Record<string, any>;
-  getCard: (id: string) => Promise<void>;
+  getCard: (id: string) => Promise<Card | undefined>;
   loadPage: (tab: SearchTab, page: number) => Promise<boolean>;
   setDownloadUrls: (urls: string[]) => void;
   tabHasMoreResults: Record<SearchTab, boolean>;
+  cardPreferences: Record<string, CardPreference>;
 };
 
 const SearchResults = ({
-  tabResults, tabCounts, searchDurationsMs, query, setSelected, cards, getCard, loadPage, setDownloadUrls, tabHasMoreResults,
+  tabResults,
+  tabCounts,
+  searchDurationsMs,
+  query,
+  setSelected,
+  cards,
+  getCard,
+  loadPage,
+  setDownloadUrls,
+  tabHasMoreResults,
+  cardPreferences,
 }: SearchResultsProps) => {
   const [requested, setRequested] = useState<Record<string, any>>({});
   const [loadingMore, setLoadingMore] = useState(false);
@@ -95,7 +107,7 @@ const SearchResults = ({
 
     const targetPage = pendingNextPage;
     setLoadingMore(true);
-    void loadPage(activeTab, targetPage).then((didLoad) => {
+    loadPage(activeTab, targetPage).then((didLoad) => {
       if (didLoad) {
         setTabPages((prev) => ({ ...prev, [activeTab]: targetPage }));
       }
@@ -150,7 +162,6 @@ const SearchResults = ({
   };
 
   const renderResult = (result: SearchResult, index: number) => {
-
     // largely deprecated
     // in previous versions of the app, this would load the first couple lines of the card body early
     // if the tag was cut off early and the cite didn't contain cite info
@@ -162,6 +173,7 @@ const SearchResults = ({
     const card = cards[result.id];
     const cardIdentifier = extractCardIdentifier(result);
     const displayTag = stripIdentifierTokenFromTag(result.tag);
+    const preference = cardPreferences[result.id];
 
     const onClick = () => {
       setSelected(result.id);
@@ -174,7 +186,11 @@ const SearchResults = ({
       <div key={`${result.id}-${index}`} className={styles.result} role="button" tabIndex={0} onClick={onClick}>
         <div className={styles['result-header']}>
           <div className={styles.tag}>{/\d/.test(result.cite) ? displayTag : `${displayTag} ${result.cite}`}</div>
-          {cardIdentifier && <div className={styles.cid}>{cardIdentifier}</div>}
+          <div className={styles['result-meta']}>
+            {Boolean(preference?.starred) && <div className={styles.cid}>★</div>}
+            {!!preference?.customTag && <div className={styles.cid}>#{preference.customTag}</div>}
+            {cardIdentifier && <div className={styles.cid}>{cardIdentifier}</div>}
+          </div>
         </div>
         <div className={styles.cite}
           dangerouslySetInnerHTML={{
@@ -216,7 +232,7 @@ const SearchResults = ({
                 key={`top-${pageIndex}`}
                 type="button"
                 className={`${styles['page-number']} ${pageIndex === currentPage ? styles['page-number-active'] : ''}`}
-                onClick={() => { void onPageSelect(pageIndex); }}
+                onClick={() => { onPageSelect(pageIndex); }}
                 disabled={loadingMore}
               >
                 {pageIndex + 1}
@@ -234,7 +250,7 @@ const SearchResults = ({
           <button
             type="button"
             className={styles['page-button']}
-            onClick={() => { void onNextPage(); }}
+            onClick={() => { onNextPage(); }}
             disabled={loadingMore || !hasMoreResults}
           >
             Next
@@ -268,7 +284,7 @@ const SearchResults = ({
                   key={pageIndex}
                   type="button"
                   className={`${styles['page-number']} ${pageIndex === currentPage ? styles['page-number-active'] : ''}`}
-                  onClick={() => { void onPageSelect(pageIndex); }}
+                  onClick={() => { onPageSelect(pageIndex); }}
                   disabled={loadingMore}
                 >
                   {pageIndex + 1}
@@ -278,7 +294,7 @@ const SearchResults = ({
             <button
               type="button"
               className={styles['page-button']}
-              onClick={() => { void onNextPage(); }}
+              onClick={() => { onNextPage(); }}
               disabled={loadingMore || !hasMoreResults}
             >
               Next
