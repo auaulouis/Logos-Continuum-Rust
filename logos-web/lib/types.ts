@@ -4,6 +4,7 @@ export type SearchResult = {
   id: string;
   s3_url?: string;
   tag: string;
+  tag_sub?: string;
   tag_base?: string;
   card_number?: number;
   card_identifier?: string;

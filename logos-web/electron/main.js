@@ -69,16 +69,12 @@ function getBackendRoot() {
     return path.join(process.resourcesPath, 'backend');
   }
 
-  return path.resolve(getAppDir(), '..', 'verbatim-parser ');
+  return path.resolve(getAppDir(), '..', 'rust-backend', 'target', 'release');
 }
 
-function resolveBackendPython(backendRoot) {
-  const bundledVenvPython = path.join(backendRoot, '.venv', 'bin', 'python3');
-  if (require('fs').existsSync(bundledVenvPython)) {
-    return bundledVenvPython;
-  }
-
-  return 'python3';
+function resolveBackendExecutable(backendRoot) {
+  const binaryName = process.platform === 'win32' ? 'logos-backend.exe' : 'logos-backend';
+  return path.join(backendRoot, binaryName);
 }
 
 function isPortOpen(port) {
@@ -152,7 +148,16 @@ async function startParserBackend() {
   }
 
   const backendRoot = getBackendRoot();
-  const pythonExec = resolveBackendPython(backendRoot);
+  const backendExecutable = resolveBackendExecutable(backendRoot);
+
+  if (!fs.existsSync(backendExecutable)) {
+    throw new Error(`Rust backend binary not found at ${backendExecutable}`);
+  }
+
+  if (process.platform !== 'win32') {
+    fs.chmodSync(backendExecutable, 0o755);
+  }
+
   const localDocsDir = preparePersistentLocalDocsDir();
 
   const env = {
@@ -165,8 +170,8 @@ async function startParserBackend() {
     PORT: String(APP_BACKEND_PORT),
   };
 
-  backendProcess = spawn(pythonExec, ['api.py'], {
-    cwd: backendRoot,
+  backendProcess = spawn(backendExecutable, {
+    cwd: path.dirname(backendExecutable),
     env,
     stdio: 'inherit',
   });

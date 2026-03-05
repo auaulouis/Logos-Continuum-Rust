@@ -1,0 +1,3 @@
+{"at":1772687841361,"filename":"1nc.docx","id":"1772687841361-97902","level":"info","message":"Upload received: 1nc.docx","source":"api-upload"}
+{"at":1772687841361,"filename":"1nc.docx","id":"1772687841361-97902","level":"info","message":"Upload stored (deferred parse): 1nc.docx","source":"api-upload"}
+{"at":1772687841702,"cards_indexed":20,"cards_per_second":273.32,"filename":"1nc.docx","id":"1772687841702-97902","level":"info","message":"Indexed 1nc.docx: 20 cards in 73.17ms (273.32 cards/s)","parse_ms":73.17,"source":"api-index-document"}

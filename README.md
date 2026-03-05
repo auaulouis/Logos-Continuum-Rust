@@ -5,34 +5,29 @@ Quick links: [Screenshots](./screenshots/README.md)
 This workspace runs Logos Continuum locally with:
 
 - Frontend: Next.js app in `logos-web`
-- Backend API + parser: Flask app in `verbatim-parser `
+- Backend API + parser (primary): Rust in `rust-backend`
 
-> Note: the backend folder name currently includes a trailing space: `verbatim-parser `.
-> Always quote that path in shell commands.
+The workspace is now configured to run Rust by default for local development.
 
 ## Known quirks
 
-- Backend directory name has a trailing space: `verbatim-parser `
-- Always quote backend paths in commands, for example: `cd "./verbatim-parser "`
-- If you rename the folder to remove the trailing space, also update `start.sh`
+- Dev backend data is stored in `./local_docs_dev`
 
 ## Requirements
 
 - macOS/Linux shell
 - Node.js 18 LTS (recommended)
-- Python 3.9+
+- Rust toolchain (stable)
 
 ## Install
 
 From the workspace root (`Logos backup`):
 
-### 1) Backend install
+### 1) Backend install (Rust)
 
 ```bash
-cd "./verbatim-parser "
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+cd "./rust-backend"
+cargo fetch
 ```
 
 ### 2) Frontend install
@@ -50,29 +45,57 @@ npm install
 
 ## Run
 
-### Start backend + frontend together
+## Rust performance notes
+
+Logos Continuum runs on a Rust backend for local parsing and search. This architecture improves real-world responsiveness by:
+
+- Faster query response times on larger local card indexes
+- Lower overhead in repeated query/filter operations
+- Better multi-core utilization for parsing/index workflows
+- More stable desktop runtime behavior under heavier local loads
+
+Use `./start-rust.sh` for the Rust path during normal development.
+
+### Start frontend + Rust backend (recommended)
 
 From workspace root:
 
 ```bash
-./start.sh
+chmod +x ./start-rust.sh
+./start-rust.sh
 ```
 
 Open:
 
 - Frontend UI: http://localhost:3000
-- Backend API: http://localhost:5001
+- Rust API: http://localhost:5002
+
+You can also run Rust pipeline binaries directly:
+
+```bash
+# local parser pipeline
+./start-rust.sh local-parser
+
+
+# scraper pipeline
+./start-rust.sh scraper
+
+# main pipeline (Open Evidence defaults)
+./start-rust.sh main-pipeline
+
+# wipe index
+./start-rust.sh wipe
+```
+
+`./start-rust.sh` with no argument (or `dev`) starts Rust API + frontend.
 
 ### Start manually (optional)
 
-> Reminder: keep backend paths quoted because of the trailing space in `verbatim-parser `.
-
-Backend:
+Rust backend:
 
 ```bash
-cd "./verbatim-parser "
-source .venv/bin/activate
-PORT=5001 python3 api.py
+cd "./rust-backend"
+PORT=5002 cargo run --bin logos-backend
 ```
 
 Frontend:
@@ -129,34 +152,46 @@ yarn dev
 
 ## Data and local files
 
-- Dev search index file: `verbatim-parser /local_docs_dev/cards_index.json`
-- Dev uploaded docs folder: `verbatim-parser /local_docs_dev/uploaded_docs`
-- Dev parser settings file: `verbatim-parser /local_docs_dev/parser_settings.json`
+- Dev search index file: `local_docs_dev/cards_index.json`
+- Dev uploaded docs folder: `local_docs_dev/uploaded_docs`
+- Dev parser settings file: `local_docs_dev/parser_settings.json`
+- Dev parser events file: `local_docs_dev/parser_events.jsonl`
 
-`./start.sh` now forces these dev-only paths so VS Code runs do not read/write desktop app data.
+`./start-rust.sh` uses these dev-only paths so VS Code Rust runs do not read/write desktop app data.
+
+### Migration note
+
+- Legacy dev data has been copied into `local_docs_dev`
+- Legacy Python backend folder has been removed after migration validation
 
 Desktop app persistence (Electron build):
 
 - Cards/settings/docs are stored in `~/Documents/Logos Continuum/local_docs`
 - On first launch after this change, existing data from Electron `userData/local_docs` is copied into that folder
 - This keeps parsed cards and parser settings available across app updates/reinstalls (as long as `~/Documents/Logos Continuum` is kept)
-- Desktop backend runs on `http://127.0.0.1:5501` (separate from dev backend `:5001`) to prevent accidental cross-attachment
+- Desktop backend runs on `http://127.0.0.1:5501` (separate from dev backend `:5002`) to prevent accidental cross-attachment
 
 When the backend starts and the index is empty, it auto-indexes local `.docx` files under `local_docs`.
 
-## Useful backend commands
+## Useful Rust backend commands
 
-From `verbatim-parser ` with `.venv` active:
+From `rust-backend`:
 
 ```bash
-# Parse local docs in batch
-python3 local_parser.py
+# compile check
+cargo check --bin logos-backend
 
-# Profile parser + set card workers
-PARSER_PROFILE=1 PARSER_CARD_WORKERS=4 python3 local_parser.py
+# run API directly (dev)
+PORT=5002 cargo run --bin logos-backend
 
-# Clear local index file
-python3 wipe.py
+# run parser pipeline equivalent
+cargo run --bin local_parser
+
+# run scraper pipeline equivalent
+cargo run --bin scraper
+
+# clear local index file equivalent
+cargo run --bin wipe
 ```
 
 ## Troubleshooting
@@ -176,47 +211,41 @@ If it still fails, verify Node version (recommended: Node 18 LTS):
 node -v
 ```
 
-### Port already in use (`3000` or `5001`)
+### Port already in use (`3000` or `5002`)
 
 Check and stop processes using those ports:
 
 ```bash
 lsof -i :3000
-lsof -i :5001
+lsof -i :5002
 kill -9 <PID>
 ```
 
 Then restart:
 
 ```bash
-./start.sh
+./start-rust.sh
 ```
 
-### Python environment mismatch
+### Rust toolchain mismatch
 
-This repo may have multiple virtual environments (`/Logos backup/.venv` and `verbatim-parser /.venv`).
-`start.sh` expects the backend environment at `verbatim-parser /.venv`.
-
-Recreate backend venv if missing/broken:
+If `cargo` is missing or Rust is outdated, install/update Rust and re-check the backend.
 
 ```bash
-cd "./verbatim-parser "
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+rustup update stable
+cd "./rust-backend"
+cargo check
 ```
 
 ### Backend starts but search is empty
 
-- Upload `.docx` files from the Home page, or place docs under `verbatim-parser /local_docs`
+- Upload `.docx` files from the Home page, or place docs under `local_docs_dev/uploaded_docs`
 - The backend auto-indexes local docs when `cards_index.json` is empty
-- You can clear and rebuild with:
+- You can clear and rebuild with Rust commands:
 
 ```bash
-cd "./verbatim-parser "
-source .venv/bin/activate
-python3 wipe.py
-PORT=5001 python3 api.py
+./start-rust.sh wipe
+./start-rust.sh
 ```
 
 ## Credits

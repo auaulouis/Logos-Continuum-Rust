@@ -49,7 +49,10 @@ const QueryPage = () => {
   const [query, setQuery] = useState(''); // current user input in the search box
   const [tabResults, setTabResults] = useState<Record<SearchTab, Array<SearchResult>>>({ tag: [], paragraph: [] });
   const [tabHasMoreResults, setTabHasMoreResults] = useState<Record<SearchTab, boolean>>({ tag: true, paragraph: true });
-  const [tabCounts, setTabCounts] = useState<Record<SearchTab, number>>({ tag: 0, paragraph: 0 });
+  const [tabCounts, setTabCounts] = useState<Record<SearchTab, number>>({ tag: -1, paragraph: -1 });
+  const [tabCountsPartial, setTabCountsPartial] = useState<Record<SearchTab, boolean>>({ tag: false, paragraph: false });
+  const [activeTab, setActiveTab] = useState<SearchTab>('tag');
+  const [tabLoaded, setTabLoaded] = useState<Record<SearchTab, boolean>>({ tag: false, paragraph: false });
   const [cards, setCards] = useState<Record<string, any>>({}); // map of IDs to currently retrieved cards
   const [selectedCard, setSelectedCard] = useState('');
   const [loading, setLoading] = useState(false);
@@ -83,6 +86,9 @@ const QueryPage = () => {
   ]);
   const debugLogElement = useRef<HTMLDivElement | null>(null);
   const debugCloseTimer = useRef<number | null>(null);
+  const searchDebounceTimer = useRef<number | null>(null);
+  const activeSearchBatchRef = useRef(0);
+  const searchControllersRef = useRef<Record<SearchTab, AbortController | null>>({ tag: null, paragraph: null });
   const deepLinkHandledRef = useRef('');
   const cardDetailRef = useRef<CardDetailHandle | null>(null);
   const selectedCardData = cards[selectedCard] as Card | undefined;
@@ -242,6 +248,11 @@ const QueryPage = () => {
     if (debugCloseTimer.current !== null) {
       window.clearTimeout(debugCloseTimer.current);
     }
+    if (searchDebounceTimer.current !== null) {
+      window.clearTimeout(searchDebounceTimer.current);
+    }
+    searchControllersRef.current.tag?.abort();
+    searchControllersRef.current.paragraph?.abort();
   }, []);
 
   /**
@@ -336,9 +347,37 @@ const QueryPage = () => {
     ]);
   };
 
-  const searchRequest = async (tab: SearchTab, searchText = '', page = 0): Promise<boolean> => {
+  const cancelTabSearch = useCallback((tab: SearchTab) => {
+    const controller = searchControllersRef.current[tab];
+    if (controller) {
+      controller.abort();
+      searchControllersRef.current[tab] = null;
+    }
+  }, []);
+
+  const isAbortError = (error: unknown): boolean => {
+    if (typeof error !== 'object' || error === null) {
+      return false;
+    }
+
+    const maybeError = error as { name?: string; code?: string };
+    return maybeError.name === 'AbortError' || maybeError.code === 'ERR_CANCELED';
+  };
+
+  const searchRequest = async (
+    tab: SearchTab,
+    searchText = '',
+    page = 0,
+    options: { batchId?: number; cancelPrevious?: boolean } = {},
+  ): Promise<boolean> => {
+    const { batchId = activeSearchBatchRef.current, cancelPrevious = true } = options;
     const c = Math.max(0, page) * 30;
     const startedAt = performance.now();
+    if (cancelPrevious) {
+      cancelTabSearch(tab);
+    }
+    const controller = new AbortController();
+    searchControllersRef.current[tab] = controller;
     addDebugEntry('info', `Search requested: "${searchText}" [${tab}] (cursor ${c})`);
     try {
       const response = await apiService.search(searchText, c, {
@@ -352,7 +391,11 @@ const QueryPage = () => {
         ...(cite_match) && { cite_match },
         ...(use_personal) && { use_personal },
         ...!!(session && session.accessToken) && { access_token: session.accessToken },
-      });
+      }, 30, { signal: controller.signal });
+
+      if (controller.signal.aborted || batchId !== activeSearchBatchRef.current) {
+        return false;
+      }
       const {
         results: responseResults,
         cursor,
@@ -364,22 +407,49 @@ const QueryPage = () => {
       setTabResults((prev) => ({ ...prev, [tab]: responseResults }));
       setTabHasMoreResults((prev) => ({ ...prev, [tab]: Boolean(hasMore) }));
       setTabCounts((prev) => ({ ...prev, [tab]: Number.isFinite(totalCount) ? Number(totalCount) : responseResults.length }));
+      setTabCountsPartial((prev) => ({ ...prev, [tab]: Boolean(countIsPartial) }));
       setSearchDurationsMs((prev) => ({ ...prev, [tab]: performance.now() - startedAt }));
       addDebugEntry('info', `Search response: ${responseResults.length} results for [${tab}] (next cursor ${cursor}, has_more=${Boolean(hasMore)}, partial_count=${Boolean(countIsPartial)})`);
       return true;
     } catch (error) {
+      if (isAbortError(error)) {
+        return false;
+      }
       const message = error instanceof Error ? error.message : 'Search request failed';
       addDebugEntry('error', message);
       setTabHasMoreResults((prev) => ({ ...prev, [tab]: false }));
       return false;
+    } finally {
+      if (searchControllersRef.current[tab] === controller) {
+        searchControllersRef.current[tab] = null;
+      }
     }
   };
 
   const loadPage = async (tab: SearchTab, page: number): Promise<boolean> => {
     if ((urlSearch && urlSearch.length > 0) || cite_match) {
-      return searchRequest(tab, decodeURI(urlSearch as string || ''), page);
+      return searchRequest(tab, decodeURI(urlSearch as string || ''), page, {
+        batchId: activeSearchBatchRef.current,
+      });
     }
     return false;
+  };
+
+  const handleTabChange = async (tab: SearchTab) => {
+    setActiveTab(tab);
+    // Lazy load the tab if not yet loaded
+    if (!tabLoaded[tab] && (urlSearch || cite_match)) {
+      setLoading(true);
+      try {
+        await searchRequest(tab, decodeURI(urlSearch as string || ''), 0, {
+          batchId: activeSearchBatchRef.current,
+          cancelPrevious: false,
+        });
+        setTabLoaded((prev) => ({ ...prev, [tab]: true }));
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   // triggered for any changes in the URL
@@ -388,21 +458,39 @@ const QueryPage = () => {
     if (status !== 'loading' && ((urlSearch && urlSearch.length > 0) || cite_match)) {
       const decodedQuery = decodeURI(urlSearch as string || '');
       const decodedCiteMatch = cite_match ? decodeURI(cite_match as string) : '';
+      const batchId = activeSearchBatchRef.current + 1;
+      activeSearchBatchRef.current = batchId;
+      if (searchDebounceTimer.current !== null) {
+        window.clearTimeout(searchDebounceTimer.current);
+      }
       setQuery(`${decodedQuery}${decodedCiteMatch ? ` cite:${decodedCiteMatch}` : ''}`.trim());
       setTabResults({ tag: [], paragraph: [] });
       setTabHasMoreResults({ tag: true, paragraph: true });
-      setTabCounts({ tag: 0, paragraph: 0 });
+      setTabCounts({ tag: -1, paragraph: -1 });
+      setTabCountsPartial({ tag: false, paragraph: false });
       setSearchDurationsMs({ tag: 0, paragraph: 0 });
+      setActiveTab('tag');
+      setTabLoaded({ tag: false, paragraph: false });
 
-      (async () => {
-        setLoading(true);
-        try {
-          await searchRequest('tag', decodedQuery, 0);
-          await searchRequest('paragraph', decodedQuery, 0);
-        } finally {
-          setLoading(false);
-        }
-      })();
+      searchDebounceTimer.current = window.setTimeout(() => {
+        (async () => {
+          setLoading(true);
+          try {
+            // Only search the active tab initially - other tab loads lazily on switch
+            await searchRequest('tag', decodedQuery, 0, { batchId });
+            setTabLoaded({ tag: true, paragraph: false });
+          } finally {
+            if (batchId === activeSearchBatchRef.current) {
+              setLoading(false);
+            }
+          }
+        })();
+      }, 140);
+    } else if (status !== 'loading') {
+      activeSearchBatchRef.current += 1;
+      cancelTabSearch('tag');
+      cancelTabSearch('paragraph');
+      setLoading(false);
     }
 
     // update the date range based on changes to the URL
@@ -420,7 +508,7 @@ const QueryPage = () => {
         };
       });
     }
-  }, [routerQuery, status]);
+  }, [routerQuery, status, cancelTabSearch]);
 
   const getCard = async (id: string): Promise<Card | undefined> => {
     if (cards[id]) {
@@ -695,6 +783,7 @@ const QueryPage = () => {
                 <SearchResults
                   tabResults={tabResults}
                   tabCounts={tabCounts}
+                  tabCountsPartial={tabCountsPartial}
                   searchDurationsMs={searchDurationsMs}
                   query={query}
                   setSelected={setSelectedCard}
@@ -704,6 +793,9 @@ const QueryPage = () => {
                   setDownloadUrls={setDownloadUrls}
                   tabHasMoreResults={tabHasMoreResults}
                   cardPreferences={cardPreferences}
+                  activeTab={activeTab}
+                  onTabChange={handleTabChange}
+                  loading={loading}
                 />
                 <div className={queryStyles['card-panel']}>
                   {!isCardEditing && isTagPickerOpen && (

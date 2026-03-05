@@ -7,6 +7,7 @@ import { SessionProvider } from 'next-auth/react';
 import mixpanel from 'mixpanel-browser';
 import type { AppProps } from 'next/app';
 import { AppContext, defaultState } from '../lib/appContext';
+import { ensureDesktopBackendRunning } from '../lib/desktopRuntime';
 
 mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_KEY || '');
 
@@ -28,6 +29,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setTheme('dark');
     }
+  }, []);
+
+  useEffect(() => {
+    ensureDesktopBackendRunning().catch((error) => {
+      console.error('Failed to ensure desktop backend is running:', error);
+    });
   }, []);
 
   useEffect(() => {

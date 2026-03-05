@@ -13,7 +13,6 @@ import {
   exportSavedEditsToDocx,
   resolveSourceDocumentLabelsFromCard,
 } from '../lib/cardDocxExport';
-import packageJson from '../package.json';
 import styles from '../styles/settings.module.scss';
 import indexStyles from '../styles/index.module.scss';
 
@@ -34,7 +33,7 @@ const DEFAULT_PARSER_SETTINGS: ParserSettings = {
   flush_every_docs: 250,
 };
 
-const APP_VERSION = packageJson.version;
+const APP_VERSION = 'Beta 2.0';
 
 const SettingsPage = () => {
   type DebugPhase = 'closed' | 'open' | 'closing';
@@ -274,6 +273,23 @@ const SettingsPage = () => {
 
   const onConfirmClearIndex = async () => {
     if (!clearIndexSelected && !clearFilesSelected) {
+      return;
+    }
+
+    const clearTargets: string[] = [];
+    if (clearIndexSelected) {
+      clearTargets.push('parsed card index');
+    }
+    if (clearFilesSelected) {
+      clearTargets.push('uploaded .docx files');
+    }
+
+    const confirmed = window.confirm(
+      `This will permanently clear ${clearTargets.join(' and ')}. This action cannot be undone. Continue?`,
+    );
+
+    if (!confirmed) {
+      addDebugEntry('warn', 'Clear action cancelled by user');
       return;
     }
 

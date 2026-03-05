@@ -1,0 +1,809 @@
+{
+  "targets": [
+    "Mega LD Backfile Part 1 .docx",
+    "Mega LD Backfile Part 2 Impacts Defense.docx",
+    "Mega LD Backfile Part 2 Imapcts Calculus Malthus Cap copy.docx"
+  ],
+  "docs": {
+    "Mega LD Backfile Part 1 .docx": {
+      "equal": false,
+      "python_count": 333,
+      "rust_count": 329,
+      "first_opcode": {
+        "tag": "replace",
+        "python_range": [
+          34,
+          35
+        ],
+        "rust_range": [
+          34,
+          35
+        ]
+      },
+      "python_window": [
+        {
+          "index": 32,
+          "card": {
+            "id": "598ca456e85700a07761702f1c46587a57c363cd1b72edbd8cc3ac2f81407468",
+            "tag": "Collective safety is no justification for rights violations\u2014leads to slavery, genocide, and wars. [[CID-00000-00146]]",
+            "cite": "Rand \u201840, Objectivist Philosopher,",
+            "highlight": "",
+            "body": "They preach \"Democracy\" and then make a little addition\u2014\"Economic Democracy\" or a \"Broader Democracy\" or a \"True Democracy,\" and demand that we turn all property over to the Government; \"all property\" means also \"all rig"
+          }
+        },
+        {
+          "index": 33,
+          "card": {
+            "id": "972aa1f2bf219966e66193ff1eb56d2cd5146faaf1e613fa03188bad4f1b3f8a",
+            "tag": "Sacrificing rights to preserve life produces totalitarianism. [[CID-00000-00147]]",
+            "cite": "Christopher H. Schroeder, Professor of Law, Duke University; Visiting Professor of Law, UCLA 1985-86, 1986, Columbia Law Review, Rights Against Risks, 86 Colum. L. Rev. 495",
+            "highlight": "",
+            "body": "Actually, expanding the idea of preservation to include bodily integrity on the basis of quality of life considerations has already pointed the way to a more realistic statement of those individual characteristics worth "
+          }
+        },
+        {
+          "index": 34,
+          "card": {
+            "id": "1d5593ef1d058834cabff174b06539e4931237b24d760e4a0b9a1790967ca491",
+            "tag": "Err on the side of rights \u2013 it\u2019s the biggest consequence in the long term [[CID-00000-00148]]",
+            "cite": "Machan, Professor of Philosophy, 03",
+            "highlight": "",
+            "body": "All in all, then, I support the principled or rights-based approach. In normal contexts, honesty is the best policy, even if at times it does not achieve the desired good results; so is respect for every individual's rig"
+          }
+        },
+        {
+          "index": 35,
+          "card": {
+            "id": "5c41d0b20650545618be707b04b2cb02122228200a6f04676b54fd0429355814",
+            "tag": "Rights absolute \u2013 can\u2019t infringe on one person\u2019s rights to increase well-being of others. [[CID-00000-00149]]",
+            "cite": "Gewirth, prof of philosophy @ U Chicago. 1994.",
+            "highlight": "",
+            "body": "Alan. \u201cAre There Any Absolute Rights?\u201d Absolutism and its Consequentialist Critics. Joram Graf Haber. Pgs 137-138 Ought Abrams to torture his mother to death in order to prevent the threatened nuclear catastrophe? Might "
+          }
+        },
+        {
+          "index": 36,
+          "card": {
+            "id": "4b45e99799ddb1512d9e30cd95c355a3891df1ec46be23c4d320b09feed017cc",
+            "tag": "Rights and basic liberties are a prerequisite of rational decisionmaking. [[CID-00000-00150]]",
+            "cite": "Taylor, professor of philosophy @ Princeton. 2003.",
+            "highlight": "",
+            "body": "In order to advance the reconstruction of the Hierarchy Argument, we must now answer the following question: How does this highest-order interest in rationality and its preconditions justify the lexical priority of the b"
+          }
+        },
+        {
+          "index": 37,
+          "card": {
+            "id": "4420d16e2df30975dcd81053c4fa46150462a90ef3e59a6ce6f4b916a36c7187",
+            "tag": "Right to health outweighs \u2013 violation of right to life. [[CID-00000-00151]]",
+            "cite": "McCloskey, professor of philosophy, 1984",
+            "highlight": "",
+            "body": "The right to health, like the right to bodily integrity, is related to but not whol1y based on the right to life. Ill health and mutilation of the body need not threaten life. Deliberately to harm the health of persons i"
+          }
+        }
+      ],
+      "rust_window": [
+        {
+          "index": 32,
+          "card": {
+            "id": "84ec6fc464e2a77b7238b14ca71314e88f5bbb3aa0aaf5562a09cd738cc3cca5",
+            "tag": "Collective safety is no justification for rights violations\u2014leads to slavery, genocide, and wars. [[CID-00000-01176]]",
+            "cite": "Rand \u201840, Objectivist Philosopher,",
+            "highlight": "",
+            "body": "They preach \"Democracy\" and then make a little addition\u2014\"Economic Democracy\" or a \"Broader Democracy\" or a \"True Democracy,\" and demand that we turn all property over to the Government; \"all property\" means also \"all rig"
+          }
+        },
+        {
+          "index": 33,
+          "card": {
+            "id": "01f411f46776702dad58ee2572f5bf4b471438d05d988cef41e2a3fd411b850e",
+            "tag": "Sacrificing rights to preserve life produces totalitarianism. [[CID-00000-00029]]",
+            "cite": "Christopher H. Schroeder, Professor of Law, Duke University; Visiting Professor of Law, UCLA 1985-86, 1986, Columbia Law Review, Rights Against Risks, 86 Colum. L. Rev. 495",
+            "highlight": "",
+            "body": "Actually, expanding the idea of preservation to include bodily integrity on the basis of quality of life considerations has already pointed the way to a more realistic statement of those individual characteristics worth "
+          }
+        },
+        {
+          "index": 34,
+          "card": {
+            "id": "15ab7c2cedf2b2c4b922fcbe11cf06df376e0fbb5146eef00ae95856eb12d54b",
+            "tag": "[[CID-00000-01685]]",
+            "cite": "Machan, Professor of Philosophy, 03",
+            "highlight": "",
+            "body": "All in all, then, I support the principled or rights-based approach. In normal contexts, honesty is the best policy, even if at times it does not achieve the desired good results; so is respect for every individual's rig"
+          }
+        },
+        {
+          "index": 35,
+          "card": {
+            "id": "c513f422fd12ffcaa2aa707e241b47234e886fb6cdac634f50c0f70b9b8e5713",
+            "tag": "Rights absolute \u2013 can\u2019t infringe on one person\u2019s rights to increase well-being of others. [[CID-00000-01178]]",
+            "cite": "Gewirth, prof of philosophy @ U Chicago. 1994.",
+            "highlight": "",
+            "body": "Alan. \u201cAre There Any Absolute Rights?\u201d Absolutism and its Consequentialist Critics. Joram Graf Haber. Pgs 137-138 Ought Abrams to torture his mother to death in order to prevent the threatened nuclear catastrophe? Might "
+          }
+        },
+        {
+          "index": 36,
+          "card": {
+            "id": "5a8e5b0804529d1ab91d4ae9c3057c252167c7d344bcdbe209c0e1770191a802",
+            "tag": "Rights and basic liberties are a prerequisite of rational decisionmaking. [[CID-00000-01686]]",
+            "cite": "Taylor, professor of philosophy @ Princeton. 2003.",
+            "highlight": "",
+            "body": "In order to advance the reconstruction of the Hierarchy Argument, we must now answer the following question: How does this highest-order interest in rationality and its preconditions justify the lexical priority of the b"
+          }
+        },
+        {
+          "index": 37,
+          "card": {
+            "id": "15286e02abf233284e898233faecb9ec1e7ba7401245bf106e5f3abf4e57a6e4",
+            "tag": "Right to health outweighs \u2013 violation of right to life. [[CID-00000-01687]]",
+            "cite": "McCloskey, professor of philosophy, 1984",
+            "highlight": "",
+            "body": "The right to health, like the right to bodily integrity, is related to but not whol1y based on the right to life. Ill health and mutilation of the body need not threaten life. Deliberately to harm the health of persons i"
+          }
+        }
+      ]
+    },
+    "Mega LD Backfile Part 2 Impacts Defense.docx": {
+      "equal": false,
+      "python_count": 396,
+      "rust_count": 403,
+      "first_opcode": {
+        "tag": "replace",
+        "python_range": [
+          1,
+          19
+        ],
+        "rust_range": [
+          1,
+          19
+        ]
+      },
+      "python_window": [
+        {
+          "index": 0,
+          "card": {
+            "id": "fd73b3514aeb1079cabfcfa2a29602d9adde2b77a562baa7d6b8acb7974e567b",
+            "tag": "The \u201cWar on Terror\u201d is moving toward an end [[CID-00000-00895]]",
+            "cite": "George Friedman, Founder and CEO of STRATFOR, the world\u2019s leading intelligence and forecasting company, renowned expert on national security, geopolitics, and forecasting, 2009 (\u201cThe Next 100 Years,\u201d pg. 31)",
+            "highlight": "",
+            "body": "The American Age began in December 1991, when the Soviet Union collapsed, leaving the United States as the only global power in the world. But the twenty-first century truly began on September 11, 2001, ten years later, "
+          }
+        },
+        {
+          "index": 1,
+          "card": {
+            "id": "6fe61d90bb4907c6c8e1580af5c9734ca3dd4a6a7e233c446f0ec29bdf7af43d",
+            "tag": "Estimations of terrorist strength were exaggerated [[CID-00000-00896]]",
+            "cite": "John Mueller, Professor of Political Science at Ohio State University, expert on terrorism, Sept/Oct 2006 (\u201cIs There Still a Terrorist Threat?: The Myth of the Omnipresent Enemy,\u201d Foreign Affairs, http://www.foreignaffai",
+            "highlight": "",
+            "body": "A fully credible explanation for the fact that the United States has suffered no terrorist attacks since 9/11 is that the threat posed by homegrown or imported terrorists -- like that presented by Japanese Americans duri"
+          }
+        },
+        {
+          "index": 2,
+          "card": {
+            "id": "bc3c4e6f0b600c934b1adf52949b901310fc852e5c92edecdd91a796d9d14d1d",
+            "tag": "Global terrorism declining \u2013 your studies are flawed [[CID-00000-00897]]",
+            "cite": "SFU News, Simon Fraser University News Online, 6/12/08 (\u201cStudy finds global terrorism declining,\u201d report for the Human Security Report Project in the School for International Studies http://www.sfu.ca/sfunews/Stories/sfu",
+            "highlight": "",
+            "body": "A recently released report by researchers at the SFU-based Human Security Report Project (HSRP) in the School for International Studies challenges the common perception that global terrorism is increasing with compelling"
+          }
+        },
+        {
+          "index": 3,
+          "card": {
+            "id": "4e251b50b3ecd9bde9674d8da62ee7edaf0b3bf6d8029b07df697d8e5f8448b2",
+            "tag": "Risk of terrorist attack exaggerated \u2013 inferior WMD capabilities, US and allied intelligence, lack of coordination [[CID-00000-00898]]",
+            "cite": "Glenn L. Carle, member of the CIA\u2019s Clandestine Service for 23 years, 7/16/08 (\u201cOverstating our fears about Osama bin Laden and others of his ilk,\u201d The Salt Lake Tribune, http://www.sltrib.com/opinion/ci_9901142)",
+            "highlight": "",
+            "body": "Sen. John McCain has repeatedly characterized the threat of \"radical Islamic extremism\" as \"the absolute gravest threat ... that we're in against.\" Before we simply accept this, we need to examine the nature of the terro"
+          }
+        },
+        {
+          "index": 4,
+          "card": {
+            "id": "4b7770cad96c5ca4d9ce8110fcd18a212a8cb9f7de973f275d3eba94cd6d2e35",
+            "tag": "Al Qaeda and the Islamic world are not a threat to the US \u2013 fragmentation and internal conflicts [[CID-00000-00899]]",
+            "cite": "George Friedman, Founder and CEO of STRATFOR, the world\u2019s leading intelligence and forecasting company, renowned expert on national security, geopolitics, and forecasting, 2009 (\u201cThe Next 100 Years,\u201d pg. 49)",
+            "highlight": "",
+            "body": "As the U.S.-jihadist war slithers to an end, the first line of defense against Islamic radicals will be the Muslim states themselves. They are the ultimate targets of al Qaeda, and whatever their views of Islam or the We"
+          }
+        },
+        {
+          "index": 5,
+          "card": {
+            "id": "6043ffe43a12d34d4d725a37798c0d815ac393157f2623b0024da9c04ee7b027",
+            "tag": "Threats of nuclear terrorism are overblown by uninformed policymakers and the press [[CID-00000-00900]]",
+            "cite": "Brian Jenkins, internationally renowned terrorism expert, 2008 (\u201cWill Terrorists Go Nuclear?,\u201d pg. 55-56)",
+            "highlight": "",
+            "body": "The terrorist attacks on 9/11, not surprisingly, renewed all of the old debates\u2014whether terrorists could get their hands on nuclear weapons or fissile material, whether terrorists could fabricate nuclear weapons, and if "
+          }
+        },
+        {
+          "index": 6,
+          "card": {
+            "id": "e04209e139f506ce588e906c8cee8434a966553981b36cb10de17134182776de",
+            "tag": "Minimal impact to a nuclear terrorist attack [[CID-00000-00901]]",
+            "cite": "John Mueller, Professor of Political Science at the University of Rochester, expert on terrorism, and Karl Mueller, Assistant Professor of Comparative Military Studies at the School of Advanced Airpower Studies at Maxwel",
+            "highlight": "",
+            "body": "Nuclear weapons clearly deserve the \"weapons of mass destruction\" designation because they can indeed destroy masses of people in a single blow. Even so, it is worth noting that any nuclear weapons acquired by terrorist "
+          }
+        },
+        {
+          "index": 7,
+          "card": {
+            "id": "a85644f4d9be3370d44c3db2ed35678acc95bba5a472fbfb16eef8cd32829c64",
+            "tag": "Bioterror is comparatively ineffective, expensive, and inefficient \u2013 empirically proven [[CID-00000-00902]]",
+            "cite": "Stratfor, private intelligence agency, analyzes geopolitical trends, 12/21/07 (\u201cBioterrorism: Sudden Death Overtime?,\u201d http://www2.stratfor.com/analysis/bioterrorism_sudden_death_overtime)",
+            "highlight": "",
+            "body": "In this season of large college bowl games and the National Football League playoffs in the United States, and large nonsporting events such as the New Year\u2019s Eve celebration in New York\u2019s Times Square \u2014 not to mention t"
+          }
+        },
+        {
+          "index": 8,
+          "card": {
+            "id": "e6067817b61f5fd9e747711f5829bb96a4d062d06f8d6595d5454a4838b23570",
+            "tag": "Cyber-terror is not a threat \u2013 your cards are alarmist [[CID-00000-00903]]",
+            "cite": "Benjamin Friedman, PhD candidate in Political Science from MIT, research fellow in Defense and Homeland Security Studies at the Cato Institute, terrorism expert, 6/23/09 (\u201cMorozov vs. Cyber-Alarmism, CATO @ Liberty, http",
+            "highlight": "",
+            "body": "I\u2019m no information security expert, but you don\u2019t have to be to realize that an outbreak of cyber-alarmism afflicts American pundits and reporters. As Jim Harper and Tim Lee have repeatedly argued (with a little help fro"
+          }
+        },
+        {
+          "index": 9,
+          "card": {
+            "id": "8d1c5a9048c1a75803c61c2fd87116c2f94ecbd3e62e33ef2d8f97639df7aef7",
+            "tag": "Cyber-threats are over-exaggerated to support the interests of agencies, politicians, companies, and the press. [[CID-00000-00904]]",
+            "cite": "Evgeny Morozov, fellow at the Open Society Institute, Director of New Media at Transitions Online, expert on Internet-politics relations, Jul/Aug 2009 (\u201cCyber-Scare: The exaggerated fears over digital warfare,\u201d Boston Re",
+            "highlight": "",
+            "body": "In part, then, the solution to cyber-insecurity is simple: if you have a lot of classified information on a computer and do not want to become part of another GhostNet-like operation, do not connect it to the Internet. T"
+          }
+        },
+        {
+          "index": 10,
+          "card": {
+            "id": "36e7f01db92c6c4d6e1b30e6ac3ea63cb95ec4fde320546ea990d25fcfcae6df",
+            "tag": "Retaliation impossible \u2013 unable to determine the attacker [[CID-00000-00905]]",
+            "cite": "Mark Dowle, Professor at the Graduate School of Journalism at the University of California-Berkeley, Sept 2005 (\u201cNuclear Fallout: Berkeley Team Thinks Beyond the Unthinkable,\u201d California Monthly, http://www.alumni.berkel",
+            "highlight": "",
+            "body": "Because terrorists tend to be stateless and well hidden, immediate retaliation in kind is almost impossible. But some nuclear explosions do leave an isotopic signature, a DNA-like fingerprint that allows forensic physici"
+          }
+        },
+        {
+          "index": 11,
+          "card": {
+            "id": "860b5c710bf454334966f155deb4570bdc345e7a926c3dee4347ed6bfee5e4f6",
+            "tag": "No retaliation despite immense pressure [[CID-00000-00906]]",
+            "cite": "Roger Alford, Professor of International Law at Pepperdine University School of Law, 3/7/07 (\u201cThe Awful New Arithmetic of the Atomic Bomb,\u201d Huffington Post, http://www.huffingtonpost.com/roger-alford/the-awful-new-arithm",
+            "highlight": "",
+            "body": "Just one little problem: nuclear forensics. On the morning after, just how do you do forensics on ground zero to identify the source? After a nuclear strike the will to respond will be overwhelming. But in order to retal"
+          }
+        },
+        {
+          "index": 12,
+          "card": {
+            "id": "5feddfd07d0e0e7cb07e38917f75aae123fdd81084bc3da3b0c633b92b757fae",
+            "tag": "Nuclear war outweighs nuclear terrorism [[CID-00000-00907]]",
+            "cite": "Linda Rothstein, editor of the Bulletin of Atomic Scientists (BAS), Catherine Auer, managing editor of the BAS, and Jonas Siegel, assistant editor of the BAS, Nov/Dec 2004 (\u201cRethinking Doomsday,\u201d http://www.thebulletin.o",
+            "highlight": "",
+            "body": "Nuclear terrorism would be horrific, but nuclear war would be far worse. As Lynn Eden reported in \"City on Fire,\" fire damage from nuclear explosions has been vastly and systematically underestimated\u2014a move that allowed "
+          }
+        },
+        {
+          "index": 13,
+          "card": {
+            "id": "c30c3dbb1d045fe2d9c690d5e7c073815421cf2e2b4d5d92f9bdd04314cc0cea",
+            "tag": "Turn: Terrorism helps the US economy [[CID-00000-00908]]",
+            "cite": "Timothy Noah, journalist that worked for The New Republic, the Wall Street Journal, US News and World Report, Newsweek, etc., 9/12/01 (\u201cWill Terrorism Resuscitate the U.S. Economy,\u201d Slate Magazine, http://www.slate.com/t",
+            "highlight": "",
+            "body": "The Wall Street Journal and Washington Post both predict in their Sept. 12 news columns that the havoc wrought by yesterday's events may bring on a recession. Chatterbox thinks they couldn't have it more wrong. While the"
+          }
+        },
+        {
+          "index": 14,
+          "card": {
+            "id": "9d1c5eb3c26648b9ee75f667a8765bf6275a0d22637cf16b1852281cc9166f48",
+            "tag": "Alt Cause: Balkan organized crime strengthens international terrorism [[CID-00000-00909]]",
+            "cite": "Selvete G\u00ebrxhaliu, Ph.D. candidate in international criminal law, legal advisor to the Kosovo Prime Minister, formerly worked for Organization for Security and Cooperation in Europe, Jan 2007 (\u201cHuman Security, Organized ",
+            "highlight": "",
+            "body": "Notes: Jan 2007 \u2013 last known source before publication International terrorism has not yet taken roots in the Western Balkans. Nevertheless, this threat cannot be ignored. Based on initial assessments, there are already "
+          }
+        },
+        {
+          "index": 15,
+          "card": {
+            "id": "e6729d70e11ebbfc34110306501f6a387aa1ae042af1785547564cb5cdb88934",
+            "tag": "Alt Cause: Terrorism inevitable as long as totalitarianism exists [[CID-00000-00910]]",
+            "cite": "Binyamin Netanyahu, prime minister of Israel, 4/27/02 (\u201cThe Root Cause of Terrorism,\u201d aish.com, http://www.aish.com/ci/s/48898622.html)",
+            "highlight": "",
+            "body": "But those who practice terrorism do not believe in these things. In fact, they believe in the very opposite. For them, the cause they espouse is so all-encompassing, so total, that it justifies anything. It allows them t"
+          }
+        },
+        {
+          "index": 16,
+          "card": {
+            "id": "f059354ac6c5bf390641c955b729645a15da0bbfc2d8cf5f06a26da16940be82",
+            "tag": "WMD attack inevitable by 2013 [[CID-00000-00911]]",
+            "cite": "Newsmax.com, 9/10/08 (\u201cTerror Expert: WMD Attack on U.S. Inevitable,\u201d http://www.newsmax.com/headlines/cetron_terror_attack/2008/09/10/129636.html)",
+            "highlight": "",
+            "body": "A major terrorist attack on the United States, probably featuring a weapon of mass destruction, is inevitable during the next four to five years, says Marvin J. Cetron, the futurist who predicted 9/11 with alarming insig"
+          }
+        },
+        {
+          "index": 17,
+          "card": {
+            "id": "6c26d98e9a3676f12ee21e51465b2d45922eb03f4d849e0cfdec4a60c9cdd1db",
+            "tag": "Obama means terrorist attack is inevitable [[CID-00000-00912]]",
+            "cite": "David A. Patten, graduate of the Medill School of Journalism at Northwestern University and the Graduate School of Journalism at Columbia University, 6/14/09 (\u201cFBI Agent: Obama Making Another 9/11 \u2018Inevitable\u2019,\u201d Newsmax.",
+            "highlight": "",
+            "body": "A former FBI agent who recently won a lawsuit defeating FBI attempts to muzzle him tells Newsmax that the agency's morale may be at its lowest ebb ever, and warns the \"chilling\" effect of Obama administration policies is"
+          }
+        },
+        {
+          "index": 18,
+          "card": {
+            "id": "92c1c1494b87063a26bf68cbb2d4b78169e48817e708628c8920d6795a9c4059",
+            "tag": "The CP solves multilateralism and terrorism through cooperation with the UN [[CID-00000-00913]]",
+            "cite": "Alistair Miller, Director of the Center on Global Counterterrorism Cooperation, and Eric Rosand, senior fellow at the Global Counterterrorism Cooperation, Nov 2007 (\u201cBuilding Global Alliances in the Fight Against Terrori",
+            "highlight": "",
+            "body": "The next Administration should call for the establishment of a global anti-terrorism organization under the auspices of the UN. The new White House \u2018Czar\u201d for International Counterterrorism Cooperation should lead an int"
+          }
+        },
+        {
+          "index": 19,
+          "card": {
+            "id": "eec80b7f28f47a291cf401536010d1e3fe7cde29e9630853c17ba250b4a773b8",
+            "tag": "[[CID-00000-00914]]",
+            "cite": "Mueller, PhD, 06",
+            "highlight": "",
+            "body": "It may well have become more difficult for terrorists to get into the country, but, as thousands demonstrate each day, it is far from impossible. Immigration procedures have been substantially tightened (at considerable "
+          }
+        },
+        {
+          "index": 20,
+          "card": {
+            "id": "253fb2490b0bf4ffa03f36481278696a80c0f893480e786a95efb7a5eda095e6",
+            "tag": "Nuclear Power plants have excellent security [[CID-00000-00915]]",
+            "cite": "Heaberlin Head of the Nuclear Safety and Technology Applications Product Line at the Pacific Northwest National Laboratory, managed by Battelle 2004,",
+            "highlight": "",
+            "body": "But, of course, airline crashes are not the only way for a terrorist to attack a nuclear power plant. Truck bombs and armed attacks are certainly something to consider. It turns out that nuclear power plants are one of t"
+          }
+        },
+        {
+          "index": 21,
+          "card": {
+            "id": "6870c8b3c0918ee842bbcccc4cd8ee60192d3fd1ef75565dd5f80522bbd5c62b",
+            "tag": "Healthcare reform key to track and control bioterror attacks [[CID-00000-00916]]",
+            "cite": "Green, PhD, Director, Outreach and Lead GE3LS Advisor at the Ontario Genomics Institute, May 2004 (Shane K., \u201cBioterrorism and Health Care Reform: No Preparedness Without Access\u201d, American Medical Association Journal of ",
+            "highlight": "",
+            "body": "Using infectious diseases as weapons, bioterrorism threatens to weaken the civilian workforce and, hence, a nation's ability to go about its daily business. Moreover, in the case of diseases that are transmissible person"
+          }
+        }
+      ],
+      "rust_window": [
+        {
+          "index": 0,
+          "card": {
+            "id": "da2aae1e38c508ac5481d409132c8d8b015762d2da7ff4c5fbfd68aeb20b7634",
+            "tag": "The \u201cWar on Terror\u201d is moving toward an end [[CID-00000-00348]]",
+            "cite": "George Friedman, Founder and CEO of STRATFOR, the world\u2019s leading intelligence and forecasting company, renowned expert on national security, geopolitics, and forecasting, 2009 (\u201cThe Next 100 Years,\u201d pg. 31)",
+            "highlight": "",
+            "body": "The American Age began in December 1991, when the Soviet Union collapsed, leaving the United States as the only global power in the world. But the twenty-first century truly began on September 11, 2001, ten years later, "
+          }
+        },
+        {
+          "index": 1,
+          "card": {
+            "id": "20ad3e9adff3780f7bd2eaadbba5af9ae79c30d84e639b8b4eed69ada845d951",
+            "tag": "[[CID-00000-01966]]",
+            "cite": "John Mueller, Professor of Political Science at Ohio State University, expert on terrorism, Sept/Oct 2006 (\u201cIs There Still a Terrorist Threat?: The Myth of the Omnipresent Enemy,\u201d Foreign Affairs, http://www.foreignaffai",
+            "highlight": "",
+            "body": "A fully credible explanation for the fact that the United States has suffered no terrorist attacks since 9/11 is that the threat posed by homegrown or imported terrorists -- like that presented by Japanese Americans duri"
+          }
+        },
+        {
+          "index": 2,
+          "card": {
+            "id": "617571394776f99fb8963016991bc687d073cad377ca583b81ce853a4e30aa4c",
+            "tag": "[[CID-00000-01967]]",
+            "cite": "SFU News, Simon Fraser University News Online, 6/12/08 (\u201cStudy finds global terrorism declining,\u201d report for the Human Security Report Project in the School for International Studies http://www.sfu.ca/sfunews/Stories/sfu",
+            "highlight": "",
+            "body": "A recently released report by researchers at the SFU-based Human Security Report Project (HSRP) in the School for International Studies challenges the common perception that global terrorism is increasing with compelling"
+          }
+        },
+        {
+          "index": 3,
+          "card": {
+            "id": "bc53e60aa0098f5627b5c94fbce101743608667a207051f01f8dbf45b50c5cfc",
+            "tag": "[[CID-00000-01968]]",
+            "cite": "Glenn L. Carle, member of the CIA\u2019s Clandestine Service for 23 years, 7/16/08 (\u201cOverstating our fears about Osama bin Laden and others of his ilk,\u201d The Salt Lake Tribune, http://www.sltrib.com/opinion/ci_9901142)",
+            "highlight": "",
+            "body": "Sen. John McCain has repeatedly characterized the threat of \"radical Islamic extremism\" as \"the absolute gravest threat ... that we're in against.\" Before we simply accept this, we need to examine the nature of the terro"
+          }
+        },
+        {
+          "index": 4,
+          "card": {
+            "id": "df3dae361d7cfe50ed0469ef286f41a792fcf585f9835bf69ceddb12f9d0e76a",
+            "tag": "[[CID-00000-01969]]",
+            "cite": "George Friedman, Founder and CEO of STRATFOR, the world\u2019s leading intelligence and forecasting company, renowned expert on national security, geopolitics, and forecasting, 2009 (\u201cThe Next 100 Years,\u201d pg. 49)",
+            "highlight": "",
+            "body": "As the U.S.-jihadist war slithers to an end, the first line of defense against Islamic radicals will be the Muslim states themselves. They are the ultimate targets of al Qaeda, and whatever their views of Islam or the We"
+          }
+        },
+        {
+          "index": 5,
+          "card": {
+            "id": "c25df1dcb9f66e6c322dbef57e9330e30238f987019b592ad0f46935a3d5902a",
+            "tag": "[[CID-00000-01970]]",
+            "cite": "Brian Jenkins, internationally renowned terrorism expert, 2008 (\u201cWill Terrorists Go Nuclear?,\u201d pg. 55-56)",
+            "highlight": "",
+            "body": "The terrorist attacks on 9/11, not surprisingly, renewed all of the old debates\u2014whether terrorists could get their hands on nuclear weapons or fissile material, whether terrorists could fabricate nuclear weapons, and if "
+          }
+        },
+        {
+          "index": 6,
+          "card": {
+            "id": "1ef0d9a56fb9c5bdc7d2b974545f7478c1f9946b7a3d1a0fdaef1025094b1352",
+            "tag": "[[CID-00000-01971]]",
+            "cite": "John Mueller, Professor of Political Science at the University of Rochester, expert on terrorism, and Karl Mueller, Assistant Professor of Comparative Military Studies at the School of Advanced Airpower Studies at Maxwel",
+            "highlight": "",
+            "body": "Nuclear weapons clearly deserve the \"weapons of mass destruction\" designation because they can indeed destroy masses of people in a single blow. Even so, it is worth noting that any nuclear weapons acquired by terrorist "
+          }
+        },
+        {
+          "index": 7,
+          "card": {
+            "id": "0b49383258607ff7eed4858c180fff2750d1ac321a3a9775e53e6afc4c80d507",
+            "tag": "[[CID-00000-01972]]",
+            "cite": "Stratfor, private intelligence agency, analyzes geopolitical trends, 12/21/07 (\u201cBioterrorism: Sudden Death Overtime?,\u201d http://www2.stratfor.com/analysis/bioterrorism_sudden_death_overtime)",
+            "highlight": "",
+            "body": "In this season of large college bowl games and the National Football League playoffs in the United States, and large nonsporting events such as the New Year\u2019s Eve celebration in New York\u2019s Times Square \u2014 not to mention t"
+          }
+        },
+        {
+          "index": 8,
+          "card": {
+            "id": "1b78579eb7d39c2ea0fa3ace1daf048e44f7a5422ed83f8e8cf5019eaed94ac7",
+            "tag": "[[CID-00000-01973]]",
+            "cite": "Benjamin Friedman, PhD candidate in Political Science from MIT, research fellow in Defense and Homeland Security Studies at the Cato Institute, terrorism expert, 6/23/09 (\u201cMorozov vs. Cyber-Alarmism, CATO @ Liberty, http",
+            "highlight": "",
+            "body": "I\u2019m no information security expert, but you don\u2019t have to be to realize that an outbreak of cyber-alarmism afflicts American pundits and reporters. As Jim Harper and Tim Lee have repeatedly argued (with a little help fro"
+          }
+        },
+        {
+          "index": 9,
+          "card": {
+            "id": "cae120205adde01abcfc189964c4d08423c21fa9c166818a8f51ca777837a1f1",
+            "tag": "[[CID-00000-01974]]",
+            "cite": "Evgeny Morozov, fellow at the Open Society Institute, Director of New Media at Transitions Online, expert on Internet-politics relations, Jul/Aug 2009 (\u201cCyber-Scare: The exaggerated fears over digital warfare,\u201d Boston Re",
+            "highlight": "",
+            "body": "In part, then, the solution to cyber-insecurity is simple: if you have a lot of classified information on a computer and do not want to become part of another GhostNet-like operation, do not connect it to the Internet. T"
+          }
+        },
+        {
+          "index": 10,
+          "card": {
+            "id": "455527b3f37d6831ec27ab7239f43ff497d2104889c79cdd09eb8838dac631ed",
+            "tag": "[[CID-00000-01975]]",
+            "cite": "Mark Dowle, Professor at the Graduate School of Journalism at the University of California-Berkeley, Sept 2005 (\u201cNuclear Fallout: Berkeley Team Thinks Beyond the Unthinkable,\u201d California Monthly, http://www.alumni.berkel",
+            "highlight": "",
+            "body": "Because terrorists tend to be stateless and well hidden, immediate retaliation in kind is almost impossible. But some nuclear explosions do leave an isotopic signature, a DNA-like fingerprint that allows forensic physici"
+          }
+        },
+        {
+          "index": 11,
+          "card": {
+            "id": "d9012303ce119ac59db4946bc7f143684f05d999084db3aa766c666e0905176d",
+            "tag": "[[CID-00000-01976]]",
+            "cite": "Roger Alford, Professor of International Law at Pepperdine University School of Law, 3/7/07 (\u201cThe Awful New Arithmetic of the Atomic Bomb,\u201d Huffington Post, http://www.huffingtonpost.com/roger-alford/the-awful-new-arithm",
+            "highlight": "",
+            "body": "Just one little problem: nuclear forensics. On the morning after, just how do you do forensics on ground zero to identify the source? After a nuclear strike the will to respond will be overwhelming. But in order to retal"
+          }
+        },
+        {
+          "index": 12,
+          "card": {
+            "id": "7587aabc69f598d6c758a8f3a74818d9efa4f56a2ccbaebe239566edcfb967f6",
+            "tag": "[[CID-00000-01977]]",
+            "cite": "Linda Rothstein, editor of the Bulletin of Atomic Scientists (BAS), Catherine Auer, managing editor of the BAS, and Jonas Siegel, assistant editor of the BAS, Nov/Dec 2004 (\u201cRethinking Doomsday,\u201d http://www.thebulletin.o",
+            "highlight": "",
+            "body": "Nuclear terrorism would be horrific, but nuclear war would be far worse. As Lynn Eden reported in \"City on Fire,\" fire damage from nuclear explosions has been vastly and systematically underestimated\u2014a move that allowed "
+          }
+        },
+        {
+          "index": 13,
+          "card": {
+            "id": "fd31b8bbcd2871bcb3f611e9c55466bf2959962f6cbd146c749791d95ecfaf96",
+            "tag": "[[CID-00000-01978]]",
+            "cite": "Timothy Noah, journalist that worked for The New Republic, the Wall Street Journal, US News and World Report, Newsweek, etc., 9/12/01 (\u201cWill Terrorism Resuscitate the U.S. Economy,\u201d Slate Magazine, http://www.slate.com/t",
+            "highlight": "",
+            "body": "The Wall Street Journal and Washington Post both predict in their Sept. 12 news columns that the havoc wrought by yesterday's events may bring on a recession. Chatterbox thinks they couldn't have it more wrong. While the"
+          }
+        },
+        {
+          "index": 14,
+          "card": {
+            "id": "d5558105dc56b0d6a980c68da1f9abc93de923d18c15e70af57a2939918657c5",
+            "tag": "[[CID-00000-01979]]",
+            "cite": "Selvete G\u00ebrxhaliu, Ph.D. candidate in international criminal law, legal advisor to the Kosovo Prime Minister, formerly worked for Organization for Security and Cooperation in Europe, Jan 2007 (\u201cHuman Security, Organized ",
+            "highlight": "",
+            "body": "Notes: Jan 2007 \u2013 last known source before publication International terrorism has not yet taken roots in the Western Balkans. Nevertheless, this threat cannot be ignored. Based on initial assessments, there are already "
+          }
+        },
+        {
+          "index": 15,
+          "card": {
+            "id": "a0319568b7e135e7e335af21e0f292f53b932a3ba15d5d96192606bd4a3f93dc",
+            "tag": "[[CID-00000-01980]]",
+            "cite": "Binyamin Netanyahu, prime minister of Israel, 4/27/02 (\u201cThe Root Cause of Terrorism,\u201d aish.com, http://www.aish.com/ci/s/48898622.html)",
+            "highlight": "",
+            "body": "But those who practice terrorism do not believe in these things. In fact, they believe in the very opposite. For them, the cause they espouse is so all-encompassing, so total, that it justifies anything. It allows them t"
+          }
+        },
+        {
+          "index": 16,
+          "card": {
+            "id": "82bc7e45a1fa4d9fd5909ae6422dd75e1251caab822685a9220648694430231b",
+            "tag": "[[CID-00000-01981]]",
+            "cite": "WMD attack inevitable by 2013",
+            "highlight": "",
+            "body": "Newsmax.com, 9/10/08 (\u201cTerror Expert: WMD Attack on U.S. Inevitable,\u201d http://www.newsmax.com/headlines/cetron_terror_attack/2008/09/10/129636.html) A major terrorist attack on the United States, probably featuring a weap"
+          }
+        },
+        {
+          "index": 17,
+          "card": {
+            "id": "a10d1010965ec8e3e680a796c5bc9e19b8d452d58f2a8e97e7d4286a4540ee49",
+            "tag": "[[CID-00000-01982]]",
+            "cite": "David A. Patten, graduate of the Medill School of Journalism at Northwestern University and the Graduate School of Journalism at Columbia University, 6/14/09 (\u201cFBI Agent: Obama Making Another 9/11 \u2018Inevitable\u2019,\u201d Newsmax.",
+            "highlight": "",
+            "body": "A former FBI agent who recently won a lawsuit defeating FBI attempts to muzzle him tells Newsmax that the agency's morale may be at its lowest ebb ever, and warns the \"chilling\" effect of Obama administration policies is"
+          }
+        },
+        {
+          "index": 18,
+          "card": {
+            "id": "7cac4b5e9161e0d4d4cb3160113404291cfb357de18a86cf61541b9dc07940c1",
+            "tag": "[[CID-00000-01983]]",
+            "cite": "Alistair Miller, Director of the Center on Global Counterterrorism Cooperation, and Eric Rosand, senior fellow at the Global Counterterrorism Cooperation, Nov 2007 (\u201cBuilding Global Alliances in the Fight Against Terrori",
+            "highlight": "",
+            "body": "The next Administration should call for the establishment of a global anti-terrorism organization under the auspices of the UN. The new White House \u2018Czar\u201d for International Counterterrorism Cooperation should lead an int"
+          }
+        },
+        {
+          "index": 19,
+          "card": {
+            "id": "28aad5ddabb91ac8ebd792039f916aa1d66e9a8845f5bfa6c955fea97fa8f1e7",
+            "tag": "[[CID-00000-01984]]",
+            "cite": "Mueller, PhD, 06",
+            "highlight": "",
+            "body": "It may well have become more difficult for terrorists to get into the country, but, as thousands demonstrate each day, it is far from impossible. Immigration procedures have been substantially tightened (at considerable "
+          }
+        },
+        {
+          "index": 20,
+          "card": {
+            "id": "da0a20a7efccb5f75639cea0c27819daceb26763b528486b477a292e7e7f7d0c",
+            "tag": "Nuclear Power plants have excellent security [[CID-00000-01985]]",
+            "cite": "Heaberlin Head of the Nuclear Safety and Technology Applications Product Line at the Pacific Northwest National Laboratory, managed by Battelle 2004,",
+            "highlight": "",
+            "body": "But, of course, airline crashes are not the only way for a terrorist to attack a nuclear power plant. Truck bombs and armed attacks are certainly something to consider. It turns out that nuclear power plants are one of t"
+          }
+        },
+        {
+          "index": 21,
+          "card": {
+            "id": "b7aa1bb5f8460632fce6b44d8c32ab1bfcd777c476ac68f1d121b9fa97ee3b66",
+            "tag": "Healthcare reform key to track and control bioterror attacks [[CID-00000-00367]]",
+            "cite": "Green, PhD, Director, Outreach and Lead GE3LS Advisor at the Ontario Genomics Institute, May 2004 (Shane K., \u201cBioterrorism and Health Care Reform: No Preparedness Without Access\u201d, American Medical Association Journal of ",
+            "highlight": "",
+            "body": "Using infectious diseases as weapons, bioterrorism threatens to weaken the civilian workforce and, hence, a nation's ability to go about its daily business. Moreover, in the case of diseases that are transmissible person"
+          }
+        }
+      ]
+    },
+    "Mega LD Backfile Part 2 Imapcts Calculus Malthus Cap copy.docx": {
+      "equal": false,
+      "python_count": 177,
+      "rust_count": 177,
+      "first_opcode": {
+        "tag": "replace",
+        "python_range": [
+          1,
+          6
+        ],
+        "rust_range": [
+          1,
+          6
+        ]
+      },
+      "python_window": [
+        {
+          "index": 0,
+          "card": {
+            "id": "6e0e679f96ed5871bff5afd4861b1d10e55a27c5c803bd0763915215497e36fb",
+            "tag": "[[CID-00000-00466]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "But while there is room for (perfectly legitimate) differences from person to person, it is clear that when these go too far there also arises a significant prospect of impropriety and exaggeration. People frequently ten"
+          }
+        },
+        {
+          "index": 1,
+          "card": {
+            "id": "2086a0d6092b53d6ecc2b531e37da0cd50b8c388f552419a19ca035ef4e57aa6",
+            "tag": "Low probability scenarios are often exaggerated as important high probability scenarios are forgotten [[CID-00000-00467]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "In risk assessment one is often inclined -- or even constrained to resort to subjective probabilities. These can sometimes be checked against the objectively measurable facts, and when this is done, certain common fallac"
+          }
+        },
+        {
+          "index": 2,
+          "card": {
+            "id": "0e49ea28f1ce29b29d293f70314039c10b9e8e8d4eba09cd8be3fa9415462f0c",
+            "tag": "Their sources exaggerate to secure funding [[CID-00000-00468]]",
+            "cite": "Dr Roche, whose PhD in agricultural science is from University College, Dublin, The Daily News (New Plymouth, New Zealand), September 25, 2003",
+            "highlight": "there is no point in researching something we know is OK. Therefore, we only hear bad stories The need to attract scarce funding forces researchers to release data before it is analysed , giving a false size of the probl",
+            "body": "\"The point is further highlighted when you look at the concern of people for the global environment. All countries considered the global environment to be in a significantly worse state than either their national or loca"
+          }
+        },
+        {
+          "index": 3,
+          "card": {
+            "id": "7a93dd01849ad28185370f01d78b6f321f420b6936a1c2cc20eacc57ea48ee34",
+            "tag": "Probability should be evaluated before magnitude [[CID-00000-00469]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "Nicholas Rescher, University of Pittsburgh Professor of Philosophy, \u201cRisk: A Philosophical Introduction to the Theory of Risk Evaluation and Management\u201d 1983 A probability is a number between zero and one. Now numbers be"
+          }
+        },
+        {
+          "index": 4,
+          "card": {
+            "id": "4f82b0e9074aada8372f941891fe3cb00ac96518a69ba90bed91d4f521ec679b",
+            "tag": "Any action could potentially have devastating impacts, but we don\u2019t evaluate them because of the low probability [[CID-00000-00470]]",
+            "cite": "Stern, Fellow at CFR, 99",
+            "highlight": "",
+            "body": "Jessica Stern, Fellow at the Council on Foreign Relations and former National Security Council Member \u201cThe Ultimate Terrorists\u201d 1999 http://www.hup.harvard.edu/features/steult/excerpt.html Poisons have always been seen a"
+          }
+        },
+        {
+          "index": 5,
+          "card": {
+            "id": "5372fa26c1c656e099348508c02052b023a74ffdd6a2ac602a3e76d82ec08889",
+            "tag": "Catering to minute risks based on higher magnitude creates policy paralysis, making their impacts inevitable [[CID-00000-00471]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "The stakes are high, the potential benefits enormous. (And so are the costs - for instance cancer research and, in particular, the multi-million dollar gamble on interferon.) But there is no turning back the clock. The p"
+          }
+        },
+        {
+          "index": 6,
+          "card": {
+            "id": "923d1c79f3e3aadd31cc696c511e8123bc8e1e4291101670841e5f17fda3db9d",
+            "tag": "Probability of a scenario is evaluated before all else, regardless of the impact [[CID-00000-00472]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "The rational management of risk calls for adherence to three cardinal rules: (I) Maximize Expected Values! (II) Avoid Catastrophes! (III) Dismiss Extremely Remote (''Unrealistic'') Possibilities! The first of these is a "
+          }
+        },
+        {
+          "index": 7,
+          "card": {
+            "id": "380dd2fc3b76fdbb4360b561825892d3f797da006e6f41f83d6573c570bf35a0",
+            "tag": "[[CID-00000-00473]]",
+            "cite": "Alemi, Professor of Risk Analysis, 06",
+            "highlight": "",
+            "body": "Farrokh Alemi, Ph.D in Decision Analysis, Professor of Risk at George Mason University, Lecture on the Probability of Rare Events, October 4, 2006 http://gunston.gmu.edu/healthscience/riskanalysis/ProbabilityRareEvent.as"
+          }
+        },
+        {
+          "index": 8,
+          "card": {
+            "id": "373ace5561d97c92372d4bf07ba18874a7055a14ac362952db5ae679a729d3d8",
+            "tag": "Using predictions for data is key [[CID-00000-00474]]",
+            "cite": "Eggleston 02",
+            "highlight": "",
+            "body": "Ben Eggleston January 12, 2002 Department of Philosophy University of Kansa Practical Equilibrium: A New Approach to Moral Theory Selection http://web.ku.edu/~utile/unpub/pe.pdf The language of \u201cdata\u201d to be accounted for"
+          }
+        }
+      ],
+      "rust_window": [
+        {
+          "index": 0,
+          "card": {
+            "id": "3fae03f94e3d70a4015d9523c220d42b998823d188aceb5adb0a305e7c82575d",
+            "tag": "[[CID-00000-01864]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "But while there is room for (perfectly legitimate) differences from person to person, it is clear that when these go too far there also arises a significant prospect of impropriety and exaggeration. People frequently ten"
+          }
+        },
+        {
+          "index": 1,
+          "card": {
+            "id": "ed451d228981e890a4e7562029bdca1377639e48979fd534cee580419dd75179",
+            "tag": "[[CID-00000-01865]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "In risk assessment one is often inclined -- or even constrained to resort to subjective probabilities. These can sometimes be checked against the objectively measurable facts, and when this is done, certain common fallac"
+          }
+        },
+        {
+          "index": 2,
+          "card": {
+            "id": "0a93b214ce306709a512b45007c0877a1c8d56456ad7262fb1081888439edeca",
+            "tag": "[[CID-00000-01866]]",
+            "cite": "Dr Roche, whose PhD in agricultural science is from University College, Dublin, The Daily News (New Plymouth, New Zealand), September 25, 2003",
+            "highlight": "there is no point in researching something we know is OK. Therefore, we only hear bad stories The need to attract scarce funding forces researchers to release data before it is analysed , giving a false size of the probl",
+            "body": "\"The point is further highlighted when you look at the concern of people for the global environment. All countries considered the global environment to be in a significantly worse state than either their national or loca"
+          }
+        },
+        {
+          "index": 3,
+          "card": {
+            "id": "1064fd54ce672927dfa33b38b2e61028e0cc555e77274011203860dd9c4eb2c4",
+            "tag": "[[CID-00000-01867]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "Nicholas Rescher, University of Pittsburgh Professor of Philosophy, \u201cRisk: A Philosophical Introduction to the Theory of Risk Evaluation and Management\u201d 1983 A probability is a number between zero and one. Now numbers be"
+          }
+        },
+        {
+          "index": 4,
+          "card": {
+            "id": "4f0d17280225e10bb2016cdb38881b2d7e35e645ba0333ae319aa457974942ff",
+            "tag": "[[CID-00000-01868]]",
+            "cite": "Stern, Fellow at CFR, 99",
+            "highlight": "",
+            "body": "Jessica Stern, Fellow at the Council on Foreign Relations and former National Security Council Member \u201cThe Ultimate Terrorists\u201d 1999 http://www.hup.harvard.edu/features/steult/excerpt.html Poisons have always been seen a"
+          }
+        },
+        {
+          "index": 5,
+          "card": {
+            "id": "01b071fd98639cc3d828f1fc6379b11439d0e52a96803b7914eb5bb6edca3e5a",
+            "tag": "[[CID-00000-01869]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "The stakes are high, the potential benefits enormous. (And so are the costs - for instance cancer research and, in particular, the multi-million dollar gamble on interferon.) But there is no turning back the clock. The p"
+          }
+        },
+        {
+          "index": 6,
+          "card": {
+            "id": "2020ff2730f8211e8db50fbca44a5712c0002798847cc23482b324a1834551dc",
+            "tag": "Probability of a scenario is evaluated before all else, regardless of the impact [[CID-00000-01870]]",
+            "cite": "Rescher, Prof. of Philosophy, 83",
+            "highlight": "",
+            "body": "The rational management of risk calls for adherence to three cardinal rules: (I) Maximize Expected Values! (II) Avoid Catastrophes! (III) Dismiss Extremely Remote (''Unrealistic'') Possibilities! The first of these is a "
+          }
+        },
+        {
+          "index": 7,
+          "card": {
+            "id": "7f453d7739fc075b5faa27cd170ac663561d98a14de10645b9724aa8c1c981a0",
+            "tag": "[[CID-00000-01025]]",
+            "cite": "Alemi, Professor of Risk Analysis, 06",
+            "highlight": "",
+            "body": "Farrokh Alemi, Ph.D in Decision Analysis, Professor of Risk at George Mason University, Lecture on the Probability of Rare Events, October 4, 2006 http://gunston.gmu.edu/healthscience/riskanalysis/ProbabilityRareEvent.as"
+          }
+        },
+        {
+          "index": 8,
+          "card": {
+            "id": "31f95fa2f8ab1fec968537d537d0fb129faf87ea33c14187c450da6a341a4fb1",
+            "tag": "Using predictions for data is key [[CID-00000-01871]]",
+            "cite": "Eggleston 02",
+            "highlight": "",
+            "body": "Ben Eggleston January 12, 2002 Department of Philosophy University of Kansa Practical Equilibrium: A New Approach to Moral Theory Selection http://web.ku.edu/~utile/unpub/pe.pdf The language of \u201cdata\u201d to be accounted for"
+          }
+        }
+      ]
+    }
+  }
+}

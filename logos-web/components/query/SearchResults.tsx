@@ -27,6 +27,14 @@ const stripIdentifierTokenFromTag = (tag: string): string => {
   return String(tag || '').replace(/\s*\[\[CID-[^\]]+\]\]\s*/gi, ' ').trim();
 };
 
+const extractTagSubHeadline = (value: string | undefined): string => {
+  const lines = String(value || '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+  return lines[0] || '';
+};
+
 const RESULTS_PER_PAGE = 30;
 type SearchTab = 'tag' | 'paragraph';
 
@@ -49,6 +57,7 @@ const getVisiblePageIndexes = (currentPage: number, hasMoreResults: boolean): nu
 type SearchResultsProps = {
   tabResults: Record<SearchTab, Array<SearchResult>>;
   tabCounts: Record<SearchTab, number>;
+  tabCountsPartial: Record<SearchTab, boolean>;
   searchDurationsMs: Record<SearchTab, number>;
   query: string;
   setSelected: (id: string) => void;
@@ -58,11 +67,15 @@ type SearchResultsProps = {
   setDownloadUrls: (urls: string[]) => void;
   tabHasMoreResults: Record<SearchTab, boolean>;
   cardPreferences: Record<string, CardPreference>;
+  activeTab: SearchTab;
+  onTabChange: (tab: SearchTab) => void;
+  loading: boolean;
 };
 
 const SearchResults = ({
   tabResults,
   tabCounts,
+  tabCountsPartial,
   searchDurationsMs,
   query,
   setSelected,
@@ -72,10 +85,11 @@ const SearchResults = ({
   setDownloadUrls,
   tabHasMoreResults,
   cardPreferences,
+  activeTab,
+  onTabChange,
+  loading,
 }: SearchResultsProps) => {
-  const [requested, setRequested] = useState<Record<string, any>>({});
   const [loadingMore, setLoadingMore] = useState(false);
-  const [activeTab, setActiveTab] = useState<SearchTab>('tag');
   const [tabPages, setTabPages] = useState<Record<SearchTab, number>>({ tag: 0, paragraph: 0 });
   const [pendingNextPage, setPendingNextPage] = useState<number | null>(null);
   const resultsContainer = useRef<HTMLDivElement>(null);
@@ -92,7 +106,6 @@ const SearchResults = ({
 
   useEffect(() => {
     setTabPages({ tag: 0, paragraph: 0 });
-    setActiveTab('tag');
     setPendingNextPage(null);
   }, [query]);
 
@@ -101,7 +114,7 @@ const SearchResults = ({
       return;
     }
 
-    if (loadingMore) {
+    if (loadingMore || loading) {
       return;
     }
 
@@ -115,7 +128,7 @@ const SearchResults = ({
       setLoadingMore(false);
       setPendingNextPage(null);
     });
-  }, [pendingNextPage, activeTab, loadingMore]);
+  }, [pendingNextPage, activeTab, loadingMore, loading]);
 
   useEffect(() => {
     if (resultsContainer.current) {
@@ -123,8 +136,8 @@ const SearchResults = ({
     }
   }, [activeTab, currentPage]);
 
-  const onTabChange = (tab: SearchTab) => {
-    setActiveTab(tab);
+  const handleTabClick = (tab: SearchTab) => {
+    onTabChange(tab);
     setPendingNextPage(null);
   };
 
@@ -162,17 +175,11 @@ const SearchResults = ({
   };
 
   const renderResult = (result: SearchResult, index: number) => {
-    // largely deprecated
-    // in previous versions of the app, this would load the first couple lines of the card body early
-    // if the tag was cut off early and the cite didn't contain cite info
-    if (!cards[result.id] && !/\d/.test(result.cite) && !requested[result.id]) {
-      getCard(result.id);
-      setRequested((prev) => ({ ...prev, [result.id]: true }));
-    }
-
     const card = cards[result.id];
     const cardIdentifier = extractCardIdentifier(result);
-    const displayTag = stripIdentifierTokenFromTag(result.tag);
+    const displayTag = stripIdentifierTokenFromTag(result.tag)
+      || extractTagSubHeadline(result.tag_sub)
+      || cardIdentifier;
     const preference = cardPreferences[result.id];
 
     const onClick = () => {
@@ -194,13 +201,19 @@ const SearchResults = ({
         </div>
         <div className={styles.cite}
           dangerouslySetInnerHTML={{
-            __html: (/\d/.test(result.cite) ? generateStyledCite(result.cite, result.cite_emphasis, 11)
-              : (card ? card.body.find((p: string) => /\d/.test(p)) : '')),
+            __html: (/\d/.test(result.cite)
+              ? generateStyledCite(result.cite, result.cite_emphasis, 11)
+              : (card ? card.body.find((p: string) => /\d/.test(p)) : result.cite)),
           }}
         />
         <DownloadLink url={result.download_url} />
       </div>
     );
+  };
+
+  const formatTabCount = (count: number, isPartial?: boolean) => {
+    if (count < 0) return '...';
+    return isPartial ? `${count}+` : count.toLocaleString();
   };
 
   return (
@@ -210,16 +223,18 @@ const SearchResults = ({
           <button
             type="button"
             className={`${styles['results-tab']} ${activeTab === 'tag' ? styles['results-tab-active'] : ''}`}
-            onClick={() => onTabChange('tag')}
+            onClick={() => handleTabClick('tag')}
+            disabled={loading}
           >
-            Tag Matches ({tabCounts.tag})
+            Tag Matches ({formatTabCount(tabCounts.tag, tabCountsPartial.tag)})
           </button>
           <button
             type="button"
             className={`${styles['results-tab']} ${activeTab === 'paragraph' ? styles['results-tab-active'] : ''}`}
-            onClick={() => onTabChange('paragraph')}
+            onClick={() => handleTabClick('paragraph')}
+            disabled={loading}
           >
-            Paragraph Matches ({tabCounts.paragraph})
+            Paragraph Matches ({formatTabCount(tabCounts.paragraph, tabCountsPartial.paragraph)})
           </button>
         </div>
         <div className={styles['results-tabs-center']}>

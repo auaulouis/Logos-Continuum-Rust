@@ -6,11 +6,18 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "next build && next export -o out",
     "start": "next start",
-    "desktop:dev": "ELECTRON_START_URL=http://localhost:3001 electron .",
+    "desktop:dev": "yarn desktop:backend:build && yarn build:static && tauri dev --config src-tauri/tauri.conf.json",
     "desktop:icon": "bash ./scripts/generate-mac-icon.sh",
-    "desktop:build": "yarn desktop:icon && yarn build && electron-builder --mac",
-    "desktop:build:arm64": "yarn desktop:icon && NEXT_PUBLIC_API_URL=http://127.0.0.1:5501 yarn build && electron-builder --mac --arm64",
+    "desktop:backend:build": "cargo build --manifest-path ../rust-backend/Cargo.toml --release --bin logos-backend && mkdir -p src-tauri/binaries && cp ../rust-backend/target/release/logos-backend src-tauri/binaries/",
+    "desktop:build": "yarn desktop:icon && yarn desktop:backend:build && yarn build:static && tauri build --config src-tauri/tauri.conf.json",
+    "desktop:build:arm64": "yarn desktop:icon && yarn desktop:backend:build && yarn build:static && tauri build --config src-tauri/tauri.conf.json -- --target aarch64-apple-darwin",
+    "electron:dev": "ELECTRON_START_URL=http://localhost:3001 electron .",
+    "electron:build": "yarn desktop:icon && yarn desktop:backend:build && yarn build && electron-builder --mac",
+    "electron:build:arm64": "yarn desktop:icon && yarn desktop:backend:build && NEXT_PUBLIC_API_URL=http://127.0.0.1:5501 yarn build && electron-builder --mac --arm64",
+    "tauri:build": "yarn desktop:icon && yarn desktop:backend:build && yarn build:static && tauri build --config src-tauri/tauri.conf.json",
+    "tauri:dev": "yarn desktop:backend:build && yarn build:static && tauri dev --config src-tauri/tauri.conf.json",
     "lint": "next lint",
     "postinstall": "patch-package"
   },
@@ -33,16 +40,8 @@
     ],
     "extraResources": [
       {
-        "from": "../verbatim-parser ",
-        "to": "backend",
-        "filter": [
-          "**/*",
-          "!.git/**",
-          "!__pycache__/**",
-          "!venv/**",
-          "!tmp/**",
-          "!test-docs/**"
-        ]
+        "from": "../rust-backend/target/release/logos-backend",
+        "to": "backend/logos-backend"
       }
     ],
     "mac": {
@@ -56,6 +55,7 @@
   },
   "dependencies": {
     "@dotlottie/player-component": "^1.0.4",
+    "@tauri-apps/api": "^2.1.0",
     "@types/mixpanel-browser": "^2.36.0",
     "@types/node-sass": "^4.11.2",
     "@types/react-date-range": "^1.4.1",
@@ -84,6 +84,7 @@
     "string-similarity": "^4.0.4"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2.1.0",
     "@types/node": "16.11.10",
     "@types/react": "17.0.37",
     "@types/string-similarity": "^4.0.0",

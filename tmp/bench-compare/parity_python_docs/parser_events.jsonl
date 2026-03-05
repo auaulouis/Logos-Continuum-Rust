@@ -1,0 +1,3 @@
+{"id": "1772687841357-97901-470000", "at": 1772687841357, "level": "info", "message": "Upload received: 1nc.docx", "source": "api-upload", "filename": "1nc.docx"}
+{"id": "1772687841357-97901-841000", "at": 1772687841357, "level": "info", "message": "Upload stored (deferred parse): 1nc.docx", "source": "api-upload", "filename": "1nc.docx"}
+{"id": "1772687841628-97901-676000", "at": 1772687841628, "level": "info", "message": "Indexed 1nc.docx: 20 cards in 263.83ms (75.81 cards/s)", "source": "api-index-document", "filename": "1nc.docx", "cards_indexed": 20, "parse_ms": 263.83, "cards_per_second": 75.81}

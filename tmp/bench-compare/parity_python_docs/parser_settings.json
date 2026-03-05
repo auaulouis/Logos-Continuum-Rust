@@ -1,0 +1,7 @@
+{
+  "use_parallel_processing": false,
+  "parser_card_workers": 8,
+  "local_parser_file_workers": 1,
+  "flush_enabled": true,
+  "flush_every_docs": 1
+}

@@ -1,0 +1,111 @@
+{
+  "timestamp": "2026-03-04 17:58:55",
+  "docs_in_corpus": 22,
+  "python": {
+    "name": "python",
+    "docs_indexed": 22,
+    "card_count": 1236,
+    "parse": {
+      "total_ms": 42061.08216699977,
+      "avg_doc_ms": 1911.8658805907464,
+      "p95_doc_ms": 5652.2121250000055,
+      "docs_per_sec": 0.5230488343749922,
+      "cards_per_sec": 29.385834513067746,
+      "system": {
+        "avg_cpu_pct": 93.97941176470587,
+        "max_cpu_pct": 133.3,
+        "avg_rss_mb": 220.04986213235293,
+        "max_rss_mb": 298.828125,
+        "samples": 204
+      }
+    },
+    "query": {
+      "queries": 100,
+      "total_ms": 506.0220420000405,
+      "avg_ms": 5.052128430015728,
+      "p95_ms": 10.246416999507346,
+      "qps": 197.6198499273911,
+      "aggregate_result_count": 2402,
+      "timed_out_queries": 0,
+      "system": {
+        "avg_cpu_pct": 0.3333333333333333,
+        "max_cpu_pct": 0.6,
+        "avg_rss_mb": 307.3854166666667,
+        "max_rss_mb": 316.265625,
+        "samples": 3
+      }
+    },
+    "query_terms_sample": [
+      "offcase",
+      "cid-00000-00018",
+      "conservation",
+      "connotes",
+      "conservative",
+      "protection",
+      "command",
+      "cessation",
+      "nc---t",
+      "johanna"
+    ],
+    "parity": null
+  },
+  "rust": {
+    "name": "rust",
+    "docs_indexed": 22,
+    "card_count": 0,
+    "parse": {
+      "total_ms": 17832.18266699987,
+      "avg_doc_ms": 810.5518238634514,
+      "p95_doc_ms": 1169.9843329988653,
+      "docs_per_sec": 1.2337244638432887,
+      "cards_per_sec": 0.0,
+      "system": {
+        "avg_cpu_pct": 96.04418604651163,
+        "max_cpu_pct": 100.0,
+        "avg_rss_mb": 194.00563226744185,
+        "max_rss_mb": 359.96875,
+        "samples": 86
+      }
+    },
+    "query": {
+      "queries": 100,
+      "total_ms": 49.673957999402774,
+      "avg_ms": 0.4913121401477838,
+      "p95_ms": 0.3268330001446884,
+      "qps": 2013.127280922577,
+      "aggregate_result_count": 0,
+      "timed_out_queries": 0,
+      "system": {
+        "avg_cpu_pct": 44.2,
+        "max_cpu_pct": 44.2,
+        "avg_rss_mb": 380.390625,
+        "max_rss_mb": 380.390625,
+        "samples": 1
+      }
+    },
+    "query_terms_sample": [
+      "queryterm1",
+      "queryterm2",
+      "queryterm3",
+      "queryterm4",
+      "queryterm5",
+      "queryterm6",
+      "queryterm7",
+      "queryterm8",
+      "queryterm9",
+      "queryterm10"
+    ],
+    "parity": {
+      "before": 1517,
+      "after": 0,
+      "dropped": 1517
+    },
+    "binary_profile": "debug"
+  },
+  "same_card_count": false,
+  "card_count_delta": -1236,
+  "ports": {
+    "python": 59905,
+    "rust": 59906
+  }
+}

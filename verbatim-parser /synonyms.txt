@@ -1,108 +1,117 @@
+
+
 FRAND, fair reasonable and non-discriminatory
-disease, pandemic, diseases, pandemics
-AI, artificial intelligence
-OBOR, one belt one road, BRI, belt and road initiative
 FTC, federal trade commission
 SEC, securities and exchange commission
 DOJ, department of justice
-XO, executive order, XOs, executive orders
-BBB, build back better
-US, U.S., United States, America, American
-R&D, research and development, RandD
-antitrust, competition law
-LIO, liberal order, liberal international order, international order
+XO, executive order, XOs, executive orders, presidential directive
+BBB, build back better, IRA, inflation reduction act
+DCC, dormant commerce clause, commerce clause
+judges, judge, justices, justice, SCOTUS, bench
+court, courts, judicial, judiciary, jurist
+constitution, constitutional, founding document
+legislation, law, laws, statutes, statutory
+legislative, congress, congressional, hill, cap hill
+doctrine, doctrinal, precedent, precedential, stare decisis
+president, commander in chief, executive, POTUS, oval office
+suit, suits, lawsuit, lawsuits, litigation, legal action
+con-con, con con, constitutional convention, article v
+
+
+
+OBOR, one belt one road, BRI, belt and road initiative
+US, U.S., United States, America, American, USFG
+LIO, liberal order, liberal international order, international order, rules-based order
 SCS, south china sea
 ECS, east china sea
-CNC, command and control, NC3
-DPT, democratic peace theory, democratic peace
-DCC, dormant commerce clause, commerce clause
-CCS, carbon capture, carbon capture and storage
 CCP, chinese communist party, communist party of china
-PRC, people's republic of china, china, chinese
+PRC, people's republic of china, china, chinese, Beijing
 PLA, People's Liberation Army
-GAFA, google, apple, facebook, amazon, FAANG
-IR, international relations
-PC, polcap, political capital
+IR, international relations, world politics
+heg, hegemony, leadership, unipolarity, primacy
+multilat, multilateralism, institutions, institutionalism, IOs
+prolif, proliferation, horizontal prolif, vertical prolif
+cred, credibility, resolve, signaling
+retal, retaliation, tit-for-tat, strike back
 
-econ, economy, economies, economic
-dedev, dedevelopment, degrowth, de-dedevelopment
-warming, global warming, climate change
-extinction, existential
-war, conflict, wars, conflicts
-uncertain, uncertainty, ambiguity, ambiguous
-success, successful
-ag, agriculture, food
-empirics, empirical
-peace, peaceful
-heg, hegemony
-retal, retaliation
-immunize, immunizes, shield, shields, insulate, insulates
-increase, increasing, high
-decrease, decreasing, decline, declines, diminish, low
-growth, economic growth
-sustainable, sustained, sustainability, sustainably, long-term
-unsustainable, unsustainability, unsustainably
-judges, judge, justices, justice
-court, courts, judicial, judiciary
-constitution, constitutional
-legislation, law, laws, statutes
-legislative, congress, congressional
-doctrine, doctrinal, precedent, precedential
-president, commmander in chief, executive
-suit, suits, lawsuit, lawsuits, litigation
-innovation, innovate
-regulation, regulate, regulator
-multilat, multilateralism, institutions, institutionalism
-collusion, colluder, colluders, colluded
+
+
+AI, artificial intelligence, AGI, machine learning, ML
+CNC, command and control, NC3, nuclear command
+CCS, carbon capture, carbon capture and storage, sequestration
+GAFA, google, apple, facebook, amazon, FAANG, big tech, MAMAA
+R&D, research and development, RandD, innovation
+antitrust, competition law, anti-monopoly
+innovation, innovate, inventive, technological leap
+regulation, regulate, regulator, oversight
 tech, technology, technical, technological
-nano, nano-tech, nanotech
-crisis, crises
-prove, proves
-econ decline, economic decline, stagnation, slow growth, recession, depression
-democrat, democrats, dems, liberal, liberals
-republicans, conservative, conservatives, republican, gop
-perception, perceptual, perceptually, signal, signalling, signals
-covid, covid-19, coronavirus, delta
-narrow, limited, targeted
-broad, expansive, sweeping
-fail, fails, failure, impossible, impractical, unfeasible, infeasible
-possible, feasible
-likely, high risk, probable
-socialist, socialism, communist, communism
-cap, capitalism
-necessity, necessary
-inevitable, inevitability
-good, desirable
-grassroots, bottom-up, bottom up
-space col, space colonization
-tradeoff, trade off, trades off
-ontology, ontological
-epistemology, epistemological
-reps, representation, representations
-cred, credibility
-prolif, proliferation
-theory, theoretical
-anthropocentrism, anthropocentric, anthro
-scenario analysis, scenario planning
-util, utilitarianism
+nano, nano-tech, nanotech, molecular engineering
+space col, space colonization, off-world settlement
+warming, global warming, climate change, anthropogenic warming
+disease, pandemic, diseases, pandemics, bio-threat, pathogen
+covid, covid-19, coronavirus, delta, sars-cov-2
 
-uniqueness, uq
-internal link, i/l
-ev, evidence
-solve, solves, solvency
-CP, counterplan
-USFG, united states federal government
-laundry list, litany, slew, host
-no impact, doesn't cause extinction, not existential
-alt, alternative
+
+
+econ, economy, economies, economic, fiscal, monetary
+dedev, dedevelopment, degrowth, de-dedevelopment, malthusian
+growth, economic growth, GDP, expansion
+econ decline, economic decline, stagnation, slow growth, recession, depression, slump
+cap, capitalism, free market, neoliberalism
+socialist, socialism, communist, communism, marxism
+tradeoff, trade off, trades off, opportunity cost
+
+
+
+PC, polcap, political capital, internal fiat
+ontology, ontological, being, nature of existence
+epistemology, epistemological, way of knowing, knowledge production
+reps, representation, representations, discourse, discursive
+anthropocentrism, anthropocentric, anthro, human-centered
+util, utilitarianism, util, greatest good, consequentialism
+scenario analysis, scenario planning, wargaming
+uniqueness, uq, status quo, sq, non-unique, n/u
+internal link, i/l, bridge, connector
+ev, evidence, cards, lit, literature
+solve, solves, solvency, s/, mechanism
+CP, counterplan, neg alternative
+alt, alternative, k-alt
+USFG, united states federal government, fed, central gov
+laundry list, litany, slew, host, scattershot
+no impact, doesn't cause extinction, not existential, non-extinction
 solve extinction, solves extinction, solve conflict, stop extinction, stops extinction, prevent extinction, prevent conflict, prevents extinction
-thump, thumps, thumper, thumpers
-con-con, con con, constitutional convention
+thump, thumps, thumper, thumpers, non-unique intervention
 
-1, one, first, 1st
-2, two, second, 2nd
-3, three, third, 3rd
-4, four, fourth, 4th
+
+
+extinction, existential, x-risk, end of species, ext
+war, conflict, wars, conflicts, hostilites, kinetic
+uncertain, uncertainty, ambiguity, ambiguous, opacity
+success, successful, effective, efficacious
+ag, agriculture, food, farming
+empirics, empirical, data, historical record
+peace, peaceful, stability, de-escalation
+immunize, immunizes, shield, shields, insulate, insulates, firewall
+increase, increasing, high, spike, surge, boost
+decrease, decreasing, decline, declines, diminish, low, drop
+sustainable, sustained, sustainability, sustainably, long-term
+unsustainable, unsustainability, unsustainably, short-term
+perception, perceptual, perceptually, signal, signalling, signals
+narrow, limited, targeted, surgical
+broad, expansive, sweeping, holistic
+fail, fails, failure, impossible, impractical, unfeasible, infeasible, f/
+possible, feasible, viable
+likely, high risk, probable, high probability
+necessity, necessary, requisite, vital
+inevitable, inevitability, non-contingent
+good, desirable, preferred, net benefit
+
+
+
+1, one, first, 1st, primary, alpha
+2, two, second, 2nd, bravo
+3, three, third, 3rd, charlie
+4, four, fourth, 4th, delta
 5, five, fifth, 5th
 6, six, sixth, 6th
 7, seven, seventh, 7th

@@ -1,0 +1,634 @@
+{
+  "ok": false,
+  "docs_checked": 1,
+  "card_count_python": 20,
+  "card_count_rust": 20,
+  "query_terms_checked": 50,
+  "query_variants_checked": 5,
+  "query_mismatch_count": 30,
+  "query_mismatch_examples": [
+    {
+      "term": "1nc---t",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 2,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00002",
+        "CID-00000-00001"
+      ],
+      "rust_ids": [
+        "CID-00000-00001",
+        "CID-00000-00002"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "conservation",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 3,
+      "rust_count": 3,
+      "python_ids": [
+        "CID-00000-00006",
+        "CID-00000-00018",
+        "CID-00000-00001"
+      ],
+      "rust_ids": [
+        "CID-00000-00001",
+        "CID-00000-00006",
+        "CID-00000-00018"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "conservative",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 5,
+      "rust_count": 5,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00015",
+        "CID-00000-00018",
+        "CID-00000-00001"
+      ],
+      "rust_ids": [
+        "CID-00000-00001",
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00015",
+        "CID-00000-00018"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "protection",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 3,
+      "rust_count": 3,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00001"
+      ],
+      "rust_ids": [
+        "CID-00000-00001",
+        "CID-00000-00005",
+        "CID-00000-00006"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "research",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 8,
+      "rust_count": 8,
+      "python_ids": [
+        "CID-00000-00007",
+        "CID-00000-00020",
+        "CID-00000-00013",
+        "CID-00000-00012",
+        "CID-00000-00004",
+        "CID-00000-00019",
+        "CID-00000-00002",
+        "CID-00000-00018"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00004",
+        "CID-00000-00007",
+        "CID-00000-00012",
+        "CID-00000-00013",
+        "CID-00000-00018",
+        "CID-00000-00019",
+        "CID-00000-00020"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "special",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 3,
+      "rust_count": 3,
+      "python_ids": [
+        "CID-00000-00016",
+        "CID-00000-00015",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00015",
+        "CID-00000-00016"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "projects",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 3,
+      "rust_count": 3,
+      "python_ids": [
+        "CID-00000-00014",
+        "CID-00000-00015",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00014",
+        "CID-00000-00015"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "report",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 5,
+      "rust_count": 5,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00007",
+        "CID-00000-00009",
+        "CID-00000-00010",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00009",
+        "CID-00000-00010",
+        "CID-00000-00002",
+        "CID-00000-00005",
+        "CID-00000-00007"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "conceptual",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 2,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00013",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00013"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "developing",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 3,
+      "rust_count": 3,
+      "python_ids": [
+        "CID-00000-00007",
+        "CID-00000-00010",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00010",
+        "CID-00000-00002",
+        "CID-00000-00007"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "school",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 6,
+      "rust_count": 6,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00020",
+        "CID-00000-00009",
+        "CID-00000-00002",
+        "CID-00000-00018"
+      ],
+      "rust_ids": [
+        "CID-00000-00009",
+        "CID-00000-00002",
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00018",
+        "CID-00000-00020"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "policy",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 10,
+      "rust_count": 10,
+      "python_ids": [
+        "CID-00000-00014",
+        "CID-00000-00006",
+        "CID-00000-00007",
+        "CID-00000-00016",
+        "CID-00000-00020",
+        "CID-00000-00015",
+        "CID-00000-00004",
+        "CID-00000-00008",
+        "CID-00000-00002",
+        "CID-00000-00018"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00004",
+        "CID-00000-00006",
+        "CID-00000-00007",
+        "CID-00000-00008",
+        "CID-00000-00014",
+        "CID-00000-00015",
+        "CID-00000-00016",
+        "CID-00000-00018",
+        "CID-00000-00020"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "substantial",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 2,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00019",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00019"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "limit",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 9,
+      "rust_count": 9,
+      "python_ids": [
+        "CID-00000-00006",
+        "CID-00000-00007",
+        "CID-00000-00020",
+        "CID-00000-00015",
+        "CID-00000-00013",
+        "CID-00000-00017",
+        "CID-00000-00003",
+        "CID-00000-00010",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00010",
+        "CID-00000-00002",
+        "CID-00000-00003",
+        "CID-00000-00006",
+        "CID-00000-00007",
+        "CID-00000-00013",
+        "CID-00000-00015",
+        "CID-00000-00017",
+        "CID-00000-00020"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "significant",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 7,
+      "rust_count": 7,
+      "python_ids": [
+        "CID-00000-00016",
+        "CID-00000-00020",
+        "CID-00000-00013",
+        "CID-00000-00008",
+        "CID-00000-00003",
+        "CID-00000-00002",
+        "CID-00000-00018"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00003",
+        "CID-00000-00008",
+        "CID-00000-00013",
+        "CID-00000-00016",
+        "CID-00000-00018",
+        "CID-00000-00020"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "substantially",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 2,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00019",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00019"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "court",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 5,
+      "rust_count": 5,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00008",
+        "CID-00000-00003",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00003",
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00008"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "meet",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 2,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00007",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00007"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "must",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 4,
+      "rust_count": 4,
+      "python_ids": [
+        "CID-00000-00014",
+        "CID-00000-00006",
+        "CID-00000-00016",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00006",
+        "CID-00000-00014",
+        "CID-00000-00016"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "occur",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 2,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00020",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00002",
+        "CID-00000-00020"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "across",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 4,
+      "rust_count": 4,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00016",
+        "CID-00000-00009",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00009",
+        "CID-00000-00002",
+        "CID-00000-00005",
+        "CID-00000-00016"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "board",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 3,
+      "rust_count": 3,
+      "python_ids": [
+        "CID-00000-00016",
+        "CID-00000-00010",
+        "CID-00000-00002"
+      ],
+      "rust_ids": [
+        "CID-00000-00010",
+        "CID-00000-00002",
+        "CID-00000-00016"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "states",
+      "variant": {
+        "cursor": 0,
+        "limit": 15,
+        "sort_by": "date"
+      },
+      "python_count": 12,
+      "rust_count": 12,
+      "python_ids": [
+        "CID-00000-00005",
+        "CID-00000-00014",
+        "CID-00000-00006",
+        "CID-00000-00007",
+        "CID-00000-00016",
+        "CID-00000-00015",
+        "CID-00000-00017",
+        "CID-00000-00004",
+        "CID-00000-00019",
+        "CID-00000-00003",
+        "CID-00000-00010",
+        "CID-00000-00001"
+      ],
+      "rust_ids": [
+        "CID-00000-00010",
+        "CID-00000-00001",
+        "CID-00000-00003",
+        "CID-00000-00004",
+        "CID-00000-00005",
+        "CID-00000-00006",
+        "CID-00000-00007",
+        "CID-00000-00014",
+        "CID-00000-00015",
+        "CID-00000-00016",
+        "CID-00000-00017",
+        "CID-00000-00019"
+      ],
+      "diff_py_minus_rs": [],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "states",
+      "variant": {
+        "cursor": 0,
+        "limit": 25,
+        "match_mode": "tag"
+      },
+      "python_count": 3,
+      "rust_count": 2,
+      "python_ids": [
+        "CID-00000-00003",
+        "CID-00000-00016",
+        "CID-00000-00017"
+      ],
+      "rust_ids": [
+        "CID-00000-00016",
+        "CID-00000-00017"
+      ],
+      "diff_py_minus_rs": [
+        "CID-00000-00003"
+      ],
+      "diff_rs_minus_py": []
+    },
+    {
+      "term": "solves",
+      "variant": {
+        "cursor": 0,
+        "limit": 30
+      },
+      "python_count": 1,
+      "rust_count": 0,
+      "python_ids": [
+        "CID-00000-00003"
+      ],
+      "rust_ids": [],
+      "diff_py_minus_rs": [
+        "CID-00000-00003"
+      ],
+      "diff_rs_minus_py": []
+    }
+  ],
+  "python_port": 58947,
+  "rust_port": 58948,
+  "failures": [
+    "query parity mismatches: 30"
+  ]
+}

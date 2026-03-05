@@ -66,6 +66,14 @@ const stripIdentifierTokenFromTag = (tagValue: string | undefined): string => {
   return String(tagValue || '').replace(/\s*\[\[CID-[^\]]+\]\]\s*/gi, ' ').trim();
 };
 
+const extractTagSubHeadline = (value: string | undefined): string => {
+  const lines = String(value || '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+  return lines[0] || '';
+};
+
 const CardDetail = forwardRef<CardDetailHandle, CardProps>(({ 
   card,
   downloadUrls,
@@ -93,7 +101,9 @@ const CardDetail = forwardRef<CardDetailHandle, CardProps>(({
   const [isHeaderOverflowing, setIsHeaderOverflowing] = useState(false);
   const handledExternalEditRequest = useRef(0);
   const cardIdentifier = extractCardIdentifier(card?.tag, card?.card_identifier);
-  const displayTag = isEditing ? tagDraft : stripIdentifierTokenFromTag(card?.tag);
+  const displayTag = isEditing
+    ? tagDraft
+    : (stripIdentifierTokenFromTag(card?.tag) || extractTagSubHeadline(card?.tag_sub));
 
   const cloneRanges = (ranges: Array<[number, number, number]>) => {
     return ranges.map(([line, start, end]) => [line, start, end] as [number, number, number]);

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Logos",
+  "version": "1.2.5",
+  "identifier": "com.logos.desktop.tauri",
+  "build": {
+    "beforeBuildCommand": "yarn build:static",
+    "frontendDist": "../out"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Logos",
+        "width": 1360,
+        "height": 860,
+        "minWidth": 1080,
+        "minHeight": 720,
+        "resizable": true,
+        "fullscreen": false,
+        "userAgent": "Mozilla/5.0 Tauri/2.0 Logos/1.2.5"
+      }
+    ],
+    "trayIcon": {
+      "iconPath": "../build/icon-square.png",
+      "iconAsTemplate": true,
+      "menuOnLeftClick": false
+    },
+    "security": {
+      "csp": null
+    }
+  },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["logos"]
+      }
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdBMENENjM0RTZGQTgyNUYKUldSZmd2cm1OTllNZXAvM1RYdFJ6dTFpdUJuejVFUWxsbUtMSVZJTFpXZWhXTkkyVmpEa0tGYzEK",
+      "endpoints": [
+        "https://releases.logos-app.com/tauri/{{target}}/{{arch}}/{{current_version}}"
+      ]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["dmg", "app"],
+    "icon": [
+      "../build/icon.icns"
+    ],
+    "resources": [
+      "binaries/logos-backend"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "12.0",
+      "entitlements": "./entitlements.plist"
+    }
+  }
+}

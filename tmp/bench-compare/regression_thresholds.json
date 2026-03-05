@@ -1,0 +1,19 @@
+{
+  "rust": {
+    "parse": {
+      "docs_per_sec_min": 0.8,
+      "cards_per_sec_min": 20.0,
+      "p95_doc_ms_max": 2500.0,
+      "max_rss_mb_max": 900.0
+    },
+    "query": {
+      "p95_ms_max": 30.0,
+      "qps_min": 120.0,
+      "timed_out_queries_max": 0,
+      "max_rss_mb_max": 900.0
+    },
+    "parity": {
+      "allow_card_count_delta": 0
+    }
+  }
+}

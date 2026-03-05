@@ -1,0 +1,1637 @@
+{
+  "python_count": 1236,
+  "rust_count": 1517,
+  "count_delta_rust_minus_python": 281,
+  "content_missing_in_rust_total": 400,
+  "content_extra_in_rust_total": 681,
+  "id_overlap": {
+    "python_unique_ids": 1236,
+    "rust_unique_ids": 1517,
+    "intersection": 0,
+    "only_python": 1236,
+    "only_rust": 1517
+  },
+  "missing_by_file_top20": [
+    [
+      "Mega LD Backfile Part 2 Impacts Defense.docx",
+      225
+    ],
+    [
+      "Mega LD Backfile Part 1 .docx",
+      89
+    ],
+    [
+      "Mega LD Backfile Part 2 Imapcts Calculus Malthus Cap copy.docx",
+      43
+    ],
+    [
+      "neg-2.docx",
+      24
+    ],
+    [
+      "neg-3.docx",
+      5
+    ],
+    [
+      "1nc.docx",
+      4
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(05)---fbk-round-robin-Round-1.docx",
+      3
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(01)---uk-season-opener-Round-2.docx",
+      2
+    ],
+    [
+      "neg.docx",
+      2
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(06)---fbk-Round-3.docx",
+      1
+    ],
+    [
+      "PlanoWest-SkGo-Neg-Heart-of-Texas-Invitational-Quarters.docx",
+      1
+    ],
+    [
+      "neg-6.docx",
+      1
+    ]
+  ],
+  "extra_by_file_top20": [
+    [
+      "Mega LD Backfile Part 2 Impacts Defense.docx",
+      232
+    ],
+    [
+      "Mega LD Backfile Part 2 Imapcts Calculus Malthus Cap.docx",
+      177
+    ],
+    [
+      "Mega LD Backfile Part 2 Impacts Offense.docx",
+      96
+    ],
+    [
+      "Mega LD Backfile Part 1 .docx",
+      85
+    ],
+    [
+      "Mega LD Backfile Part 2 Imapcts Calculus Malthus Cap copy.docx",
+      43
+    ],
+    [
+      "neg-2.docx",
+      24
+    ],
+    [
+      "neg-3.docx",
+      5
+    ],
+    [
+      "1nc.docx",
+      4
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(10)---barkley-forum-Round-2.docx",
+      4
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(05)---fbk-round-robin-Round-1.docx",
+      3
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(01)---uk-season-opener-Round-2.docx",
+      2
+    ],
+    [
+      "neg.docx",
+      2
+    ],
+    [
+      "PlanoWest-AnRi-Aff-(06)---fbk-Round-3.docx",
+      1
+    ],
+    [
+      "PlanoWest-SkGo-Neg-Heart-of-Texas-Invitational-Quarters.docx",
+      1
+    ],
+    [
+      "neg-5.docx",
+      1
+    ],
+    [
+      "neg-6.docx",
+      1
+    ]
+  ],
+  "missing_examples": [
+    {
+      "count": 2,
+      "python_examples": [
+        {
+          "id": "c4fe24d69378ed690df5bfe62f42a27b766db44f0b0726e3e75513a1d5af20db",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Morality is complex \u2013 Blanket claims that we need to save people in poverty prevent us from making rational choices [[CID-00000-00321]]",
+          "cite": "Stubbs, 81",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "3795c650c794959c23ddfb283719e0ca5a15937378a195cf2d49af31689e5ab4",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Morality is complex \u2013 Blanket claims that we need to save people in poverty prevent us from making rational choices [[CID-00000-00355]]",
+          "cite": "Stubbs, 81",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "f9d4ae19187734a97916480f6eef16ce919b34ca52ac3faf3992db95d0689d5a",
+          "filename": "1nc.docx",
+          "tag": "States solves the aff solve. [[CID-00000-00020]]",
+          "cite": "Josh Patashnik 14, Associate, Munger, Tolles & Olson LLP; Law Clerk to the Honorable Anthony M. Kennedy, United States Supreme Court, 2014, \u201cArizona V. California and the Equitable Apportionment of Interstate Waterways,\u201d Arizona Law Review, Stras",
+          "highlighted_text_prefix": "preferable if disputes could be settled by new and updated interstate compacts ."
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "0ab85a420176baee1401d4ba0955db31a5f0a482e366b3313778461658748ff1",
+          "filename": "1nc.docx",
+          "tag": "1NC---CP [[CID-00000-00021]]",
+          "cite": "Kabir \u201917 [Muhammad; 2017; submitting a Political Science Ph.D. thesis at the City University of New York; Academic Works, \u201cAsymmetric Alliances and Side Payments: Alliance Politics Between Unequal Powers,\u201d https://academicworks.cuny.edu/cgi/viewcontent.cgi?article=2912&context=gc_etds]",
+          "highlighted_text_prefix": "well-developed research on monetary payments or material concessions to encourage concessions inducement, help reach otherwise unattainable cooperation during n"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "2d9cb03f245baa3225eb850d664f644f8b3a1237b79cafe161df94f9f18c87a8",
+          "filename": "1nc.docx",
+          "tag": "It\u2019s resilient, but irrelevant. [[CID-00000-00030]]",
+          "cite": "Doorenspleet \u201919 [Renske; 2019; Professor of Politics at the University of Warwick; Palgrave Macmillan, \u201cRethinking the Value of Democracy: A Comparative Perspective,\u201d p. 239-243]",
+          "highlighted_text_prefix": "This study search a database pruned thousands of articles which analysed democracy \u2018no consensus\u2019 in lit scholars claim there is a consensus by ignoring lit ben"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "057c42015e68ba430f234458099db174660861f2c6dcd9efee0bc3a595093815",
+          "filename": "1nc.docx",
+          "tag": "1NC---Africa D [[CID-00000-00036]]",
+          "cite": "Burbach & Fettweis 16 \u2013 Dr. David T. Burbach, National Security Affairs Professor at the Naval War College, Political Science PhD from the Massachusetts Institute of Technology. Christopher J. Fettweis, Political Science Professor at Tulane University. [The Coming Peace: Africa's Declining Conflicts, 9-22-16, https://www.oxfordresearchgroup.org.uk/blog/the-coming-peace-africas-declining-conflicts]",
+          "highlighted_text_prefix": "Africa war is outdated over 15 years African wars burned out regained functional states seen using datasets 95% decline in conflict deaths , and all active in d"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "a5c46afc13fd8cdf970422adfae8dbe315f88469702119d76854e149fb2da453",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Government coercion must be morally rejected [[CID-00000-00132]]",
+          "cite": "Dr. Edward Younkins, business professor, Wheeling Jesuit, CIVIL SOCIETY: THE REALM OF FREEDOM,\u201d June 10, 2000,  p. http://www.quebecoislibre.org/000610-11.htm",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "9772f95e99705a86c8e5b39688ee768bdc0971b47a3c8f5698496ac153a5e2f2",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Government coercion must be morally rejected [[CID-00000-00308]]",
+          "cite": "Dr. Edward Younkins, business professor, Wheeling Jesuit, CIVIL SOCIETY: THE REALM OF FREEDOM,\u201d June 10, 2000,  p. http://www.quebecoislibre.org/000610-11.htm",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "956385e6552d7d6dc8c14dfce572a51757b89ef36e6d5e24cbc2e64e3df67736",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Every alternative to rights leads to tyranny [[CID-00000-00145]]",
+          "cite": " George Kateb, Professor of Politics, Princeton, THE INNER OCEAN, 1992, p. 5",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "6164c7f6fec7d37c217a2227ca002ccc7db2bd39020a22a2db920e26c009b2b6",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Every alternative to rights leads to tyranny [[CID-00000-00307]]",
+          "cite": " George Kateb, Professor of Politics, Princeton, THE INNER OCEAN, 1992, p. 5",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "1d5593ef1d058834cabff174b06539e4931237b24d760e4a0b9a1790967ca491",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Err on the side of rights \u2013 it\u2019s the biggest consequence in the long term [[CID-00000-00148]]",
+          "cite": "Machan, Professor of Philosophy, 03",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "2796249d02ddfe0f281825fdb52785ad7f6cce24e0bc6374001dbb4005437dd5",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "2. Focusing exclusively on the poor stigmatizes the issue\u2014no solvency [[CID-00000-00189]]",
+          "cite": "Patrick Boleyn-Fitzgerald \u2013 Assistant Professor of Philosophy @ Louisiana State, January 1999 \u201cMisfortune, welfare reform, and right-wing egalitarianism\u201d ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "636ea1133c2bfbb22d993cc575cb8798f2830d6ba275f3a0f5b5ff9b868e3519",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Forced attempts at equality perpetuate inequality [[CID-00000-00201]]",
+          "cite": "Jan Narveson \u2013 P.hD @ Harvard University 1997 \u201cEgalitarianism: Partial, Counterproductive and Baseless\u201d Blackwell",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "79aa864e30ec0209b8f54262df3841396d58020a165b7ed368d01254f3d77d59",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "In-egalitarianism solves\u2013 benefits trickle down [[CID-00000-00205]]",
+          "cite": "Jan Narveson \u2013 P.hD @ Harvard University 1997 \u201cEgalitarianism: Partial, Counterproductive and Baseless\u201d Blackwell",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "f67de813dcfdef240faee7b6abd3743ec14aae4ef974306d61a30f139916b07e",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "The goal of the judge should not be to make sure each person is equal\u2014rather ensure each person is sufficient [[CID-00000-00206]]",
+          "cite": "Yuko Hashimoto --ph.d. Japanese. Associate Professor of Economics. June 2005 \u201cWhat Matters is Absolute Poverty, Not Relative Poverty\u201d http://www.cdams.kobe-u.ac.jp/archive/dp05-10.pdf",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "26441b168a0ab8a063c349fe167114d1b7a469c5701654a9832e87181f19ca9f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Everything is relative\u2014the goal should not be to carve everyone into the same statue\u2014rather ensure each person is sufficient\u2014this is distinct from economic egalitarianism [[CID-00000-00207]]",
+          "cite": " Yuko Hashimoto --ph.d. Japanese. Associate Professor of Economics. June 2005 \u201cWhat Matters is Absolute Poverty, Not Relative Poverty\u201d http://www.cdams.kobe-u.ac.jp/archive/dp05-10.pdf",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "fcc536453fee09836150c0ca792911ca44ed10eb709ec2574ec772ac5fd48972",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Moderate sufficentarianism offers a pluralist approach to justice which maximizes contextual equality [[CID-00000-00209]]",
+          "cite": "Page 2007",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "30e3a510767f32dca0b0b1371886ae0ed46836ec57928cde9624f2e52a796af6",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Policymakers should adapt utilitarian calculus \u2013 applicable throughout society [[CID-00000-00248]]",
+          "cite": "Goodin90 [RobertE. Goodin \u201cThe Utilitarian Response.\u201d  Ed p. 140-1 http://books.google.com/books?id=l3ZBwjK_1_QC&pg=PA61&lpg=PA61&dq=%22That,+I+submit,+is+a+fallacy%22+goodin&source=bl&ots=9hUQGnLTzV&sig=URHUw3uamFPyVmKwTyG1onBQvZI&hl=en&ei=zKxmSsfVMpCEtgfLvP3yDw&sa=X&oi=book_result&ct=result&resnum=1] ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "7ec390e99ef5f503724e1cebac333e27501b3999bad329456d510214dfce0361",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism necessitates public policy that requires that leaders take the action which is in the best interest of people [[CID-00000-00250]]",
+          "cite": "Shaw Philosophy Professor 1999 (William H. Shaw, 1999, Philosophy and Chair of the Philosophy at SJSU, \u201ccontemporary ethics: taking account of utilitarianism\u201d p 171-2)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "13a013ddf01b112c0d432aa2aeeba2cf732dbf3f1a31c41e323d0356f9b774f3",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Ethics are accessed through the evaluation of consequences through an impartial outlook [[CID-00000-00252]]",
+          "cite": "David Sanford Horner, Policies for a \u2018nanosociety\u2019: Can we learn now from our future mistakes? 2005 - bibliotecavirtual.clacso.org.ar",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "8c2bfa7cbd2b1879cf0b5af8f256e2f7ab83ba1e61bd130fb015eb6e2c867182",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Rejection of prediction is an implicit prediction which undercuts good predictions. [[CID-00000-00254]]",
+          "cite": "Fitzsimmons 06",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "3cbfe76782a2e0c0743c3b69ee3909bb33021d9c385fd965f8e9ddd01bcad29c",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Consequentialism accesses their internal linkwe make the best decisions based on moral AND utilitarian consequences [[CID-00000-00257]]",
+          "cite": "Normative Ethics by Shelley Kagan, Westview Press 1997, Page 61, http://books.google.com/books?id=YllnYJ9R0q0C&printsec=frontcover&dq=deontology+vs.+consequentialism&client=firefox-a&source=gbs_similarbooks_s&cad=1 ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "883780a99131d64ae025f4a9cb313f93cb95f26e6db05f2afb799a162865a91c",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Concrete decision making - Only Utilitarianism makes justifications based on the end result rather then ambiguous language [[CID-00000-00258]]",
+          "cite": "Ratner, professor of law at USC, 1984  (Leonard G. Ratner p.758-9, professor of law at USC, 1984 Hofstra Law Journal. \u201cThe Utilitarian Imperative: Autonomy, Reciprocity, and Evolution\u201d HeinOnline)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "1c010d6cde202ed23b94fcf2b749b6d4805b8cae434359d5183a6ecaf7f19a69",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism is inevitable - people are inherently utilitarians [[CID-00000-00261]]",
+          "cite": "Gino et al 2008 [Francesca Gino Kenan-Flagler Business School, University of North Carolina at Chapel Hill, Don Moore Tepper Business School, Carnegie Mellon University, Max H. Bozman Harvard Business School, Harvard University \u201cNo harm, no foul: The outcome bias in ethical judgments\u201d http://www.hbs.edu/research/pdf/08-080.pdf] ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "2c9b0980fbf177102943c362c855e943c1a605f9e36c79f6b301c9abf5839114",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Consequentialism is best, short term impacts are key even when the long-term impacts are uncertain [[CID-00000-00262]]",
+          "cite": "Cowen 2004 [Tyler Cowen, Department of Economics George Mason University \u201c The epistemic Problem does not refute consequentialism\u201dNovember2,2004 http://docs.google.com/gview?a=v&q=cache:JYKgDUM8xOcJ:www.gmu.edu/jbc/Tyler/Epistemic2.pdf+%22nuclear+attack+on+Manhattan%22+cowen&hl=en&gl=us] ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "2a61e24c59beae0cef345e6414ceb85793e68f6b0db1d3b625f7181a2ab9d509",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Concept of morals not mutually exclusive with utilitarianism [[CID-00000-00263]]",
+          "cite": "Brandt, professor of philosophy @ U Mich. 1992",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "d736aa5d72cad5370e7cd229a609b845b98889198d286473ea988a20077dbb88",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism precludes any claim of moral rights \u2013 rights not quantifiable. [[CID-00000-00268]]",
+          "cite": "McCloskey, professor of philosophy, 1984",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "40c404a15abd77b9f5c50cc6b1683ce2f492f7f23a4c16900d740d37c4a96d51",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Government cannot act to uphold the rights of the subject on the basis of moral principle [[CID-00000-00277]]",
+          "cite": "Gewirth, professor of philosophy, 81.",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "874edf68cd40885b1a2eb6d2c315a00e5fbc91952ab281e09fa56eb311171430",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Multiplying probability by magnitude is the only moral option \u2013 hard moral rules result in circular preferences and horrible consequences [[CID-00000-00281]]",
+          "cite": "Yudkowsky 08 \u2013 Full-time Research Fellow at the Singularity Institute for Artificial Intelligence and Cofounder (Eliezer, January 22nd 2008, \u201cCircular Altruism\u201d)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "214029b8e8d2eebe93bdaca3b4b9a929733e1715828b1bbd92973240004ac9be",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Hatred between groups of people make human rights violations inevitable [[CID-00000-00286]]",
+          "cite": "Kohen, Assistant Professor. Ph.D. Duke University Contemporary Political Science\u00a005",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "6a85dbbc068fbeda701b45a1e99152643a725ef484b96375e055b541100210ef",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Deontology does not hold up against the threat of nuclear war [[CID-00000-00287]]",
+          "cite": "Hardin and Mearsheimer 85 [ Russell Hardin and John Mearsheimer are both Professors of Political Science at the University of Chicago, ol. 95, No. 3, Special Issue: Symposium on Ethics and Nuclear Deterrence JSTOR ] ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "3d4f738807e5b14cca4151d337e10cb32c8f388d6e492ced15aa77ba02da28a3",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism inherently only favors a privileged few [[CID-00000-00302]]",
+          "cite": "Liu PHD University of Pennsylvania 2000 (Dr. Liu, PHD @ University of Pennsylvania, writes 2000 [Environmental Justice Analysis: theories, methods and practice, 2000 ISBN:1566704030, p.20-21])",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "f3541f854bdeea58e18303b938b7fd11092a97b30facf38a234a3f4a93b4c04c",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Calculation reduces life to zero [[CID-00000-00303]]",
+          "cite": "Dillon \u201899 (Michael, Professor of IR @ Lancaster, \u201cAnother Justice\u201d Political Theory, Vol. 27, No. 2. April, pp. 165)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "d3e1f4ae9f271b13bc5a36c2b6503bb4cb4f405ed4a7e85f1058a043263e0222",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism is unsustainableadvocates ultimately revert back to morals to make decisions [[CID-00000-00305]]",
+          "cite": "Economic Analysis, Common-Sense Morality and Utilitarianism Author(s): J. Moreh Source: Erkenntnis (1975-), Vol. 37, No. 1 (Jul., 1992), pp. 115-143 Published by: Springer Stable URL: http://www.jstor.org/stable/20012427 Accessed: 22/07/2009 13:24",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "36b464451afe65de02c12115dbbdd0f817e547297ae3dfe9fb6fd3820a05bb9f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Medical utilitarian calculus ensures human dehumanization and annihilation [[CID-00000-00317]]",
+          "cite": "Smith 2002 (Michael G Smith 2002, Leadership University, \u2018The Public Policy of Casey V. Planned Parenthood\u2019 http://www.leaderu.com/humanities/casey/ch3.html)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "79c9e9c30ed178bc0042a9fa7e612db6597385999335f975df03163dbf39492a",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Util ignores fundamental rights and creates a slippery slope until rights lose all significance [[CID-00000-00320]]",
+          "cite": "Bentley 2k [ Kristina A. Bentley graduate  of the Department of government at the University of Manchester. \u201cSuggesting A \u2018Separate\u2019 Approach To Utility and Rights: Deontological Specification and Teleogical Enforcement of Human Rights,\u201d September. http://www.abdn.ac.uk/pir/postgrad/vol1_issue3/issue3_article1.pdf]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "b2797474eb3ca89592735166ebd139ac66f08382fbf31188532ca704b79185e6",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "The utilitarian viewpoint is flawed. It is impossible for society to be viewed as a single [[CID-00000-00322]]",
+          "cite": "Will Kymlicka, 1988 (Prof. of Philosophy at Queen\u2019s U, Press, Philosophy and Public Affairs, Vol. 17, No. 3.,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "4bdd25c0a4d2d633956850bfcc23ad9b1ff5105b926b3d7787c4fd3bfa2c781b",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarians view society as a single entity, which devalues the rights and human dignity of [[CID-00000-00323]]",
+          "cite": "Will Kymlicka, 1988 (Prof. of Philosophy at Queen\u2019s U, Press, Philosophy and Public Affairs, Vol. 17, No. 3.,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "3b82f5239cbf88867a36644b139a56712027abddb9dd381685b82245e5da1d76",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism views people as locations of utilities, whose purpose is to bring good to the [[CID-00000-00324]]",
+          "cite": "Will Kymlicka, 1988 (Prof. of Philosophy at Queen\u2019s U, Press, Philosophy and Public Affairs, Vol. 17, No. 3.,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "b40470eaaed2a0d86e074d814cd31b38ae06f1371d9daeb13d5e230dfe4e5eee",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Adapting the consequentialist viewpoint justifies the deaths of millions of innocents in [[CID-00000-00325]]",
+          "cite": "Thomas Donaldson, 1995 (Prof. of Business Ethics at Georgetown U, Ethics and International Affairs,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "f24cebbd383ef2321c17506ecb4e231a15729157e39e9d1dca1038637330db7f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Utilitarianism taken alone allows unjustified war; full weight must be given to [[CID-00000-00326]]",
+          "cite": "Eric Heinze in 99 (assistant prof. of polisci @ University of Oklahoma, Human Rights & Human Welfare,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "fdf360f6a54ee2eb0a476bdefc60201e18f923f765a91bb6c4b7f4effe2d5b04",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Deontology InevitableIt is grounded in human behavior [[CID-00000-00327]]",
+          "cite": "Economic Analysis, Common-Sense Morality and Utilitarianism Author(s): J. Moreh Source: Erkenntnis (1975-), Vol. 37, No. 1 (Jul., 1992), pp. 115-143 Published by: Springer Stable URL: http://www.jstor.org/stable/20012427 Accessed: 22/07/2009 13:24",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "a5065e50caf65476381a384169a384c518b83c745b4a89722ec34b9b15e73773",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Deontology precludes util- the values of deontology come first [[CID-00000-00328]]",
+          "cite": "Mcnaughton and Rawling 98 [David McNaughton and Piers Rawling are professors  of philosophy at Keele University and the University of Missouri-St. Louis. Ratio, \u201cOn Defending Deontology\u201d, issue 11, p. 48-49 Ebsco]",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "2c9fb570efe436b1b61f6b81af919f7d1234be3be002067011584757724148c8",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Deontology precludes util- the values of deontology come first [[CID-00000-00330]]",
+          "cite": "Mcnaughton and Rawling 98 [David McNaughton and Piers Rawling are professors  of philosophy at Keele University and the University of Missouri-St. Louis. Ratio, \u201cOn Defending Deontology\u201d, issue 11, p. 48-49 Ebsco]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "dd504887e762cdf1e2ff7b5a118801650b54288444bbaab05f4223be0556690f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Deontology comes before util- utilitarianism can be a last resort to preserve fundamental rights [[CID-00000-00331]]",
+          "cite": "Kateb 1992 [George Kateb  is William Nelson Cromwell Professor of Politics, Emeritus, at Princeton University  \u201cThe Inner Ocean\u201d \thttp://books.google.com/books?id=MtGJdmzqLZoC&dq=kateb+%22what+does+a+theory%22&source=gbs_navlinks_s] ",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "e4f230fec2dbd6021798a27206a8deaeb57f8a9ab856848b6e58ceb361c827b3",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Evaluating the deontological aspects of a policy is critical to policy making [[CID-00000-00333]]",
+          "cite": "Pinstrup-Andersen, 2005. [Ethics and economic policy for the food system. General Sessions, 01-",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "8af3d88a5118fb8d7e11dae26c9b3c894a3e01ba140d0283b0b0ffce4ebc88d6",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Morality is a demand for the impossible as it is based on our desires [[CID-00000-00349]]",
+          "cite": "Zupancic, researcher, Institute of Philosophy in the Slovene Academy of Sciences, 00",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "7b04fa0f6c5ab0cf8781d38f2d98369b12587ff194be9442ac52e4656c1daffd",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Ethics is merely a tool by which personal morals are imposed on others, which is the root of discontent in society [[CID-00000-00350]]",
+          "cite": "Zupancic, researcher, Institute of Philosophy in the Slovene Academy of Sciences, 00",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "2925ac1066ee6b1b2f1ac59028147e01a8686c2fd0b6f52f0ede0ffeb43e0a7d",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "People already realize they have a moral obligation but don\u2019t actually follow them or treat them as anything but another obligation [[CID-00000-00353]]",
+          "cite": "Leiter 1997",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "296ccdcf4ac3558cc9e07a32e387e962bb926266f8118ad33de7815fd667e933",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Philosophers provided ethics as a rational foundation for thought and moral responsibility but never really quested or compared them, only when questioned can they actually be considered [[CID-00000-00354]]",
+          "cite": "Walter Kaufmann 1980 \nFrom Shakespeare to Existentialism http://taimur.sarangi.info/text/kaufmann_nietzsche.htm",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "0362bc8eb04608410b92ceb0d010b96b121bfa27242cb23ae67714eea7146d35",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "A Government that drops political obligation in order to obtain correct \u201cmoral\u201d or \u201cethical\u201d responsibility has the ability to \u201ctotalize\u201d into a destructive regime that strips human dignity (turn) [[CID-00000-00358]]",
+          "cite": "Diprose 08",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "660a0854a4d96ea8b1ed620cb333b2ad83a0760aad8383860c3ee27fdaf1ddea",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Ethico-politics gives governments the logocentric nature that leads to the worst atrocities in humanity such as the Holocaust (turn) [[CID-00000-00359]]",
+          "cite": "Sharpe 02 \n(Department of Philosophy and Ashworth Center for Social Theory, University of Melbourne, Melbourne, Australia, PHILOSOPHY & SOCIAL CRITICISM \u2022 vol 28 no 2 \u2022 pp. 173\u2013189)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "250dcbe8c0e8f44ec1e1ecd966fb4f94b235eb5fb91e6b68f06994ff8aaf0d24",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "The goal of ethics to the other and the ethics of the refugee actually furthers state control. Only by challenging sovereignty can we have independent ethics. [[CID-00000-00360]]",
+          "cite": "Popke \u201803",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "c88e66bdf9cf517a47e1775041d0f1df6e684edb5720e179af848602803e8900",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Deconstructing universal conceptions of right and ethics actually opens up the possibility for responsibility to the other. Working within the state re-entrenches current oppressive dualisms [[CID-00000-00361]]",
+          "cite": "Popke \u201803",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "4bbe5060803413f45e1030dafcb7d9770f45c9cc9797124ab073df35329493ad",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Government enforcement of responsibility takes away from the individual\u2019s ability to think and act on an individual level of morality, which is key to regaining lost sense of morality in politics [[CID-00000-00362]]",
+          "cite": "Diprose 08",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "ae8f20a5969be76987babbbcb00c52c8e4fad37d8df00a5c6a232b4393de23f1",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Government established norms of ethical and moral right and wrongs lead to the dulling conscience of the individual taking out all solvency. It also leads to accepting the shift to totalitarian regimes in the name of crises. [[CID-00000-00363]]",
+          "cite": "Diprose 08",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "b7d0c55d256dcfa5db2c70159a676721a56c1d006e836d48d9d726eb631505e6",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Forcing ethical views upon people through politics results in the ethics being short lived as individuals are unable to feel invested in these new ideals. [[CID-00000-00364]]",
+          "cite": "Nancy Luxon 2008\nEthics and Subjectivity: Practices of Self-Governance in the Late Lectures of Michel Foucault",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "628d64412c2181100b0e91111097fd5c3bba8fd81531ee37a81cf1a58bc37005",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Institutional ethics results in a homogenous mindless unconscious. Only by advocating individual ethics can humans gain value for themselves [[CID-00000-00365]]",
+          "cite": "Daiger 2006",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "73466c01973476e3cfc8edc753911e4a1c5c0f36a9b0da90768435fa9c6f09ea",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Foucault proposed an aesthetical ethics in which individuals choose their ethics based on an aesthetic existence.\nPoster 07 [[CID-00000-00366]]",
+          "cite": "Mark, Swan\u2019s Way: Care of Selfin the Hyperreal University of California, Irvine Configurations, 2007, 15:151\u2013175 \u00a9 2009 by The Johns Hopkins University Press and the Society for Literature and Science.",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "5cd45c94ade5375537259f07a96961544fa2ee88eb70e276a340ed7c59be0b3c",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Narcissism were the Other is supposed to discover themselves is opposed by Foucault, indicating that we should live aesthetically instead and draws a line between this narcissistic enlightenment and aesthetic values \nPoster 07 [[CID-00000-00367]]",
+          "cite": "Mark, Swan\u2019s Way: Care of Selfin the Hyperreal University of California, Irvine Configurations, 2007, 15:151\u2013175 \u00a9 2009 by The Johns Hopkins University Press and the Society for Literature and Science.",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "f445f9430155737106e6c3320e42cefd2d26c79e25353be66fb58119ea1672ef",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Aesthetic judgments, or judgments free of bias and societal opinion, are the best alternatives to judging morals and ethics without placing our own vanity and egos as the hidden priority [[CID-00000-00368]]",
+          "cite": "Downard 04\n(Northern Arizona University. Nietzsche and Kant on the Pure Impulse of Truth. The Journal of Nietzsche Studies 27)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "b25edbe81fc6ebf7a3f85d219482cf1b2480b2fc928f0082d9c24f1427400074",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "By placing our own individual art and judgment before the world\u2019s ethics we have the ability to question the institutionalized ethics that leads our lives and form our own idea of \u201cethics\u201d by the superior imperatives [[CID-00000-00369]]",
+          "cite": "Downard 04\n(Northern Arizona University. Nietzsche and Kant on the Pure Impulse of Truth. The Journal of Nietzsche Studies 27)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "e377994cb0d14f2616074b726ec6b4b6fe8bcfde3541e131b164789712009087",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Institutionalized ethics, such as the Kant\u2019s Categorical Imperative, places regulations of what is \u201cright\u201d and what is thought to be \u201cwrong\u201d without explanation or freedom to assume an alternative pathway by the individual [[CID-00000-00370]]",
+          "cite": "Downard 04\n(Northern Arizona University. Nietzsche and Kant on the Pure Impulse of Truth. The Journal of Nietzsche Studies 27)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "python_examples": [
+        {
+          "id": "f261199a051aca3255f59f7fe5b2e52fa8503691204ec9e672ee5aa9d93c9d36",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "Kant\u2019s categorical imperative results in duty being impersonal. This results in a society where we work simply out of necessity and no person choice resulting in the destruction of ourselves like the German writer Heinreich von Kleis [[CID-00000-00371]]",
+          "cite": "J. Thomas Howe 2003\nFaithful to the Earth. J. Thomas Howe studied at Lake Forest College (BA, 1989), Yale Divinity School (MAR, 1993), and Claremont Graduate University (PhD, 1999). He teaches at the Iliff School of Theology and Regis University in Denver, Colorado",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    }
+  ],
+  "extra_examples": [
+    {
+      "count": 7,
+      "rust_examples": [
+        {
+          "id": "b411551dbeb2774c5932731e2cb31cbea4074e0cb99216f52e5f5adf3bfc792f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01823]]",
+          "cite": "Doucet 2008",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "aeabaea75f81156ffd7e9f96dcc718a2af887adc850b6e579658fd01c5739406",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01824]]",
+          "cite": "Doucet 2008",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "cbfbd6e3ba1f8ed78792e17e6222de45ae940922bc1c257b8dafcdf4078cfa18",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01825]]",
+          "cite": "Doucet 2008",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "rust_examples": [
+        {
+          "id": "192a859ac80cb14d868a2afacf85d5a62bfed97a94354008f9f5d825f06deba1",
+          "filename": "Mega LD Backfile Part 2 Impacts Defense.docx",
+          "tag": "[[CID-00000-02011]]",
+          "cite": "Walter 2k7",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "e6a449560cac522e1f0ce0d6ae6d47de3e5221acbd7e1666263faa1c81044631",
+          "filename": "Mega LD Backfile Part 2 Impacts Defense.docx",
+          "tag": "[[CID-00000-02012]]",
+          "cite": "Walter 2k7",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "rust_examples": [
+        {
+          "id": "674327c4a7fed5887e54a0bbd1f99b00d3a9f1cedab2ceebfb40ab7b3accbae4",
+          "filename": "Mega LD Backfile Part 2 Impacts Defense.docx",
+          "tag": "[[CID-00000-02160]]",
+          "cite": "Wolf, Kramer, and Dabelko 2k5",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "7225a6fb42187da3c178989c5ee63bd9632eb90d47563e431a9990b00885cdce",
+          "filename": "Mega LD Backfile Part 2 Impacts Defense.docx",
+          "tag": "[[CID-00000-02161]]",
+          "cite": "Wolf, Kramer, and Dabelko 2k5",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 2,
+      "rust_examples": [
+        {
+          "id": "cae2148ff418fb607b1714d415b8da7d0e620d5d2608e5e6316c9a067d98f21e",
+          "filename": "Mega LD Backfile Part 2 Impacts Offense.docx",
+          "tag": "Globalization increases disease spread [[CID-00000-00619]]",
+          "cite": "Ethne Barnes, Research Assistant in Paleopathology, Wichita State, 2005, Diseases and human evolution, p. 7",
+          "highlighted_text_prefix": ""
+        },
+        {
+          "id": "d0e7c742e21a4ac05995eb5caab61551720ccbbf6ee5bb7d09c6e1f15d6ebe36",
+          "filename": "Mega LD Backfile Part 2 Impacts Offense.docx",
+          "tag": "Globalization increases disease spread [[CID-00000-00621]]",
+          "cite": "Ethne Barnes, Research Assistant in Paleopathology, Wichita State, 2005, Diseases and human evolution, p. 7",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "009f611ede726ac3e2a419f05f44a213a110133fdd788a3428ca6031f2f736bc",
+          "filename": "1nc.docx",
+          "tag": "1NC---CP [[CID-00000-00003]]",
+          "cite": "Josh Patashnik 14, Associate, Munger, Tolles  Olson LLP; Law Clerk to the Honorable Anthony M. Kennedy, United States Supreme Court, 2014, \u201cArizona V. California and the Equitable Apportionment of Interstate Waterways,\u201d Arizona Law Review, Stras",
+          "highlighted_text_prefix": "preferable if disputes could be settled by new and updated interstate compacts ."
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "f1c4bac58202d99b496897444606ba39581c4561a54e6c7950f3d15129806642",
+          "filename": "1nc.docx",
+          "tag": "1NC---CP [[CID-00000-00004]]",
+          "cite": "Kabir \u201917 [Muhammad; 2017; submitting a Political Science Ph.D. thesis at the City University of New York; Academic Works, \u201cAsymmetric Alliances and Side Payments: Alliance Politics Between Unequal Powers,\u201d https://academicworks.cuny.edu/cgi/viewcontent.cgi?article=2912context=gc_etds]",
+          "highlighted_text_prefix": "well-developed research on monetary payments or material concessions to encourage concessions inducement, help reach otherwise unattainable cooperation during n"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "ac1228a678c638a5c59091f9bd40af3b79818fe04149edcb7bdb15556db94c75",
+          "filename": "1nc.docx",
+          "tag": "Article III ADV [[CID-00000-00013]]",
+          "cite": "1NC---AT: Democracy",
+          "highlighted_text_prefix": "This study search a database pruned thousands of articles which analysed democracy \u2018no consensus\u2019 in lit scholars claim there is a consensus by ignoring lit ben"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "9646aedd422c2aa3b583d293a2f846f4651e267d542f57bacc696972eef0b5d8",
+          "filename": "1nc.docx",
+          "tag": "1NC---Africa D [[CID-00000-00019]]",
+          "cite": "Burbach  Fettweis 16 \u2013 Dr. David T. Burbach, National Security Affairs Professor at the Naval War College, Political Science PhD from the Massachusetts Institute of Technology. Christopher J. Fettweis, Political Science Professor at Tulane University. [The Coming Peace: Africa's Declining Conflicts, 9-22-16, https://www.oxfordresearchgroup.org.uk/blog/the-coming-peace-africas-declining-conflicts]",
+          "highlighted_text_prefix": "Africa war is outdated over 15 years African wars burned out regained functional states seen using datasets 95% decline in conflict deaths U.S. , Europe and Chi"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "15ab7c2cedf2b2c4b922fcbe11cf06df376e0fbb5146eef00ae95856eb12d54b",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01685]]",
+          "cite": "Machan, Professor of Philosophy, 03",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "80e68c69fe57793c20f047c7dafe30df9d9b7ea29de465d68237b9c771714000",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01697]]",
+          "cite": "2. Focusing exclusively on the poor stigmatizes the issue\u2014no solvency",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "9a9dd1b0af282d686da3cc65f543c5a39cbed9973bfe8ef0bc1728615d2a2042",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01699]]",
+          "cite": "Jan Narveson \u2013 P.hD @ Harvard University 1997 \u201cEgalitarianism: Partial, Counterproductive and Baseless\u201d Blackwell",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "6583ecce86763950541bb408ada3e2ecf61602ae8a9598d7a915e30bbc9f5282",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01701]]",
+          "cite": "Jan Narveson \u2013 P.hD @ Harvard University 1997 \u201cEgalitarianism: Partial, Counterproductive and Baseless\u201d Blackwell",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "7c971a52dd69e30b455de26a532885a9d4a0716056d66a3db11909e6e0d4aaf1",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01702]]",
+          "cite": "Yuko Hashimoto --ph.d. Japanese. Associate Professor of Economics. June 2005 \u201cWhat Matters is Absolute Poverty, Not Relative Poverty\u201d http://www.cdams.kobe-u.ac.jp/archive/dp05-10.pdf",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "3b28c0c2208ce39e415afaee7b058e6c30bf5b5c088fee9d50c62deb92dfa75d",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01703]]",
+          "cite": "Yuko Hashimoto --ph.d. Japanese. Associate Professor of Economics. June 2005 \u201cWhat Matters is Absolute Poverty, Not Relative Poverty\u201d http://www.cdams.kobe-u.ac.jp/archive/dp05-10.pdf",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "107e2c589ce2c87de7db375d5aa4207376426fcd6b1372b8d71a7661803d1e6f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01704]]",
+          "cite": "Page 2007",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "094731608311a287274de45c3209e8e7cefada4334fa60503804aca46bd1b40b",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01737]]",
+          "cite": "Goodin90 [RobertE. Goodin \u201cThe Utilitarian Response.\u201d  Ed p. 140-1 http://books.google.com/books?id=l3ZBwjK_1_QCpg=PA61lpg=PA61dq=%22That,+I+submit,+is+a+fallacy%22+goodinsource=blots=9hUQGnLTzVsig=URHUw3uamFPyVmKwTyG1onBQvZIhl=enei=zKxmSsfVMpCEtgfLvP3yDwsa=Xoi=book_resultct=resultresnum=1]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "d4d2757a19fcfab0b14c5ee65aa5330af9c9b81cc52c4f0e4a2ae25a96dbd49e",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01739]]",
+          "cite": "Shaw Philosophy Professor 1999 (William H. Shaw, 1999, Philosophy and Chair of the Philosophy at SJSU, \u201ccontemporary ethics: taking account of utilitarianism\u201d p 171-2)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "f23642e52a1edaccca2a67ee65e1c9d839df0f8a3c10a7c9a1e13b434cf70682",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01740]]",
+          "cite": "David Sanford Horner, Policies for a \u2018nanosociety\u2019: Can we learn now from our future mistakes? 2005 - bibliotecavirtual.clacso.org.ar",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "23e18bbbe38763d735e6fc2478ae9116c8aab74e6310439f06b993867b4f1c8e",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01741]]",
+          "cite": "Campbell, Professor of International Politics at the University of Newcastle, 1998 [David, National Deconstruction: Violence, Identity, and Justice in Bosnia, p. 186-188]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "45cd3d5c018ec965f287167a3a51482c67f863a87dfdcba0b1e61dd6e6a59f96",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01742]]",
+          "cite": "Fitzsimmons 06",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "861d7f9bd39655dff5c3a338a8120f75acc949aba9b184a1bdd0156812b15eb4",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01744]]",
+          "cite": "Ratner, professor of law at USC, 1984  (Leonard G. Ratner p.758-9, professor of law at USC, 1984 Hofstra Law Journal. \u201cThe Utilitarian Imperative: Autonomy, Reciprocity, and Evolution\u201d HeinOnline)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "155e4944ed1956d0e67ac43477b5cc63a0a2e823c2f35970de39cee5018b9efe",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01745]]",
+          "cite": "Gino et al 2008 [Francesca Gino Kenan-Flagler Business School, University of North Carolina at Chapel Hill, Don Moore Tepper Business School, Carnegie Mellon University, Max H. Bozman Harvard Business School, Harvard University \u201cNo harm, no foul: The outcome bias in ethical judgments\u201d http://www.hbs.edu/research/pdf/08-080.pdf]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "bb87f5d68161a0cd993fd08d10690814197e02a7e28ecfbbf2939164dd3790b5",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01746]]",
+          "cite": "Cowen 2004 [Tyler Cowen, Department of Economics George Mason University \u201c The epistemic Problem does not refute consequentialism\u201dNovember2,2004 http://docs.google.com/gview?a=vq=cache:JYKgDUM8xOcJ:www.gmu.edu/jbc/Tyler/Epistemic2.pdf+%22nuclear+attack+on+Manhattan%22+cowenhl=engl=us]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "a2b8ae3a719a36b79f3d01738c8a0d0528254990911f4ba2fd2e1c823adc6db6",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01747]]",
+          "cite": "Brandt, professor of philosophy @ U Mich. 1992",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "49901756c5b77db5a0c255b901d95eb84dc08cd87b3a14bd69189238188ec132",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01752]]",
+          "cite": "McCloskey, professor of philosophy, 1984",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "3e5c8f282f7b6bdc1a4e7fc7023e11ac41bd1b968ea122d7faed8366b2d5556a",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01759]]",
+          "cite": "Gewirth, professor of philosophy, 81.",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "92b981084f83fd92de516d4a2cc39ef0a563608fd625979ff96c9e5a44d106bd",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01762]]",
+          "cite": "Yudkowsky 08 \u2013 Full-time Research Fellow at the Singularity Institute for Artificial Intelligence and Cofounder (Eliezer, January 22nd 2008, \u201cCircular Altruism\u201d)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "314978371cff4cbfad527ec3ab3b1e6eac79acd14a8a9f19a1420b8503d14286",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01763]]",
+          "cite": "Kohen, Assistant Professor. Ph.D. Duke University Contemporary Political Science\u00a005",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "07235c6998523e46c708dc8a75bd83d11c23c40a2f4a38f5a5b6ed6cb95656cb",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01764]]",
+          "cite": "Hardin and Mearsheimer 85 [ Russell Hardin and John Mearsheimer are both Professors of Political Science at the University of Chicago, ol. 95, No. 3, Special Issue: Symposium on Ethics and Nuclear Deterrence JSTOR ]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "bd978ef7c9ac45be63c6a56df00d8b1f0968385e4ea9e10532d9598434335297",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01769]]",
+          "cite": "Liu PHD University of Pennsylvania 2000 (Dr. Liu, PHD @ University of Pennsylvania, writes 2000 [Environmental Justice Analysis: theories, methods and practice, 2000 ISBN:1566704030, p.20-21])",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "1f1bc2f0b49eb1c95e3360edebca7a1cba558598ec17be6782c877af12522f4b",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01770]]",
+          "cite": "Dillon \u201899 (Michael, Professor of IR @ Lancaster, \u201cAnother Justice\u201d Political Theory, Vol. 27, No. 2. April, pp. 165)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "6861a23f17759bcab2215d8487f6b8a04c2e0aba86f09541aeabf1bb731a9ded",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01771]]",
+          "cite": "Economic Analysis, Common-Sense Morality and Utilitarianism Author(s): J. Moreh Source: Erkenntnis (1975-), Vol. 37, No. 1 (Jul., 1992), pp. 115-143 Published by: Springer Stable URL: http://www.jstor.org/stable/20012427 Accessed: 22/07/2009 13:24",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "c444a6fb98b9d434b767705229b0b16ff5aaf016abc5392758eca72981960ed3",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01776]]",
+          "cite": "Smith 2002 (Michael G Smith 2002, Leadership University, \u2018The Public Policy of Casey V. Planned Parenthood\u2019 http://www.leaderu.com/humanities/casey/ch3.html)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "d32a65cada821e38cdca1938416f4669e2bd593138e9fbccc9b993634a9b97ec",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01778]]",
+          "cite": "Bentley 2k [ Kristina A. Bentley graduate  of the Department of government at the University of Manchester. \u201cSuggesting A \u2018Separate\u2019 Approach To Utility and Rights: Deontological Specification and Teleogical Enforcement of Human Rights,\u201d September. http://www.abdn.ac.uk/pir/postgrad/vol1_issue3/issue3_article1.pdf]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "6f418e927eea59758aec605fbc646f274865f747594be7e0ab2a90a7e53c4563",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01779]]",
+          "cite": "Stubbs, 81",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "c26fd26dd6be3cf6b011ae507fc8034b205a53927eea23419f9dc85f7faf13ea",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01780]]",
+          "cite": "Will Kymlicka, 1988 (Prof. of Philosophy at Queen\u2019s U, Press, Philosophy and Public Affairs, Vol. 17, No. 3.,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "8819e2bd89ba831b77d5f3f75139369cf16aeee27ec89655eb4329d49a0c806e",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01781]]",
+          "cite": "Will Kymlicka, 1988 (Prof. of Philosophy at Queen\u2019s U, Press, Philosophy and Public Affairs, Vol. 17, No. 3.,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "b2e74684dee8f9be7a3def5f6fd4b44fdf742fc788371b563fe4c805afab14fb",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01782]]",
+          "cite": "Will Kymlicka, 1988 (Prof. of Philosophy at Queen\u2019s U, Press, Philosophy and Public Affairs, Vol. 17, No. 3.,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "a8a72a5ed637072530f8c597e07e9571602d520635b4ebd69931d3ee8b70744c",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01783]]",
+          "cite": "Thomas Donaldson, 1995 (Prof. of Business Ethics at Georgetown U, Ethics and International Affairs,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "287b2b4887ed6327e9f1260d51227f095c80a9817fdff7f2f7c0df8ced3347c2",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01784]]",
+          "cite": "Eric Heinze in 99 (assistant prof. of polisci @ University of Oklahoma, Human Rights  Human Welfare,",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "45a422d3930cc71d05b7621b326c6ef95d8ef0fb1f0e94284672e21bf77fe5ea",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01785]]",
+          "cite": "Economic Analysis, Common-Sense Morality and Utilitarianism Author(s): J. Moreh Source: Erkenntnis (1975-), Vol. 37, No. 1 (Jul., 1992), pp. 115-143 Published by: Springer Stable URL: http://www.jstor.org/stable/20012427 Accessed: 22/07/2009 13:24",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "1130e1ea43951baa3113e491b5df4c6702420c9c5527516d3ac0a0aa1c71a84d",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01787]]",
+          "cite": "Kateb 1992 [George Kateb  is William Nelson Cromwell Professor of Politics, Emeritus, at Princeton University  \u201cThe Inner Ocean\u201d \thttp://books.google.com/books?id=MtGJdmzqLZoCdq=kateb+%22what+does+a+theory%22source=gbs_navlinks_s]",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "8f760effa447699dda76b49b8ce9287b8f296b3db8c53a5c5cad664acde0c039",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01788]]",
+          "cite": "Pinstrup-Andersen, 2005. [Ethics and economic policy for the food system. General Sessions, 01-",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "60d2678c5de6fa5f22dc1d22c96f75fd21b3d4994916baba40779af2c39dcb49",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01801]]",
+          "cite": "Zupancic, researcher, Institute of Philosophy in the Slovene Academy of Sciences, 00",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "233e06ef0035fcc2f8875c9fba2df605b80a9162fd68236a19a863a49a9f2455",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01802]]",
+          "cite": "Zupancic, researcher, Institute of Philosophy in the Slovene Academy of Sciences, 00",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "96844614aa33913bb1cb4e694b8463a9bc9524bd8657711d51a1f4583ec7ab04",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01805]]",
+          "cite": "Leiter 1997",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "04d115f69a11d175361db58c3b4b1ddede4eca1f78a7f3a9125311d5eccba065",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01806]]",
+          "cite": "Walter Kaufmann 1980 From Shakespeare to Existentialism http://taimur.sarangi.info/text/kaufmann_nietzsche.htm",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "d428ae0eeaef945f9298a9b81f878a66af5fbe83569fc33ab4e5719a64d1dd0b",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01809]]",
+          "cite": "Diprose 08",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "b80096ea64a61f6cc69855d5e326c72a0765f58f5dbd61f2d6a9856313db2745",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01810]]",
+          "cite": "Sharpe 02 (Department of Philosophy and Ashworth Center for Social Theory, University of Melbourne, Melbourne, Australia, PHILOSOPHY  SOCIAL CRITICISM \u2022 vol 28 no 2 \u2022 pp. 173\u2013189)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "cc10ed330c825fcab316056a4b7504ab3c5a1c52603d02f6a005e99ef1d52419",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01811]]",
+          "cite": "Popke \u201803",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "31518d066b651d90234d11dee7b0ab882ff71ffdaf813f9a82476fd10e8cffa7",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01812]]",
+          "cite": "Popke \u201803",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "0a60e434f77aa6c35b3ad59d37e4b237f7f1879c58dd6e64a388cc54039d7f5d",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01813]]",
+          "cite": "Diprose 08",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "1bf89fc9d15f6df00b43dc4e96b3ed9e641dae0218b0894982b1019ea6b66f58",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01814]]",
+          "cite": "Diprose 08",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "d57400b814d8360f33597979e48223439402a95fff985b45d222f89370d5626f",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01815]]",
+          "cite": "Nancy Luxon 2008Ethics and Subjectivity: Practices of Self-Governance in the Late Lectures of Michel Foucault",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "dde035770ddc709305dafe68d2e3edb97538c98f8616b6bf201d01b484ac74e0",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01816]]",
+          "cite": "Daiger 2006",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "48d8ca954c8ecacea1243f50794f1afd61ebbb942fe88fcda230ddb4c37bf1a8",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01817]]",
+          "cite": "Foucault proposed an aesthetical ethics in which individuals choose their ethics based on an aesthetic existence.Poster 07",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "c96d5a5dced202f00b44f679b59ae41f504fd785ac854a63df18847679014ef9",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01818]]",
+          "cite": "Narcissism were the Other is supposed to discover themselves is opposed by Foucault, indicating that we should live aesthetically instead and draws a line between this narcissistic enlightenment and aesthetic values Poster 07",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "28750ee2c631f7f7df4c8a7eec5fe1689da0755226c73ecba75d8665f841e894",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01819]]",
+          "cite": "Downard 04(Northern Arizona University. Nietzsche and Kant on the Pure Impulse of Truth. The Journal of Nietzsche Studies 27)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "dc342cf228282533805398e0039ac2dd363e4fb8ffea2f63b45b11f292824e92",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01820]]",
+          "cite": "Downard 04(Northern Arizona University. Nietzsche and Kant on the Pure Impulse of Truth. The Journal of Nietzsche Studies 27)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "rust_examples": [
+        {
+          "id": "20c335b84595c08e5c1d5d62501df64839f548532febd92aa8eabc281bced710",
+          "filename": "Mega LD Backfile Part 1 .docx",
+          "tag": "[[CID-00000-01821]]",
+          "cite": "Downard 04(Northern Arizona University. Nietzsche and Kant on the Pure Impulse of Truth. The Journal of Nietzsche Studies 27)",
+          "highlighted_text_prefix": ""
+        }
+      ]
+    }
+  ]
+}
